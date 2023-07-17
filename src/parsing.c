@@ -43,7 +43,7 @@ int parsing_map_text(char **argv) //hacemos open del map y guardamos en estructu
     {
         element[i].id = line;
         element[i].direction = line + 3;
-        printf("line nova es %s\n", element[i].direction);
+        printf("line nova es   %s\n", element[i].direction);
 		free(line);
        	line = get_next_line(fd);
         i++;
