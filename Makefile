@@ -21,27 +21,37 @@ LIBFT = ${LIBFT_DIR}libft.a
 LINK = -L$(LIBFT_DIR) -lft
 SRCS_DIR = src/
 INC_DIR = inc/
+GET_DIR = src/get_next_line/
 MLX_DIR = mlx/
 MLX = ${MLX_DIR}libmlx.a
 MINILIBXCC	=  -L $(MLX_DIR) -lmlx
 OPENGL = -framework OpenGL -framework AppKit
 
-SRCS = $(SRCS_DIR)main.c
-OBJ = $(SRCS:%.c=%.o)
-DEPS = $(SRCS:%.c=%.d)
+SRC_FILES = $(SRCS_DIR)main \
+			$(SRCS_DIR)parsing \
+			$(GET_DIR)get_next_line \
+			$(GET_DIR)get_next_line_utils
 
-# Gcc
-$(NAME): $(OBJ) $(MLX) $(LIBFT)
-	$(CC) $(CFLAGS) -I$(LIBFT_DIR) $(OBJ) $(MINILIBXCC) $(LINK) $(OPENGL) -o $(NAME)
+SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+SRC 		+= 	$(addprefix $(GET_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+DEPS 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_FILES)))
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+		mkdir -p $(OBJ_DIR) $(SRCS_DIR)  #esta linea essta mal creo 
+		echo "Compiling...[$<]"
+		$(CC) -I$(INC_DIR) -I mlx -I$(LIBFT_DIR) -c $(CFLAGS)  $< -o $@
+
+
+all: $(NAME)
 
 $(LIBFT): 
 		@make -C $(LIBFT_DIR)
 $(MLX): 
 		@make -C $(MLX_DIR)
 
-%.o: %.c Makefile
-	echo "Compiling...[$<]"
-	$(CC) -I$(INC_DIR) -I mlx -I$(LIBFT_DIR) -c $(CFLAGS)  $< -o $@
+$(NAME): $(OBJ) $(MLX) $(LIBFT)
+	$(CC) $(CFLAGS) -I$(LIBFT_DIR) $(OBJ) $(MINILIBXCC) $(LINK) $(OPENGL) -o $(NAME)
 
 clean:
 	$(RM) $(NAME)
@@ -56,8 +66,6 @@ fclean: clean
 	make fclean -sC $(MLX_DIR)
 
 re: fclean all
-
-all: $(NAME)
 
 -include ${DEPS}
 
