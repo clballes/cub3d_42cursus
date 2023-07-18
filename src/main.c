@@ -1,4 +1,30 @@
 #include "cub3d.h"
+#include "../mlx/mlx.h"
+
+void	init_game(void)
+{
+	t_all all;
+	
+	all.vars.mlx = mlx_init();
+	all.vars.win = mlx_new_window(all.vars.mlx, WIN_X, WIN_Y, "Cub3d");
+	all.data.img = mlx_new_image(all.vars.mlx, WIN_X, WIN_Y);
+	all.data.addr = mlx_get_data_addr(all.data.img, &all.data.bits_per_pixel, \
+		&all.data.line_length, &all.data.endian);
+	mlx_hook(all.vars.win, 2, 0, key_press, &all.vars);
+	mlx_hook(all.vars.win, 17, 0, ft_destroy_window, &all.vars);
+	// mlx_hook(all.vars.win, 4, 0, ft_mouse_down, &all.vars);
+	// mlx_hook(all.vars.win, 5, 0, ft_mouse_up, &all.vars);
+	// mlx_hook(all.vars.win, 6, 0, ft_mouse_move, &all.vars);
+	mlx_loop(all.vars.mlx);
+	// draw_initial_map();
+}
+
+// draw_initial_map()
+// {
+// 	int map[16] = {1,1,1,1,1,0,0,1,1,0,0,1,1,1,1};
+	
+
+// }
 
 
 int main(int argc, char **argv)
@@ -9,7 +35,9 @@ int main(int argc, char **argv)
     {
         if (init_parse(argv) != 0) //funcion q llama a otras para parsing mapa
             return (1); //parsing error encounter
-    
+		init_game();
     }
     return (0);
 }
+
+//Necesitamos saber cuantos elementos tien una linea es decir por ejemplo : 120

@@ -9,8 +9,9 @@
 /*   Updated: 2022/10/04 17:43:29 by clballes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../inc/get_next_line.h"
+
 #include "libft.h"
+#include "get_next_line.h"
 
 char	*ft_strjoin_get(char *s1, char *s2)
 {
