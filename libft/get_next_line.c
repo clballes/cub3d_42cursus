@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:09:40 by clballes          #+#    #+#             */
-/*   Updated: 2022/10/04 17:43:36 by clballes         ###   ########.fr       */
+/*   Updated: 2023/07/18 13:26:07 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../inc/get_next_line.h"
+
 #include "libft.h"
+#include "get_next_line.h"
 
 static char	*ft_fill_storage(char *storage, int fd)
 {

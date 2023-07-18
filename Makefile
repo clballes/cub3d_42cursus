@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: clballes <clballes@student.42barcel>       +#+  +:+       +#+         #
+#    By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/23 14:55:16 by clballes          #+#    #+#              #
-#    Updated: 2023/02/23 14:55:42 by clballes         ###   ########.fr        #
+#    Updated: 2023/07/18 13:30:02 by albagarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,29 +19,29 @@ RM = /bin/rm -rf
 LIBFT_DIR = libft/
 LIBFT = ${LIBFT_DIR}libft.a
 LINK = -L$(LIBFT_DIR) -lft
-SRCS_DIR = src/
+SRC_DIR = src/
 INC_DIR = inc/
-GET_DIR = src/get_next_line/
 MLX_DIR = mlx/
 MLX = ${MLX_DIR}libmlx.a
 MINILIBXCC	=  -L $(MLX_DIR) -lmlx
 OPENGL = -framework OpenGL -framework AppKit
+OBJ_DIR = obj/
 
-SRC_FILES = $(SRCS_DIR)main \
-			$(SRCS_DIR)parsing \
-			$(SRCS_DIR)parsing_utils \
-			$(SRCS_DIR)elements \
-			$(SRCS_DIR)free \
-			$(GET_DIR)get_next_line \
-			$(GET_DIR)get_next_line_utils
+SRC_FILES = main \
+			parsing \
+			parsing_utils \
+			elements \
+			free \
+			end_game \
+			key_press \
+			
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
-SRC 		+= 	$(addprefix $(GET_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 DEPS 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_FILES)))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-		mkdir -p $(OBJ_DIR) $(SRCS_DIR)  #esta linea essta mal creo 
+		mkdir -p $(OBJ_DIR)   
 		echo "Compiling...[$<]"
 		$(CC) -I$(INC_DIR) -I mlx -I$(LIBFT_DIR) -c $(CFLAGS)  $< -o $@
 
@@ -53,7 +53,7 @@ $(LIBFT):
 $(MLX): 
 		@make -C $(MLX_DIR)
 
-$(NAME): $(OBJ) $(MLX) $(LIBFT)
+$(NAME): $(MLX) $(LIBFT) $(OBJ)
 	$(CC) $(CFLAGS) -I$(LIBFT_DIR) $(OBJ) $(MINILIBXCC) $(LINK) $(OPENGL) -o $(NAME)
 
 clean:
