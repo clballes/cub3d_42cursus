@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/18 18:17:11 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:22:20 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,20 @@ int	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 }
 
 
-void paint_tile(int x, int y, int height, t_data *data)
+void	paint_tile(int x, int y, int height, t_data *data)
 {
-	int i;
-	int j;
-	int new_x;
+	int	i;
+	int	j;
+	int	new_x;
+	
 	i = 0;
 	j = 0;
-	printf("x:%d,y:%d height:%d\n", x ,y, height);
 	while (i < height)
 	{
 		j = 0;
 		new_x = x;
 		while(j < height)
 		{
-			// printf("x:%d,y:%d\n", x ,y);
 			my_mlx_pixel_put(data, new_x, y, 0x00ff0000);
 			new_x++;
 			j++;
@@ -57,15 +56,10 @@ void	draw_initial_map(t_data *data)
 	int y_max = 8;
 	int i;
 	int j;
-	int	tile_pix_x;
-	// int tile_pix_y;
+	int	tile_size;
 
-	tile_pix_x = WIN_X / x_max;
+	tile_size = WIN_X / x_max;
 	i = 0;
-	// pix_x = 0;
-	// pix_y = 0;
-	
-	printf("AAA tile_pix_x:%d\n", tile_pix_x);
 	while(i < y_max)
 	{
 		j = 0;
@@ -73,8 +67,7 @@ void	draw_initial_map(t_data *data)
 		{
 			if(map[i][j] == 1)
 			{	
-
-				paint_tile(j * tile_pix_x, i * tile_pix_x, tile_pix_x, data);
+				paint_tile(j * tile_size, i * tile_size, tile_size, data);
 			}
 			j++;
 		}
