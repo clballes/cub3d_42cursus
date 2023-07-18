@@ -6,7 +6,7 @@
 #    By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/23 14:55:16 by clballes          #+#    #+#              #
-#    Updated: 2023/07/18 13:30:02 by albagarc         ###   ########.fr        #
+#    Updated: 2023/07/18 16:18:01 by albagarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC_FILES = main \
 			parsing \
 			end_game \
 			key_press \
+			draw_minimap \
 			
 			
 

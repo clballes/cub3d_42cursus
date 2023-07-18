@@ -12,8 +12,8 @@
 #include <math.h>
 #include <fcntl.h>
 
-# define WIN_X 1920
-# define WIN_Y 1080
+# define WIN_X 800
+# define WIN_Y 800
 
 typedef struct s_element //esto sera un array que guardaremos la info de los elementos de texto del mapa
 {
@@ -57,9 +57,10 @@ typedef struct s_all {
 //parsing map
 int init_parse(char **argv);
 
-int	ft_destroy_window(t_vars *vars);
+int		ft_destroy_window(t_vars *vars);
 
-int	key_press(int keycode, t_vars *vars);
+int		key_press(int keycode, t_vars *vars);
+void	draw_initial_map(t_data *data);
 
 #endif
 
