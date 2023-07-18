@@ -23,11 +23,13 @@ int cub_exten(char **argv) //chequeamos el .cub extension del mapa
     return (0);
 }
 
-int open_maptext(char **argv) //hacemos open del map y guardamos en estructura el texto
+int open_map(char **argv) //hacemos open del map y guardamos en estructura el texto
 {
     int		    fd;
     t_element   *element;
+    t_map       *map;
 
+    map = malloc(sizeof(t_map));
 	element = malloc(6 * sizeof(t_element)); //create malloc del free
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
@@ -40,14 +42,15 @@ int open_maptext(char **argv) //hacemos open del map y guardamos en estructura e
     {
         write(2, "error with text parsing\n", 24);
         return (1);
-    }    
+    }
+    if (init_map(map, fd) != 0)
+    {
+        write(2, "error creating the map\n", 23);
+        return (1);
+    }
+    // create_arr(map, fd);
     return (0);
 }
-
-// int parsing_map_text(char **argv) //hacemos open del map y guardamos en estructura el mapa, que llamara otras funciones check errores
-// {
-    
-// }
 
 int init_parse(char **argv)
 {
@@ -56,7 +59,7 @@ int init_parse(char **argv)
         write(2, "not .cub extension!\n", 21);
         return (1);
     }
-    if (open_maptext(argv) != 0)
+    if (open_map(argv) != 0)
     {
         // write(2, "error with text parsing\n", 24);
         return (1);

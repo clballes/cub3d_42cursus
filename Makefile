@@ -22,15 +22,17 @@ LINK = -L$(LIBFT_DIR) -lft
 SRC_DIR = src/
 INC_DIR = inc/
 MLX_DIR = mlx/
+PARSE = parsing/
 MLX = ${MLX_DIR}libmlx.a
 MINILIBXCC	=  -L $(MLX_DIR) -lmlx
 OPENGL = -framework OpenGL -framework AppKit
 OBJ_DIR = obj/
 
 SRC_FILES = main \
-			parsing \
-			parsing_utils \
-			elements \
+			$(PARSE)parsing \
+			$(PARSE)parsing_utils \
+			$(PARSE)elements \
+			$(PARSE)create_map \
 			free \
 			end_game \
 			key_press \
@@ -41,7 +43,8 @@ OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 DEPS 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_FILES)))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-		mkdir -p $(OBJ_DIR)   
+		mkdir -p $(OBJ_DIR)
+		mkdir -p $(OBJ_DIR)/parsing
 		echo "Compiling...[$<]"
 		$(CC) -I$(INC_DIR) -I mlx -I$(LIBFT_DIR) -c $(CFLAGS)  $< -o $@
 
