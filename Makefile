@@ -29,6 +29,9 @@ OPENGL = -framework OpenGL -framework AppKit
 
 SRC_FILES = $(SRCS_DIR)main \
 			$(SRCS_DIR)parsing \
+			$(SRCS_DIR)parsing_utils \
+			$(SRCS_DIR)elements \
+			$(SRCS_DIR)free \
 			$(GET_DIR)get_next_line \
 			$(GET_DIR)get_next_line_utils
 

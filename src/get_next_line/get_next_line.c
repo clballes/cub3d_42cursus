@@ -104,6 +104,6 @@ char	*get_next_line(int fd)
 	if (!storage)
 		return (NULL);
 	line = ft_get_a_line(storage);
-	storage = ft_save_line(storage);
+	storage = ft_save_line(storage);	
 	return (line);
 }

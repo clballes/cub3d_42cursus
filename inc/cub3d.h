@@ -24,6 +24,8 @@ typedef struct s_map
 } t_map;
 
 //parsing map
-int init_parse(char **argv);
+int     init_parse(char **argv);
+int    elements_arr(t_element *element, int fd);
+int ft_digit(char *str);
 
 #endif
