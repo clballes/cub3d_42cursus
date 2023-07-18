@@ -16,15 +16,10 @@ void	init_game(void)
 	// mlx_hook(all.vars.win, 5, 0, ft_mouse_up, &all.vars);
 	// mlx_hook(all.vars.win, 6, 0, ft_mouse_move, &all.vars);
 	mlx_loop(all.vars.mlx);
-	// draw_initial_map();
+
 }
 
-// draw_initial_map()
-// {
-// 	int map[16] = {1,1,1,1,1,0,0,1,1,0,0,1,1,1,1};
-	
 
-// }
 
 
 int main(int argc, char **argv)
