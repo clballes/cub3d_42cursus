@@ -10,4 +10,5 @@ void    free_element(t_element *element)
         free(element[i].id);
         i++;
     }
+    free(element);
 }
