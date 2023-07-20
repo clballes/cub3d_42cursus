@@ -6,13 +6,13 @@
 #    By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/23 14:55:16 by clballes          #+#    #+#              #
-#    Updated: 2023/07/19 16:06:42 by albagarc         ###   ########.fr        #
+#    Updated: 2023/07/20 14:31:10 by albagarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -MMD
+CFLAGS = -Wall -Wextra -Werror -MMD -g
 RM = /bin/rm -rf
 
 # Path

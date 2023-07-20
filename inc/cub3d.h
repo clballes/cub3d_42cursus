@@ -26,7 +26,7 @@ typedef struct s_player
 {
     int		pos_x;
 	int		pos_y;
-	int 	first_orientation;
+	double 	first_orientation;
 	int 	advance; // 0 = parado ; 1 = adelante -1 = atras
 	int 	rotate; // 1 = derecha ; -1 = izquierda 
 	double 	rotation_angle; // N = pi/2 ; S = 3pi/2 ; E = pi ; W = 2pi 
@@ -70,10 +70,12 @@ int init_parse(char **argv);
 
 int		ft_destroy_window(t_vars *vars);
 
-int		key_press(int keycode, t_vars *vars, t_player *player);
+int		key_press(int keycode, t_vars *vars, t_player *player, t_all *all);
 int		key_up(int keycode, t_player *player);
-void	draw_initial_map(t_data *data, t_player *player);
-void	init_player(t_player *player, int orientation);
+void	draw_initial_map(t_data *data, t_player *player, t_all *all);
+void	init_player(t_player *player, int orientation, int x, int y, int tile_size);
+int		movements(int keycode, t_player *player);
+void	update_map(t_player *player, t_map *map, t_data *data, t_all *all);
 
 #endif
 
