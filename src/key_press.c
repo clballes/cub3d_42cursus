@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:55:44 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/20 14:56:02 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/07/22 10:56:48 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ int	key_press(int keycode, t_vars *vars, t_player *player, t_all *all)
 		ft_destroy_window(vars);
 	printf("BBB\n");
 	movements(keycode, player);
-	update_map(all->player, &all->map, &all->data, all);
+	update_map(player, &all->map, &all->data, all);
 	return (0);
 }
 
 int movements(int keycode, t_player *player)
 {
+	printf("advance%d\n", player->advance);
 	if (keycode == KEY_UP)
 		player->advance = 1;
 	if (keycode == KEY_DOWN)

@@ -59,7 +59,7 @@ typedef struct s_map
 } t_map;
 
 typedef struct s_all {
-	t_player 	*player;
+	t_player 	player;
 	t_vars		vars;
 	t_map		map;
 	t_data		data;
