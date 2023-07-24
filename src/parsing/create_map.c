@@ -1,11 +1,57 @@
 
 #include "cub3d.h"
 
+// int check_sp(t_map *map)
+// {
+//     int i;
+//     int j;
+
+//     i = 0;
+//     while(map->map_arr[i])
+//     {
+//         j = 0;
+//         while(map->map_arr[i][j])
+//         {
+//             if (map->map_arr[i][j] == 32)
+//                 map->map_arr[i][j] = 'A';
+//             j++;   
+//         }
+//         i++;
+//     }
+//     return (0);
+// }
+
+int check_walls(t_map *map)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while(map->map_arr[i])
+    {
+        j = 0;
+        while(map->map_arr[i][j])
+        {
+            while (map->map_arr[i][j] == 32)
+            {
+                if (map->map_arr[i][j]) = '1';
+            }
+            j++;   
+        }
+        i++;
+    }
+    return (0);
+}
+
 void	ft_arraymap(t_map *map)
 {
     int i = 0;
-	map->map_arr = ft_split(map->map_unid, '\n');
-    // check_WALLS();
+	map->map_arr = ft_split(map->map_unid, '\n'); //free aqui
+    // if (check_sp(map) != 0)
+    //     write(2, "ERROR MAP NOT SURRENDEDD BY DEALT WITH SP\n", 43);
+    if (check_walls(t_map *map) != 0)
+        write(2, "ERROR MAP NOT SURRENDEDD BY WALLS\n", 33);
+    
     while(i  < map->rows)
     {
         printf("%s\n", map->map_arr[i]);
