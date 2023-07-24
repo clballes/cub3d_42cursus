@@ -60,9 +60,10 @@ typedef struct s_map
 
 typedef struct s_all {
 	t_player 	player;
-	t_vars		vars;
+	t_vars		*vars;
 	t_map		map;
-	t_data		data;
+	t_data		*data;
+
 }	t_all;
 
 //parsing map
@@ -70,7 +71,7 @@ int init_parse(char **argv);
 
 int		ft_destroy_window(t_vars *vars);
 
-int		key_press(int keycode, t_vars *vars, t_player *player, t_all *all);
+int		key_press(int keycode, t_all *all);
 int		key_up(int keycode, t_player *player);
 void	draw_initial_map(t_data *data, t_player *player, t_all *all);
 void	init_player(t_player *player, int orientation, int x, int y, int tile_size);

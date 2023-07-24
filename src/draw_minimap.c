@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/20 15:19:41 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:40:58 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	if (x >= WIN_X || y >= WIN_Y || x < 0 || y < 0)
 		return (-1);
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	// printf("1:%p\n", dst);
 	*(unsigned int *)dst = color;
+	// printf("2:%p\n", dst);
 	return (0);
 }
 
@@ -39,7 +41,7 @@ void	paint_tile(int x, int y, int tile_size, t_data *data)
 		new_x = x;
 		while(j < tile_size)
 		{
-			my_mlx_pixel_put(data, new_x, y, 0x0055B4B0);
+			my_mlx_pixel_put(data, new_x, y, 0xc1272d);		
 			new_x++;
 			j++;
 		}
@@ -48,7 +50,7 @@ void	paint_tile(int x, int y, int tile_size, t_data *data)
 	}
 }
 
-void	paint_player(int x, int y, int tile_size, t_data *data)
+void	paint_init_player(int x, int y, int tile_size, t_data *data)
 {
 	int	i;
 	int	j;
@@ -73,6 +75,29 @@ void	paint_player(int x, int y, int tile_size, t_data *data)
 		i++;
 	}
 }
+void	update_player(int x, int y, int tile_size, t_all *all)
+{
+	printf("la x es %d, la y es %d, la tile soze es %d, la data es p %p\n", x, y, tile_size, all->data);
+	int	i;
+	int	j;
+	
+	i = 0;
+	
+	while (i < tile_size/20 * 2)
+	{
+		j = 0;
+		while(j < tile_size/20 * 2)
+		{
+			printf("entras? x = %d y = %d\n", x, y);
+			my_mlx_pixel_put(all->data, x, y, 0xc1272d);
+			x++;
+			j++;
+		}
+		y++;
+		i++;
+	}
+	
+}
 
 void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 {
@@ -82,11 +107,10 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 	int y_max = 8;
 	int i;
 	int j;
-	int	tile_size;
-	// player = ft_calloc(1, sizeof(t_player));
-	// if(!player)
-	// 	return ;
-	tile_size = WIN_X / x_max;
+
+
+	all->map.tile_size = WIN_X / x_max;
+	
 	i = 0;
 	while (i < y_max)
 	{
@@ -95,44 +119,29 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 		{
 			if (map[i][j] == 1)
 			{	
-				paint_tile(j * tile_size, i * tile_size, tile_size, data);
+				paint_tile(j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size, data);
 			}
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
 			{
-				
-				init_player(player, map[i][j],j * tile_size, i * tile_size, tile_size);
-				
-				paint_player(j * tile_size, i * tile_size, tile_size, data);
-				printf("DDD\n");
+				init_player(player, map[i][j],j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size);
+				paint_init_player(j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size, data);
 			}
 			j++;
 		}
 		i++;
 	}
-	mlx_put_image_to_window(all->vars.mlx, all->vars.win, all->data.img, 0, 0);
+	mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
 }
 
 void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 {
-	(void)data;
-	(void)map;
 	int new_x;
 	int new_y;
-	
-	// printf("new_pos_x = %d, new_pos_y = %d\n", player->pos_x, player->pos_y);
-	// printf("player avanza:%d\n",player->advance);
-	// printf("angulo:%f, coseno angulo:%f\n",player->rotation_angle, cos(player->rotation_angle));
-	// printf(":%d\n",player->speed_adv);
-	printf("EE\n");
+	(void)data;
 	new_x = player->pos_x + (player->advance * cos(player->rotation_angle) * player->speed_adv);
 	new_y = player->pos_y + (player->advance * sin(player->rotation_angle) * player->speed_adv);
-	
-	// printf("pos_x = %d, pos_y = %d\n", player->pos_x, player->pos_y);
-	// printf("new_x = %d, new_y = %d\n", new_x, new_y);
 	player->pos_x = new_x;
 	player->pos_y = new_y;
-	printf("new_pos_x = %d, new_pos_y = %d\n", player->pos_x, player->pos_y);
-	mlx_put_image_to_window(all->vars.mlx, all->vars.win, all->data.img, 0, 0);
-	// paint_player(player->pos_x, player->pos_y, map->tile_size, data);
+	update_player(player->pos_x, player->pos_y, map->tile_size, all);
 	
 }
