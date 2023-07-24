@@ -6,13 +6,13 @@
 #    By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/23 14:55:16 by clballes          #+#    #+#              #
-#    Updated: 2023/07/18 13:30:02 by albagarc         ###   ########.fr        #
+#    Updated: 2023/07/20 14:31:10 by albagarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -MMD
+CFLAGS = -Wall -Wextra -Werror -MMD -g
 RM = /bin/rm -rf
 
 # Path
@@ -26,6 +26,7 @@ MLX = ${MLX_DIR}libmlx.a
 MINILIBXCC	=  -L $(MLX_DIR) -lmlx
 OPENGL = -framework OpenGL -framework AppKit
 OBJ_DIR = obj/
+# FSANITIZE	:= -fsanitize=address
 
 SRC_FILES = main \
 			parsing \
@@ -34,6 +35,8 @@ SRC_FILES = main \
 			free \
 			end_game \
 			key_press \
+			draw_minimap \
+			init \
 			
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -54,7 +57,7 @@ $(MLX):
 		@make -C $(MLX_DIR)
 
 $(NAME): $(MLX) $(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS) -I$(LIBFT_DIR) $(OBJ) $(MINILIBXCC) $(LINK) $(OPENGL) -o $(NAME)
+	$(CC) $(CFLAGS) $(FSANITIZE) -I$(LIBFT_DIR) $(OBJ) $(MINILIBXCC) $(LINK) $(OPENGL) -o $(NAME)
 
 clean:
 	$(RM) $(NAME)
