@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/24 16:40:58 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:51:15 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 }
 
 
-void	paint_tile(int x, int y, int tile_size, t_data *data)
+void	paint_square(int x, int y, int square_size, t_data *data)
 {
 	int	i;
 	int	j;
@@ -35,11 +35,11 @@ void	paint_tile(int x, int y, int tile_size, t_data *data)
 	
 	i = 0;
 	j = 0;
-	while (i < tile_size)
+	while (i < square_size)
 	{
 		j = 0;
 		new_x = x;
-		while(j < tile_size)
+		while(j < square_size)
 		{
 			my_mlx_pixel_put(data, new_x, y, 0xc1272d);		
 			new_x++;
@@ -75,29 +75,30 @@ void	paint_init_player(int x, int y, int tile_size, t_data *data)
 		i++;
 	}
 }
-void	update_player(int x, int y, int tile_size, t_all *all)
-{
-	printf("la x es %d, la y es %d, la tile soze es %d, la data es p %p\n", x, y, tile_size, all->data);
-	int	i;
-	int	j;
+// void	update_player(int x, int y, int tile_size, t_all *all)
+// {
+// 	printf("la x es %d, la y es %d, la tile soze es %d, la data es p %p\n", x, y, tile_size, all->data);
+// 	int	i;
+// 	int	j;
 	
-	i = 0;
+// 	i = 0;
 	
-	while (i < tile_size/20 * 2)
-	{
-		j = 0;
-		while(j < tile_size/20 * 2)
-		{
-			printf("entras? x = %d y = %d\n", x, y);
-			my_mlx_pixel_put(all->data, x, y, 0xc1272d);
-			x++;
-			j++;
-		}
-		y++;
-		i++;
-	}
+// 	while (i < tile_size/10 )
+// 	{
+// 		j = 0;
+// 		while(j < tile_size/10 )
+// 		{
+// 			printf("entras? x = %d y = %d\n", x, y);
+// 			my_mlx_pixel_put(all->data, x, y, 0xc1272d);
+		
+// 			x++;
+// 			j++;
+// 		}
+// 		y++;
+// 		i++;
+// 	}
 	
-}
+// }
 
 void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 {
@@ -119,7 +120,7 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 		{
 			if (map[i][j] == 1)
 			{	
-				paint_tile(j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size, data);
+				paint_square(j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size, data);
 			}
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
 			{
@@ -142,6 +143,6 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	new_y = player->pos_y + (player->advance * sin(player->rotation_angle) * player->speed_adv);
 	player->pos_x = new_x;
 	player->pos_y = new_y;
-	update_player(player->pos_x, player->pos_y, map->tile_size, all);
-	
+	paint_square(player->pos_x, player->pos_y, map->tile_size/10, data);
+	mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
 }
