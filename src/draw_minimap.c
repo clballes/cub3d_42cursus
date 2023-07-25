@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/25 13:31:24 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:38:44 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,26 @@ int	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 }
 
 
-void	paint_square(int x, int y, int square_size, t_data *data, int color)
+void	paint_square(t_square *square, t_data *data)
 {
-	int	i;
-	int	j;
-	int	new_x;
+	int	x;
+	int	y;
 	
-	i = 0;
-	j = 0;
-	while (i < square_size)
+	
+	y = square->y;
+	printf("x: %d, y: %d\n", square->x, square->y);
+	while (y < square->y + square->side)
 	{
-		j = 0;
-		new_x = x;
-		while(j < square_size)
+		x = square->x;
+		while(x < square->x + square->side)
 		{
-			my_mlx_pixel_put(data, new_x, y, color);		
-			new_x++;
-			j++;
+			my_mlx_pixel_put(data, x, y,square->color);		
+			
+			x++;
 		}
 		y++;
-		i++;
 	}
+	
 }
 // 0xc1272d
 // void	paint_init_player(int x, int y, int tile_size, t_data *data)
@@ -99,34 +98,43 @@ void	paint_square(int x, int y, int square_size, t_data *data, int color)
 // 	}
 	
 // }
+void	draw_walls(t_square *wall, t_data *data, int x, int y)
+{
+	wall->color = TURQUOISE;
+	wall->x = x * wall->side;
+	wall->y = y * wall->side;
+	paint_square(wall, data);
+}
 
 void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 {
-	int map[8][8] = {{1,1,1,1,1,1,1,1},{1,'E',0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,1,1,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1}};
-	// int map[4][4] = {{1,1,1,1},{1,'S',0,1},{1,0,0,1},{1,1,1,1}};
+	(void)player;
+	int map[8][8] = {{1,1,1,1,1,1,1,1},{1,'N',0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,1,1,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1}};
 	int x_max = 8;
 	int y_max = 8;
 	int i;
 	int j;
-	int player_position;
-
+	t_square *wall;
 	
+	wall = ft_calloc(1, sizeof(t_square));
+	wall->side =  WIN_X / x_max;
+	wall->color = TURQUOISE;
 	all->map.tile_size = WIN_X / x_max;
-	player_position = all->map.tile_size / 2 - all->map.tile_size / 20;
+	// player_position = all->map.tile_size / 2 - all->map.tile_size / 20;
 	i = 0;
 	while (i < y_max)
 	{
 		j = 0;
 		while (j < x_max )
 		{
-			if (map[i][j] == 1)
-			{	
-				paint_square(j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size, data, 0xc1272d);
-			}
+			if (map[i][j] == 1)	
+					draw_walls(wall, data, j, i);
+		
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
 			{
+
 				init_player(player, map[i][j],j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size);
-				paint_square(j * all->map.tile_size + player_position, i * all->map.tile_size + player_position, all->map.tile_size/10, data, 0xc1272d);
+				paint_square(player->square, data);
 			}
 			j++;
 		}
@@ -140,11 +148,16 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	int new_x;
 	int new_y;
 	(void)data;
-	paint_square(player->pos_x, player->pos_y, map->tile_size/10, data, 0x000000);
-	new_x = player->pos_x + (player->advance * cos(player->rotation_angle) * player->speed_adv);
-	new_y = player->pos_y + (player->advance * sin(player->rotation_angle) * player->speed_adv);
-	player->pos_x = new_x;
-	player->pos_y = new_y;
-	paint_square(player->pos_x, player->pos_y, map->tile_size/10, data, 0xc1272d);
+	(void)map;
+	player->square->color = 0x000000;
+	paint_square(player->square, data);
+	new_x = player->square->x + (player->advance * cos(player->rotation_angle) * player->speed_adv);
+	new_y = player->square->y + (player->advance * sin(player->rotation_angle) * player->speed_adv);
+	// printf("new_x: %d, new_y: %d rotation_angle: %f\n", new_x, new_y, player->rotation_angle);
+	player->square->x = new_x;
+	player->square->y = new_y;
+	player->square->color = 0xFFFFFF;
+	paint_square(player->square, data);
+	// paint_square(player->pos_x, player->pos_y, map->tile_size/10, data, 0xc1272d);
 	mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
 }
