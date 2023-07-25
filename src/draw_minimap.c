@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/24 16:55:11 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:32:20 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,31 +50,31 @@ void	paint_square(int x, int y, int square_size, t_data *data)
 	}
 }
 
-void	paint_init_player(int x, int y, int tile_size, t_data *data)
-{
-	int	i;
-	int	j;
-	int	new_x;
-	int new_y;
+// void	paint_init_player(int x, int y, int tile_size, t_data *data)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	new_x;
+// 	int new_y;
 
-	//new_y y new_x seran las posiciones de la estructura player;
-	new_y = y + tile_size / 2 - tile_size / 20;
-	i = 0;
-	j = 0;
-	while (i < tile_size/20 * 2)
-	{
-		j = 0;
-		new_x = x + tile_size / 2 - tile_size / 20;
-		while(j < tile_size/20 * 2)
-		{
-			my_mlx_pixel_put(data, new_x, new_y, 0x00ffffff);
-			new_x++;
-			j++;
-		}
-		new_y++;
-		i++;
-	}
-}
+// 	//new_y y new_x seran las posiciones de la estructura player;
+// 	new_y = y + tile_size / 2 - tile_size / 20;
+// 	i = 0;
+// 	j = 0;
+// 	while (i < tile_size/20 * 2)
+// 	{
+// 		j = 0;
+// 		new_x = x + tile_size / 2 - tile_size / 20;
+// 		while(j < tile_size/20 * 2)
+// 		{
+// 			my_mlx_pixel_put(data, new_x, new_y, 0x00ffffff);
+// 			new_x++;
+// 			j++;
+// 		}
+// 		new_y++;
+// 		i++;
+// 	}
+// }
 // void	update_player(int x, int y, int tile_size, t_all *all)
 // {
 // 	printf("la x es %d, la y es %d, la tile soze es %d, la data es p %p\n", x, y, tile_size, all->data);
@@ -108,10 +108,8 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 	int y_max = 8;
 	int i;
 	int j;
-
-
-	all->map.tile_size = WIN_X / x_max;
 	
+	all->map.tile_size = WIN_X / x_max;
 	i = 0;
 	while (i < y_max)
 	{
@@ -125,7 +123,8 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
 			{
 				init_player(player, map[i][j],j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size);
-				paint_init_player(j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size, data);
+				paint_square(j * all->map.tile_size + (all->map.tile_size / 2 - all->map.tile_size / 20), i * all->map.tile_size + (all->map.tile_size / 2 - all->map.tile_size / 20), all->map.tile_size/10, data);
+				// paint_init_player(j * all->map.tile_size , i * all->map.tile_size, all->map.tile_size, data);
 			}
 			j++;
 		}
