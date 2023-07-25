@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/25 12:32:20 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/07/25 13:31:24 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 }
 
 
-void	paint_square(int x, int y, int square_size, t_data *data)
+void	paint_square(int x, int y, int square_size, t_data *data, int color)
 {
 	int	i;
 	int	j;
@@ -41,7 +41,7 @@ void	paint_square(int x, int y, int square_size, t_data *data)
 		new_x = x;
 		while(j < square_size)
 		{
-			my_mlx_pixel_put(data, new_x, y, 0xc1272d);		
+			my_mlx_pixel_put(data, new_x, y, color);		
 			new_x++;
 			j++;
 		}
@@ -49,7 +49,7 @@ void	paint_square(int x, int y, int square_size, t_data *data)
 		i++;
 	}
 }
-
+// 0xc1272d
 // void	paint_init_player(int x, int y, int tile_size, t_data *data)
 // {
 // 	int	i;
@@ -108,8 +108,11 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 	int y_max = 8;
 	int i;
 	int j;
+	int player_position;
+
 	
 	all->map.tile_size = WIN_X / x_max;
+	player_position = all->map.tile_size / 2 - all->map.tile_size / 20;
 	i = 0;
 	while (i < y_max)
 	{
@@ -118,13 +121,12 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 		{
 			if (map[i][j] == 1)
 			{	
-				paint_square(j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size, data);
+				paint_square(j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size, data, 0xc1272d);
 			}
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
 			{
 				init_player(player, map[i][j],j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size);
-				paint_square(j * all->map.tile_size + (all->map.tile_size / 2 - all->map.tile_size / 20), i * all->map.tile_size + (all->map.tile_size / 2 - all->map.tile_size / 20), all->map.tile_size/10, data);
-				// paint_init_player(j * all->map.tile_size , i * all->map.tile_size, all->map.tile_size, data);
+				paint_square(j * all->map.tile_size + player_position, i * all->map.tile_size + player_position, all->map.tile_size/10, data, 0xc1272d);
 			}
 			j++;
 		}
@@ -138,10 +140,11 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	int new_x;
 	int new_y;
 	(void)data;
+	paint_square(player->pos_x, player->pos_y, map->tile_size/10, data, 0x000000);
 	new_x = player->pos_x + (player->advance * cos(player->rotation_angle) * player->speed_adv);
 	new_y = player->pos_y + (player->advance * sin(player->rotation_angle) * player->speed_adv);
 	player->pos_x = new_x;
 	player->pos_y = new_y;
-	paint_square(player->pos_x, player->pos_y, map->tile_size/10, data);
+	paint_square(player->pos_x, player->pos_y, map->tile_size/10, data, 0xc1272d);
 	mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
 }

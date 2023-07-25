@@ -15,6 +15,14 @@
 # define WIN_X 400
 # define WIN_Y 400
 
+// typedef struct s_square
+// {
+// 	int x;
+// 	int y;
+// 	int color;
+// 	int side;
+// }	t_square;
+
 typedef struct s_element //esto sera un array que guardaremos la info de los elementos de texto del mapa
 {
     char *id; //identifier NO, SO, WE, EA, F, C
@@ -24,6 +32,7 @@ typedef struct s_element //esto sera un array que guardaremos la info de los ele
 
 typedef struct s_player
 {
+	// t_square square;
     int		pos_x;
 	int		pos_y;
 	double 	first_orientation;
