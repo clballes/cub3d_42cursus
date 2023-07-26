@@ -41,7 +41,7 @@ typedef struct s_player
 	int 	rotate; // 1 = derecha ; -1 = izquierda 
 	double 	rotation_angle; // N = pi/2 ; S = 3pi/2 ; E = pi ; W = 2pi 
 	int 	speed_adv; // 3pixels
-	int 	speed_rot; // GRADOS //cuantos grados va a girar cada vez que le damos  3 * (pi / 180) // pi / 180 es cuantos radianes es un grado
+	double 	speed_rot; // GRADOS //cuantos grados va a girar cada vez que le damos  3 * (pi / 180) // pi / 180 es cuantos radianes es un grado
 
 	
 } t_player;
@@ -61,7 +61,7 @@ typedef struct s_vars{
 
 typedef struct s_map
 {
-    // char **map; //nose si es mejor todo en array o lista
+    char **map_matrix; //nose si es mejor todo en array o lista
     t_element 	*element; //puntero a estructura array del texto
 	int			x_max;
 	int 		y_max;
