@@ -51,11 +51,16 @@ typedef struct s_vars{
 
 typedef struct s_map
 {
-    // char **map; //nose si es mejor todo en array o lista
     t_element 	*element; //puntero a estructura array del texto
-	int			x_max;
-	int 		y_max;
 	int 		tile_size;
+    char **map_arr;
+	char *map_unid;
+    int	max_x;
+    int	max_y;
+    int	pos_y;
+    int	pos_x;
+	int rows;
+	t_element *element; //puntero a estructura array del texto
 } t_map;
 
 typedef struct s_all {
@@ -67,10 +72,12 @@ typedef struct s_all {
 }	t_all;
 
 //parsing map
-int     init_parse(char **argv);
-int    elements_arr(t_element *element, int fd);
-int ft_digit(char *str);
-
+int		init_parse(char **argv);
+int		elements_arr(t_element *element, int fd);
+int		ft_digit(char *str);
+int 	init_map(t_map *map, int fd); //hacemos open del map y guardamos en estructura el mapa, que llamara otras funciones check errores
+int		search_pos(t_map *map);
+// void    create_arr(t_map *map, int fd);
 int		ft_destroy_window(t_vars *vars);
 
 int		key_press(int keycode, t_all *all);
