@@ -85,7 +85,6 @@ typedef struct s_vars{
 
 typedef struct s_map
 {
-    t_element 	*element; //puntero a estructura array del texto
 	int 		tile_size;
     char **map_arr;
 	char *map_unid;
