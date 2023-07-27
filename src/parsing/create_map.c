@@ -14,15 +14,15 @@
 
 void	max_x(t_map *map) //max x
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	i = 0;
 	map->max_x = 0;
-	while(map->map_arr[i])
+	while (map->map_arr[i])
 	{
-		while(map->map_arr[i][j])
+		while (map->map_arr[i][j])
 			j++;
 		if (map->max_x < j)
 			map->max_x = j;
@@ -31,138 +31,32 @@ void	max_x(t_map *map) //max x
 	}
 }
 
-
-int check_walls_row(t_map *map)
+void	handle_sp(t_map *map) //put spaces to 0
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    i = 0;
-    while(map->map_arr[i])
-    {
-        j = 0;
-        while(map->map_arr[i][j])
-        {
-            while (map->map_arr[i][j]) //check linea horizontal
-            {
-				if (map->map_arr[i][j] == 32 )
-				{
-					if (i == (map->rows - 1)) //i ens trobem un espai en la ulima row
-					{
-						while(map->map_arr[i - 1][j] == 32)
-							i--;
-						if (map->map_arr[i - 1][j] == '1')
-						{
-							i = map->rows - 1;
-							j++;
-						}
-						else
-							return (1);
-					}
-					else if (i == 0) //i ens trobem un espai en la primera
-					{
-						while(map->map_arr[i + 1][j] == 32)
-							i++;
-						if (map->map_arr[i + 1][j] == '1')
-						{
-							i = 0;
-							j++;
-						}
-						else
-							return (1);
-					}
-					j++;
-				}
-				else if (map->map_arr[i][j] == '1')
-				{
-					
-					j++;
-
-				}
-				else
-					return (1);
-            }
-        }
-		if (i == map->rows - 1)
-			break ;
-        i = map->rows - 1; // per comprobar el final de leix horizontal
+	i = 0;
+	while (map->map_arr[i])
+	{
+		j = 0;
+		while (map->map_arr[i][j])
+		{
+			if (map->map_arr[i][j] == 32)
+				map->map_arr[i][j] = '0';
+			j++;
+		}
+		i++;
 	}
-    return (0);
-}
-
-int check_walls_col(t_map *map)
-{
-	int i;
-    int j;
-
-    j = 0;
-    i = 0;
-    while (map->map_arr[i])
-    {
-        i = 0;
-        while (map->map_arr[i][j])
-        {
-            while (map->map_arr[i][j]) //check cols quan la i == 0
-            {
-				if (map->map_arr[i][j] == 32 )
-				{
-					if (j == 0) //i ens trobem un espai en la ulima row
-					{
-						while(map->map_arr[i + 1][j] == 32)
-							i++;
-						if (map->map_arr[i + 1][j] == '1')
-						{
-							j = 0;
-							i++;
-						}
-						else
-							return (1);
-					}
-					else if (j == map->max_x - 1) //en strobem en la ultima col
-					{
-						while(map->map_arr[i][j - 1] == 32)
-							j--;
-						if (map->map_arr[i][j - 1] == '1')
-						{
-							i++;
-							j = map->max_x - 1;
-						}
-						else
-							return (1);
-					}
-					j++;
-				}
-				else if (map->map_arr[i][j] == '1')
-					j++;
-				else
-					return (1);
-            }
-        }
-		if (j == map->max_x - 1)
-			break ;
-        j = map->max_x - 1; // per comprobar el final de leix horizontal
-	}
-    return (0);
 }
 
 void	ft_arraymap(t_map *map)
 {
-    // int i = 0;
 	map->map_arr = ft_split(map->map_unid, '\n'); //free aqui
 	max_x(map); //check max x
-    // if (check_walls_row(map) != 0)
-    //     write(2, "ERROR MAP NOT SURRENDEDD BY WALLS\n", 33);
-	if (check_walls_col(map) != 0)
-        write(2, "ERROR MAP NOT SURRENDEDD BY WALLS\n", 33);
-    // if (check_sp(map) != 0)
-    //     write(2, "ERROR MAP NOT SURRENDEDD BY DEALT WITH SP\n", 43);
-    
-    // while(i  < map->rows)
-    // {
-    //     printf("%s\n", map->map_arr[i]);
-    //     i++;
-    // }
-
+	handle_sp(map);
+	if (search_pos(map) != 0)
+		printf("error\n");
 }
 
 char	*free_var(char *src, char *dest)
@@ -175,22 +69,22 @@ char	*free_var(char *src, char *dest)
 	return (src);
 }
 
-int init_map(t_map *map, int fd) //hacemos open del map y guardamos en estructura el mapa, que llamara otras funciones check errores
+//nos guardamos el mapa en el char ** y llamamos a otras funciones para hacer check errores
+int	init_map(t_map *map, int fd)
 {
-    char *line;
-    // int len;
-    int i;
+	char	*line;
+	int		i;
 
-    i = 0;
-    map->map_unid = NULL;
-    line = get_next_line(fd);
-    while (line)
+	i = 0;
+	map->map_unid = NULL;
+	line = get_next_line(fd);
+	while (line)
 	{
-        while (ft_strlen(line) == 0)
-        {
-            free(line);
-            line = get_next_line(fd);
-        }
+		while (ft_strlen(line) == 0)
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
 		if (!map->map_unid)
 			map->map_unid = ft_strdup(line);
 		else
@@ -200,10 +94,7 @@ int init_map(t_map *map, int fd) //hacemos open del map y guardamos en estructur
 		line = get_next_line(fd);
 		i++;
 	}
-    map->rows = i;
-    ft_arraymap(map);
-
-    // map->cols = len;
-    return (0);
+	map->rows = i;
+	ft_arraymap(map);
+	return (0);
 }
-

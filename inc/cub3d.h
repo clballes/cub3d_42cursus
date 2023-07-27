@@ -48,6 +48,8 @@ typedef struct s_map
 	char *map_unid;
     int	max_x;
     int	max_y;
+    int	pos_y;
+    int	pos_x;
 	int rows;
 	t_element *element; //puntero a estructura array del texto
 } t_map;
@@ -63,6 +65,7 @@ int		init_parse(char **argv);
 int		elements_arr(t_element *element, int fd);
 int		ft_digit(char *str);
 int 	init_map(t_map *map, int fd); //hacemos open del map y guardamos en estructura el mapa, que llamara otras funciones check errores
+int		search_pos(t_map *map);
 // void    create_arr(t_map *map, int fd);
 int		ft_destroy_window(t_vars *vars);
 
