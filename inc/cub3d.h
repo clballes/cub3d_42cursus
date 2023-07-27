@@ -16,6 +16,17 @@
 # define WIN_Y 400
 
 # define TURQUOISE 0x33b3a6
+
+typedef struct s_ray
+{
+	int colision_x;
+	int colision_y;
+
+	//ray direction
+	int down;
+	int left;
+
+}	t_ray;
 typedef struct s_square
 {
 	int x;
@@ -24,6 +35,18 @@ typedef struct s_square
 	int side;
 }	t_square;
 
+typedef struct s_corners
+{
+	int up_left_x;
+	int up_left_y;
+	int up_right_x;
+	int up_right_y;
+	int down_left_x;
+	int down_left_y;
+	int down_right_x;
+	int down_right_y;
+
+}	t_corners;
 typedef struct s_element //esto sera un array que guardaremos la info de los elementos de texto del mapa
 {
     char *id; //identifier NO, SO, WE, EA, F, C
@@ -33,7 +56,8 @@ typedef struct s_element //esto sera un array que guardaremos la info de los ele
 
 typedef struct s_player
 {
-	t_square *square;
+	t_square	*square;
+	t_ray		*ray;
     // int		pos_x;
 	// int		pos_y;
 	double 	first_orientation;

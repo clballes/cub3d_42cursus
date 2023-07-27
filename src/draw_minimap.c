@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/26 19:36:28 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/07/27 13:03:51 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	paint_square(t_square *square, t_data *data)
 	
 	y = square->y;
 	// printf("x: %d, y: %d\n", square->x, square->y);
-	while (y <= square->y + square->side)
+	while (y < square->y + square->side)
 	{
 		x = square->x;
-		while(x <= square->x + square->side)
+		while(x < square->x + square->side)
 		{
 			my_mlx_pixel_put(data, x, y,square->color);		
 			
@@ -60,7 +60,7 @@ void	draw_walls(t_square *wall, t_data *data, int x, int y)
 void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 {
 	(void)player;
-	int map[8][8] = {{1,1,1,1,1,1,1,1},{1,'S',0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,1,1,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1}};
+	int map[8][8] = {{1,1,1,1,1,1,1,1},{1,'S',1,0,0,0,0,1},{1,1,0,0,0,0,0,1},{1,0,0,1,1,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1}};
 	int x_max = 8;
 	int y_max = 8;
 	int i;
@@ -98,37 +98,26 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 
 int	is_valid_tile(t_map *map, int x, int y)
 {
-	int matrix_x;
-	int	matrix_y;
-	int map_mtx[8][8] = {{1,1,1,1,1,1,1,1},{1,'S',0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,1,1,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1}};
+	t_corners	corners;
+	int map_mtx[8][8] = {{1,1,1,1,1,1,1,1},{1,'S',1,0,0,0,0,1},{1,1,0,0,0,0,0,1},{1,0,0,1,1,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1}};
 	int i;
 	
 	i = 0;
 	printf("tile_size: %d, x: %d, y: %d\n", map->tile_size, x, y);
-	matrix_x = x / map->tile_size;
-	matrix_y = y / map->tile_size;
-	printf("entra is_valid_tile, matrix_x:%d, matrix_y:%d value = %d \n", matrix_x, matrix_y, map_mtx[matrix_y][matrix_x]);
-	// while(i < 4)
-	// {
-		if(map_mtx[matrix_y][matrix_x] == 0 || map_mtx[matrix_y][matrix_x] == 'N' || map_mtx[matrix_y][matrix_x] == 'S' || map_mtx[matrix_y][matrix_x] == 'E' || map_mtx[matrix_y][matrix_x] == 'W' )
-			return(1);
-	// 	i++;
-	// 	if (i == 1)
-	// 		{
-	// 			matrix_x = x / map->tile_size;
-	// 			matrix_y = (y + map->tile_size/20) / map->tile_size;
-	// 		}
-	// 	if (i == 2)
-	// 		{
-	// 			matrix_x = (x + map->tile_size/20) / map->tile_size;
-	// 			matrix_y = y / map->tile_size;
-	// 		}
-	// 	if (i == 3)
-	// 		{
-	// 			matrix_x = (x + map->tile_size/20) / map->tile_size;
-	// 			matrix_y = (y + map->tile_size/20) / map->tile_size;
-	// 		}
-	// }
+	corners.up_left_x = x / map->tile_size;
+	corners.up_left_y = y / map->tile_size;
+	corners.up_right_x = (x - 1  + map->tile_size / 10)/ map->tile_size;
+	corners.up_right_y = y / map->tile_size;
+	corners.down_left_x = x / map->tile_size;
+	corners.down_left_y = (y - 1 + map->tile_size / 10) / map->tile_size;
+	corners.down_right_x = (x - 1  + map->tile_size / 10) / map->tile_size;
+	corners.down_right_y =(y - 1 + map->tile_size / 10) / map->tile_size;
+	printf("entra is_valid_tile, matrix_x:%d, matrix_y:%d value = %d \n", corners.up_left_x, corners.up_left_y, map_mtx[corners.up_left_y][corners.up_left_x]);
+	if(map_mtx[corners.up_left_y][corners.up_left_x]!= 1 
+		&& map_mtx[corners.up_right_y][corners.up_right_x] != 1 
+		&& map_mtx[corners.down_left_y][corners.down_left_x] != 1 
+		&& map_mtx[corners.down_right_y][corners.down_right_x] != 1)
+		return(1);
 	return(0);
 }
 

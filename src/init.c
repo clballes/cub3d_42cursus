@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/26 19:30:13 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/07/27 10:49:12 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	init_player(t_player *player, int orientation, int x, int y, int tile_size)
 		player->rotation_angle =  M_PI;
 	player->advance = 0;
 	player->rotate = 0;
-	player->speed_adv = 3;
+	player->speed_adv = 1;
 	player->speed_rot = 3 * (M_PI / 180);
 	printf("al inicio speed_rot = %f\n", player->speed_rot);
 	// player->pos_x = x + tile_size / 2 - (tile_size / 20);
