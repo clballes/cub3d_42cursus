@@ -15,6 +15,38 @@
 # define WIN_X 400
 # define WIN_Y 400
 
+# define TURQUOISE 0x33b3a6
+
+typedef struct s_ray
+{
+	int colision_x;
+	int colision_y;
+
+	//ray direction
+	int down;
+	int left;
+
+}	t_ray;
+typedef struct s_square
+{
+	int x;
+	int y;
+	int color;
+	int side;
+}	t_square;
+
+typedef struct s_corners
+{
+	int up_left_x;
+	int up_left_y;
+	int up_right_x;
+	int up_right_y;
+	int down_left_x;
+	int down_left_y;
+	int down_right_x;
+	int down_right_y;
+
+}	t_corners;
 typedef struct s_element //esto sera un array que guardaremos la info de los elementos de texto del mapa
 {
     char *id; //identifier NO, SO, WE, EA, F, C
@@ -24,14 +56,16 @@ typedef struct s_element //esto sera un array que guardaremos la info de los ele
 
 typedef struct s_player
 {
-    int		pos_x;
-	int		pos_y;
+	t_square	*square;
+	t_ray		*ray;
+    // int		pos_x;
+	// int		pos_y;
 	double 	first_orientation;
 	int 	advance; // 0 = parado ; 1 = adelante -1 = atras
 	int 	rotate; // 1 = derecha ; -1 = izquierda 
 	double 	rotation_angle; // N = pi/2 ; S = 3pi/2 ; E = pi ; W = 2pi 
 	int 	speed_adv; // 3pixels
-	int 	speed_rot; // GRADOS //cuantos grados va a girar cada vez que le damos  3 * (pi / 180) // pi / 180 es cuantos radianes es un grado
+	double 	speed_rot; // GRADOS //cuantos grados va a girar cada vez que le damos  3 * (pi / 180) // pi / 180 es cuantos radianes es un grado
 
 	
 } t_player;

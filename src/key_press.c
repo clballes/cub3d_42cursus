@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:55:44 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/24 16:17:22 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:27:31 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ int	key_press(int keycode, t_all *all)
 		ft_destroy_window(all->vars);
 	if (keycode == KEY_UP)
 		all->player.advance = 1;
+		//solo avanza si puede avanzar y lo mismo en keydown
 	if (keycode == KEY_DOWN)
 		all->player.advance = -1;
+		//solo avanza si puede avanzar y lo mismo en keydown
 	if (keycode == KEY_RIGHT)
 		all->player.rotate = 1;
 	if (keycode == KEY_LEFT)
