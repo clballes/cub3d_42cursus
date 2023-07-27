@@ -74,7 +74,11 @@ int check_walls_row(t_map *map)
 					j++;
 				}
 				else if (map->map_arr[i][j] == '1')
+				{
+					
 					j++;
+
+				}
 				else
 					return (1);
             }
