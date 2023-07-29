@@ -35,29 +35,21 @@ int	cub_exten(char **argv)
 	return (0);
 }
 
-int	open_map(char **argv) //hacemos open del map y guardamos en estructura el texto
+int	open_map(char **argv)
 {
 	int			fd;
 	t_element	*element;
 	t_map		*map;
 
 	map = malloc(sizeof(t_map));
-	element = malloc(6 * sizeof(t_element)); //create malloc del free
+	element = malloc(6 * sizeof(t_element));
 	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
+	if (fd == -1 || init_elements(element, fd) != 0
+		|| init_map(map, fd) != 0)
 	{
 		free(element);
-		write(2, "error opening map!\n", 19);
-		return (1);
-	}
-	if (elements_arr(element, fd) != 0) //put elements text, in the array
-	{
-		write(2, "error with text parsing\n", 24);
-		return (1);
-	}
-	if (init_map(map, fd) != 0)
-	{
-		write(2, "error creating the map\n", 23);
+		free(map);
+		write(2, "error map creation!\n", 20);
 		return (1);
 	}
 	return (0);
@@ -71,9 +63,6 @@ int	init_parse(char **argv)
 		return (1);
 	}
 	if (open_map(argv) != 0)
-	{
-	// write(2, "error with text parsing\n", 24);
 		return (1);
-	}
 	return (0);
 }

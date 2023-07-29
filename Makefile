@@ -35,6 +35,7 @@ SRC_FILES = main \
 			$(PARSE)elements \
 			$(PARSE)create_map \
 			$(PARSE)map_check \
+			$(PARSE)utils_map \
 			free \
 			end_game \
 			key_press \

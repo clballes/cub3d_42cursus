@@ -87,9 +87,13 @@ typedef struct s_map
 {
 	int 		tile_size;
     char **map_arr;
+    char **copy_map;
 	char *map_unid;
-    int	max_x;
-    int	max_y;
+    int	cols;
+	int	delta_row[4];
+	int	delta_col[4];
+	int	next_row;
+	int	next_col;
     int	pos_y;
     int	pos_x;
 	int rows;
@@ -106,10 +110,14 @@ typedef struct s_all {
 
 //parsing map
 int		init_parse(char **argv);
-int		elements_arr(t_element *element, int fd);
+int		init_elements(t_element *element, int fd);
 int		ft_digit(char *str);
 int 	init_map(t_map *map, int fd); //hacemos open del map y guardamos en estructura el mapa, que llamara otras funciones check errores
 int		search_pos(t_map *map);
+void	copy_map(t_map *map);
+// int		map_closed(t_map *map, int playerRow, int playerCol);
+void	init_delta(t_map *map);
+int		backtrack(char **map_arr, int row, int col, t_map *map);
 // void    create_arr(t_map *map, int fd);
 int		ft_destroy_window(t_vars *vars);
 
@@ -119,6 +127,12 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all);
 void	init_player(t_player *player, int orientation, int x, int y, int tile_size);
 int		movements(int keycode, t_player *player);
 void	update_map(t_player *player, t_map *map, t_data *data, t_all *all);
+
+//free functions
+void	free_arr(char **copy_map, int rows);
+void	free_elements(t_element *element);
+void	free_all(t_map *map, int i);
+void	init_delta(t_map *map);
 
 #endif
 

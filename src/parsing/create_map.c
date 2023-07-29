@@ -12,26 +12,26 @@
 
 #include "cub3d.h"
 
-void	max_x(t_map *map) //max x
+void	max_cols(t_map *map) //max x
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	j = 0;
 	i = 0;
-	map->max_x = 0;
+	map->cols = 0;
 	while (map->map_arr[i])
 	{
 		while (map->map_arr[i][j])
 			j++;
-		if (map->max_x < j)
-			map->max_x = j;
+		if (map->cols < j)
+			map->cols = j;
 		j = 0;
 		i++;
 	}
 }
 
-void	handle_sp(t_map *map) //put spaces to 0
+void	handle_sp(t_map *map)
 {
 	int	i;
 	int	j;
@@ -52,11 +52,25 @@ void	handle_sp(t_map *map) //put spaces to 0
 
 void	ft_arraymap(t_map *map)
 {
-	map->map_arr = ft_split(map->map_unid, '\n'); //free aqui
-	max_x(map); //check max x
+	map->map_arr = ft_split(map->map_unid, '\n');
+	free(map->map_unid);
+	max_cols(map);
 	handle_sp(map);
 	if (search_pos(map) != 0)
-		printf("error\n");
+	{
+		printf("error more letters or position\n");
+		free_all(map, 1);
+		return ;
+	}
+	init_delta(map);
+	copy_map(map);
+	if (backtrack(map->copy_map, map->pos_y, map->pos_x, map) != 0)
+	{
+		printf("error map not sourrended by walls\n");
+		free_all(map, 0);
+		return ;
+	}
+	free_arr(map->copy_map, map->rows);
 }
 
 char	*free_var(char *src, char *dest)

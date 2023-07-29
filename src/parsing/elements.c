@@ -77,7 +77,7 @@ void	element_dir(t_element *element, char *line, int i)
 	element[i].direction = ft_strdup(element[i].direction);
 }
 
-int	init_elements(t_element *element, int fd)
+void	elements_arr(t_element *element, int fd)
 {
 	char	*line;
 	int		i;
@@ -103,14 +103,16 @@ int	init_elements(t_element *element, int fd)
 		line = get_next_line(fd);
 		i++;
 	}
-	return (0);
 }
 
-int	elements_arr(t_element *element, int fd)
+int	init_elements(t_element *element, int fd)
 {
-	init_elements(element, fd);
+	elements_arr(element, fd);
 	if (parse_colors(element) != 0)
+	{
 		write(2, "error with rgb numbers\n", 23);
+		return (1);
+	}
 	// int i = 0;
 	// while(i < 6)
 	// {
