@@ -12,37 +12,35 @@
 
 #include "cub3d.h"
 
-void	max_x(t_map *map) //max x
+void	max_cols(t_map *map) //max x
 {
 	int i;
 	int j;
 
 	j = 0;
 	i = 0;
-	map->max_x = 0;
-	while(map->map_arr[i])
+	map->cols = 0;
+	while (map->map_arr[i])
 	{
-		while(map->map_arr[i][j])
+		while (map->map_arr[i][j])
 			j++;
-		if (map->max_x < j)
-			map->max_x = j;
+		if (map->cols < j)
+			map->cols = j;
 		j = 0;
 		i++;
 	}
 }
 
-	
-
-void	handle_sp(t_map *map) //put spaces to 0
+void	handle_sp(t_map *map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
-	while(map->map_arr[i])
+	while (map->map_arr[i])
 	{
 		j = 0;
-		while(map->map_arr[i][j])
+		while (map->map_arr[i][j])
 		{
 			if (map->map_arr[i][j] == 32)
 				map->map_arr[i][j] = '0';
@@ -50,34 +48,29 @@ void	handle_sp(t_map *map) //put spaces to 0
 		}
 		i++;
 	}
-	i = 0;
-	while(map->map_arr[i])
-	{
-		printf("%s\n", map->map_arr[i]);
-		i++;
-	}
 }
 
 void	ft_arraymap(t_map *map)
 {
-    // int i = 0;
-	map->map_arr = ft_split(map->map_unid, '\n'); //free aqui
-	max_x(map); //check max x
-    handle_sp(map);
-	// check_walls_col(map);
-	// if (check_walls_row(map) != 0)
-    //     write(2, "ERROR MAP NOT SURRENDEDD BY WALLS\n", 33);
-	// if (check_walls_col(map) != 0)
-    //     write(2, "ERROR MAP NOT SURRENDEDD BY WALLS\n", 33);
-    // if (check_sp(map) != 0)
-    //     write(2, "ERROR MAP NOT SURRENDEDD BY DEALT WITH SP\n", 43);
-    
-    // while(i  < map->rows)
-    // {
-    //     printf("%s\n", map->map_arr[i]);
-    //     i++;
-    // }
-
+	map->map_arr = ft_split(map->map_unid, '\n');
+	free(map->map_unid);
+	max_cols(map);
+	handle_sp(map);
+	if (search_pos(map) != 0)
+	{
+		printf("error more letters or position\n");
+		free_all(map, 1);
+		return ;
+	}
+	init_delta(map);
+	copy_map(map);
+	if (backtrack(map->copy_map, map->pos_y, map->pos_x, map) != 0)
+	{
+		printf("error map not sourrended by walls\n");
+		free_all(map, 0);
+		return ;
+	}
+	free_arr(map->copy_map, map->rows);
 }
 
 char	*free_var(char *src, char *dest)
@@ -90,21 +83,22 @@ char	*free_var(char *src, char *dest)
 	return (src);
 }
 
-int init_map(t_map *map, int fd) //hacemos open del map y guardamos en estructura el mapa, que llamara otras funciones check errores
+//nos guardamos el mapa en el char ** y llamamos a otras funciones para hacer check errores
+int	init_map(t_map *map, int fd)
 {
-    char *line;
-    int i;
+	char	*line;
+	int		i;
 
-    i = 0;
-    map->map_unid = NULL;
-    line = get_next_line(fd);
-    while (line)
+	i = 0;
+	map->map_unid = NULL;
+	line = get_next_line(fd);
+	while (line)
 	{
-        while (ft_strlen(line) == 0)
-        {
-            free(line);
-            line = get_next_line(fd);
-        }
+		while (ft_strlen(line) == 0)
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
 		if (!map->map_unid)
 			map->map_unid = ft_strdup(line);
 		else
@@ -114,8 +108,7 @@ int init_map(t_map *map, int fd) //hacemos open del map y guardamos en estructur
 		line = get_next_line(fd);
 		i++;
 	}
-    map->rows = i;
-    ft_arraymap(map);
-    return (0);
+	map->rows = i;
+	ft_arraymap(map);
+	return (0);
 }
-
