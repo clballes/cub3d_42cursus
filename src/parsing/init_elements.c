@@ -29,7 +29,10 @@ int	check_colors(char *direction)
 			len = i - start;
 			str = ft_substr(direction, start, len);
 			if (ft_digit(str) != 0)
+			{
+				free(str);
 				return (-1);
+			}
 			rgb = ft_atoi(str);
 			free(str);
 			if (rgb > 255)
@@ -60,7 +63,10 @@ int	parse_colors(t_element *element)
 		str = ft_substr(element[i].direction, start,
 				ft_strlen(element[i].direction) - start);
 		if (ft_digit(str) != 0)
+		{
+			free(str);
 			return (-1);
+		}
 		rgb = ft_atoi(str);
 		free(str);
 		if (rgb > 255)
@@ -74,7 +80,6 @@ void	element_dir(t_element *element, char *line, int i)
 {
 	element[i].direction = line + 2; 
 	element[i].direction = ft_strtrim(element[i].direction, " ");
-	element[i].direction = ft_strdup(element[i].direction);
 }
 
 void	elements_arr(t_element *element, int fd)
@@ -103,6 +108,7 @@ void	elements_arr(t_element *element, int fd)
 		line = get_next_line(fd);
 		i++;
 	}
+	free(line);
 }
 
 int	init_elements(t_element *element, int fd)
@@ -110,15 +116,9 @@ int	init_elements(t_element *element, int fd)
 	elements_arr(element, fd);
 	if (parse_colors(element) != 0)
 	{
+		free_elements(element);
 		write(2, "error with rgb numbers\n", 23);
 		return (1);
 	}
-	// int i = 0;
-	// while(i < 6)
-	// {
-	// 	printf("el id %s\n",element[i].id);
-	// 	printf("el id %s\n",element[i].direction);
-	// 	i++;
-	// }
 	return (0);
 }

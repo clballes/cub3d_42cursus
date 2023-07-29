@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	max_cols(t_map *map) //max x
+void	max_cols(t_map *map)
 {
 	int i;
 	int j;
@@ -50,41 +50,27 @@ void	handle_sp(t_map *map)
 	}
 }
 
-void	ft_arraymap(t_map *map)
+int	ft_check_map(t_map *map, t_element *element)
 {
-	map->map_arr = ft_split(map->map_unid, '\n');
-	free(map->map_unid);
-	max_cols(map);
-	handle_sp(map);
 	if (search_pos(map) != 0)
 	{
 		printf("error more letters or position\n");
-		free_all(map, 1);
-		return ;
+		free_all(map, element, 1);
+		return (1);
 	}
 	init_delta(map);
 	copy_map(map);
 	if (backtrack(map->copy_map, map->pos_y, map->pos_x, map) != 0)
 	{
 		printf("error map not sourrended by walls\n");
-		free_all(map, 0);
-		return ;
+		free_all(map, element, 0);
+		return (1);
 	}
 	free_arr(map->copy_map, map->rows);
+	return (0);
 }
 
-char	*free_var(char *src, char *dest)
-{
-	char	*tmp;
-
-	tmp = src;
-	src = ft_strjoin(src, dest);
-	free(tmp);
-	return (src);
-}
-
-//nos guardamos el mapa en el char ** y llamamos a otras funciones para hacer check errores
-int	init_map(t_map *map, int fd)
+void	ft_map_array(t_map *map, int fd)
 {
 	char	*line;
 	int		i;
@@ -109,6 +95,21 @@ int	init_map(t_map *map, int fd)
 		i++;
 	}
 	map->rows = i;
-	ft_arraymap(map);
+	map->map_arr = ft_split(map->map_unid, '\n');
+	free(map->map_unid);
+}
+
+int	init_map(t_element *element, int fd)
+{
+	t_map *map;
+
+	map = malloc(sizeof(t_map));
+	if (map == NULL)
+		return(1);
+	ft_map_array(map, fd);
+	max_cols(map);
+	handle_sp(map);
+	if (ft_check_map(map, element) != 0)
+		return (1);
 	return (0);
 }

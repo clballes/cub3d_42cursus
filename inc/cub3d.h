@@ -17,6 +17,8 @@
 
 # define TURQUOISE 0x33b3a6
 
+typedef struct s_map t_map;
+
 typedef struct s_ray
 {
 	int colision_x;
@@ -51,7 +53,7 @@ typedef struct s_element //esto sera un array que guardaremos la info de los ele
 {
     char *id; //identifier NO, SO, WE, EA, F, C
     char *direction; // direction or colors
-    // t_map *map; //puntero a estructura del mapa con los numeros ltras, esto nose
+    t_map *map;
 }           t_element;
 
 typedef struct s_player
@@ -111,13 +113,14 @@ typedef struct s_all {
 //parsing map
 int		init_parse(char **argv);
 int		init_elements(t_element *element, int fd);
+int 	init_map(t_element *element, int fd); //hacemos open del map y guardamos en estructura el mapa, que llamara otras funciones check errores
 int		ft_digit(char *str);
-int 	init_map(t_map *map, int fd); //hacemos open del map y guardamos en estructura el mapa, que llamara otras funciones check errores
 int		search_pos(t_map *map);
 void	copy_map(t_map *map);
 // int		map_closed(t_map *map, int playerRow, int playerCol);
 void	init_delta(t_map *map);
 int		backtrack(char **map_arr, int row, int col, t_map *map);
+
 // void    create_arr(t_map *map, int fd);
 int		ft_destroy_window(t_vars *vars);
 
@@ -131,8 +134,9 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all);
 //free functions
 void	free_arr(char **copy_map, int rows);
 void	free_elements(t_element *element);
-void	free_all(t_map *map, int i);
-void	init_delta(t_map *map);
+void	free_all(t_map *map, t_element *element, int i);
+char	*free_var(char *src, char *dest);
+
 
 #endif
 

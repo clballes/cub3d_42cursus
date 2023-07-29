@@ -30,13 +30,12 @@ OBJ_DIR = obj/
 # FSANITIZE	:= -fsanitize=address
 
 SRC_FILES = main \
-			$(PARSE)parsing \
+			$(PARSE)init_parsing \
 			$(PARSE)parsing_utils \
-			$(PARSE)elements \
-			$(PARSE)create_map \
-			$(PARSE)map_check \
-			$(PARSE)utils_map \
-			free \
+			$(PARSE)init_elements \
+			$(PARSE)init_map \
+			$(PARSE)map_valid \
+			$(PARSE)free_parsing \
 			end_game \
 			key_press \
 			draw_minimap \
