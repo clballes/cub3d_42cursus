@@ -12,19 +12,17 @@
 
 #include "../inc/cub3d.h"
 
-int	check_colors(char *direction)
+int	check_colors(char *direction, char *str, int rgb)
 {
 	int		i;
 	int		start;
 	int		len;
-	char	*str;
-	int		rgb;
 
 	start = 0;
-	i = 0;
-	while (direction[i])
+	i = -1;
+	while (++i <= (int)ft_strlen(direction))
 	{
-		if (direction[i] == ',')
+		if (direction[i] == ',' || direction[i] == '\0')
 		{
 			len = i - start;
 			str = ft_substr(direction, start, len);
@@ -35,51 +33,46 @@ int	check_colors(char *direction)
 			}
 			rgb = ft_atoi(str);
 			free(str);
-			if (rgb > 255)
+			if (rgb > 255 || rgb < 0)
 				return (-1);
 			start = i + 1;
 		}
-		i++;
 	}
-	return (start);
+	return (0);
 }
 
 int	parse_colors(t_element *element)
 {
 	int		i;
-	int		start;
+	int		res_c;
+	int		res_f;
 	char	*str;
 	int		rgb;
 
 	i = 0;
+	rgb = 0;
+	str = NULL;
 	while (i < 6)
 	{
 		if (ft_strncmp(element[i].id, "F", 2) == 0)
-			start = check_colors(element[i].direction);
+			res_f = check_colors(element[i].direction, str, rgb);
 		if (ft_strncmp(element[i].id, "C", 2) == 0)
-			start = check_colors(element[i].direction);
-		if (start == -1)
-			return (1);
-		str = ft_substr(element[i].direction, start,
-				ft_strlen(element[i].direction) - start);
-		if (ft_digit(str) != 0)
-		{
-			free(str);
-			return (-1);
-		}
-		rgb = ft_atoi(str);
-		free(str);
-		if (rgb > 255)
-			return (1);
+			res_c = check_colors(element[i].direction, str, rgb);
 		i++;
 	}
+	if (res_f == -1 || res_c == -1)
+		return (1);
 	return (0);
 }
 
 void	element_dir(t_element *element, char *line, int i)
 {
+	int	len;
+
 	element[i].direction = line + 2; 
 	element[i].direction = ft_strtrim(element[i].direction, " ");
+	len = ft_strlen(element[i].direction);
+	element[i].direction[len] = '\0';
 }
 
 void	elements_arr(t_element *element, int fd)

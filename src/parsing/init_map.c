@@ -14,8 +14,8 @@
 
 void	max_cols(t_map *map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	i = 0;
@@ -101,12 +101,8 @@ void	ft_map_array(t_map *map, int fd)
 
 int	init_map(t_element *element, int fd, t_map *map)
 {
-	// t_map *map;
-
-	// map = malloc(sizeof(t_map));
-	// all->map = map;
 	if (map == NULL)
-		return(1);
+		return (1);
 	ft_map_array(map, fd);
 	max_cols(map);
 	handle_sp(map);

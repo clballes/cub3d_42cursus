@@ -27,29 +27,17 @@ int	backtrack(char **map_arr, int row, int col, t_map *map)
 		map_arr[row][col] = c;
 	while (++i < 4)
 	{
-
 		map->next_row = row + map->delta_row[i];
 		map->next_col = col + map->delta_col[i];
-		if ( map->next_row < 0 || map->next_col < 0)
+		if (map->next_row < 0 || map->next_col < 0)
 			return (1);
-		if (is_move_valid(map_arr, map->next_row, map->next_col) && map_arr[map->next_row][map->next_col] != c)
+		if (is_move_valid(map_arr, map->next_row, map->next_col)
+			&& map_arr[map->next_row][map->next_col] != c)
 		{
 			if (backtrack(map_arr, map->next_row, map->next_col, map))
 				return (1);
 		}
 	}
-	// if (c != 'X')
-	// {
-	// 	c = 'X';
-	// 	printf("%s\n", map_arr[0]);
-	// 	printf("%s\n", map_arr[1]);
-	// 	printf("%s\n", map_arr[2]);
-	// 	printf("%s\n", map_arr[3]);
-	// 	printf("%s\n", map_arr[4]);
-
-	// 	return (backtrack(map_arr, map->next_row, map->next_col, map));
-	// }
-
 	return (0);
 }
 

@@ -40,7 +40,10 @@ int main(int argc, char **argv)
     else
     {
         if (init_parse(argv, &all->map) != 0) //funcion q llama a otras para parsing mapa
-            return (1); //parsing error encounter
+        {
+			free(all);
+		    return (1); //parsing error encounter
+		}   
 		else
 			init_game(all);
     }

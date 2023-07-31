@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_parsing.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/31 16:44:48 by clballes          #+#    #+#             */
+/*   Updated: 2023/07/31 16:44:49 by clballes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 char	*free_var(char *src, char *dest)
@@ -25,8 +37,8 @@ void	free_arr(char **copy_map, int rows)
 
 void	free_elements(t_element *element)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (i < 6)
 	{
@@ -37,7 +49,7 @@ void	free_elements(t_element *element)
 	free(element);
 }
 
-void	free_all(t_map *map,  t_element *element, int i)
+void	free_all(t_map *map, t_element *element, int i)
 {
 	free_elements(element);
 	if (i == 0)

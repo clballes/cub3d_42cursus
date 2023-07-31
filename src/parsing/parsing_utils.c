@@ -57,7 +57,7 @@ void	copy_map(t_map *map)
 
 	i = 0;
 	j = 0;
-	map->copy_map = malloc(sizeof(char *) * map->rows);
+	map->copy_map = ft_calloc(map->rows, sizeof(char *));
 	if (map->copy_map == NULL)
 		return ;
 	while (i < map->rows)

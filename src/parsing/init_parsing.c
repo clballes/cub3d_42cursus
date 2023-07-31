@@ -38,19 +38,21 @@ int	cub_exten(char **argv)
 	return (0);
 }
 
-
 int	init_parse(char **argv, t_map *map)
 {
 	int			fd;
 	t_element	*element;
 
-	element = malloc(6 * sizeof(t_element));
-	
+	element = ft_calloc(6, sizeof(t_element));
 	if (cub_exten(argv) != 0)
+	{
+		free(element);
 		return (1);
+	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
+		free(element);
 		write(2, "error opening map!\n", 19);
 		return (1);
 	}
