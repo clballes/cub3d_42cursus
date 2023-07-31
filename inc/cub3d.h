@@ -46,6 +46,7 @@ typedef struct s_point
 	int x;
 	int y;
 	int color;
+
 }	t_point;
 
 typedef struct s_corners
@@ -70,7 +71,9 @@ typedef struct s_player
 {
 	t_square	*square;
 	t_ray		*ray;
-	t_point		*pos;
+	t_point		pos;
+    // int		pos_x;
+	// int		pos_y;
 	int		tile_size;
 	double 	first_orientation;
 	int 	advance; // 0 = parado ; 1 = adelante -1 = atras

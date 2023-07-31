@@ -3,15 +3,15 @@
 
 void	init_game(t_all *all)
 {
-
 	// t_all *all;
 	// all = ft_calloc(1, sizeof(t_all));
 	all->vars = ft_calloc(1, sizeof(t_vars));
 	all->data = ft_calloc(1, sizeof(t_data));
 	
 	all->vars->mlx = mlx_init();
-	all->vars->win = mlx_new_window(all->vars->mlx, 1000, 1000, "Cub3d");
-	all->data->img = mlx_new_image(all->vars->mlx, 1000, 1000);
+	all->vars->win = mlx_new_window(all->vars->mlx, WIN_X, WIN_Y, "Cub3d");
+	
+	all->data->img = mlx_new_image(all->vars->mlx, WIN_X, WIN_Y);
 	all->data->addr = mlx_get_data_addr(all->data->img, &all->data->bits_per_pixel, \
 		&all->data->line_length, &all->data->endian);
 	draw_initial_map(all->data, &all->player, all);
