@@ -26,6 +26,10 @@ typedef struct s_ray
 	int down;
 	int left;
 
+	//crash
+	int horizontal_crash;
+	int vertical_crash;
+
 }	t_ray;
 typedef struct s_square
 {
@@ -58,8 +62,9 @@ typedef struct s_player
 {
 	t_square	*square;
 	t_ray		*ray;
-    // int		pos_x;
-	// int		pos_y;
+    int		pos_x;
+	int		pos_y;
+	int		tile_size;
 	double 	first_orientation;
 	int 	advance; // 0 = parado ; 1 = adelante -1 = atras
 	int 	rotate; // 1 = derecha ; -1 = izquierda 
@@ -85,7 +90,6 @@ typedef struct s_vars{
 
 typedef struct s_map
 {
-    t_element 	*element; //puntero a estructura array del texto
 	int 		tile_size;
     char **map_arr;
 	char *map_unid;
@@ -118,8 +122,10 @@ int		key_press(int keycode, t_all *all);
 int		key_up(int keycode, t_player *player);
 void	draw_initial_map(t_data *data, t_player *player, t_all *all);
 void	init_player(t_player *player, int orientation, int x, int y, int tile_size);
-int		movements(int keycode, t_player *player);
+// int		movements(int keycode, t_player *player);
 void	update_map(t_player *player, t_map *map, t_data *data, t_all *all);
+
+int	is_valid_tile(t_player *player, int x, int y);
 
 #endif
 

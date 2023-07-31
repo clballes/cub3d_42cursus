@@ -6,7 +6,7 @@
 #    By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/23 14:55:16 by clballes          #+#    #+#              #
-#    Updated: 2023/07/27 15:21:17 by albagarc         ###   ########.fr        #
+#    Updated: 2023/07/28 14:56:25 by albagarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRC_FILES = main \
 			key_press \
 			draw_minimap \
 			init \
-			dra_ray \
+			draw_ray \
 			
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
