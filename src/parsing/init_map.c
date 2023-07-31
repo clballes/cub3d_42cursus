@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_map.c                                       :+:      :+:    :+:   */
+/*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:59:05 by clballes          #+#    #+#             */
-/*   Updated: 2023/07/24 19:59:06 by clballes         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:20:33 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,12 @@ void	ft_map_array(t_map *map, int fd)
 	free(map->map_unid);
 }
 
-int	init_map(t_element *element, int fd)
+int	init_map(t_element *element, int fd, t_map *map)
 {
-	t_map *map;
+	// t_map *map;
 
-	map = malloc(sizeof(t_map));
+	// map = malloc(sizeof(t_map));
+	// all->map = map;
 	if (map == NULL)
 		return(1);
 	ft_map_array(map, fd);

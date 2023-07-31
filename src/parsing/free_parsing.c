@@ -25,7 +25,6 @@ void	free_arr(char **copy_map, int rows)
 
 void	free_elements(t_element *element)
 {
-	// (void)map;
 	int i;
 	
 	i = 0;
@@ -44,5 +43,4 @@ void	free_all(t_map *map,  t_element *element, int i)
 	if (i == 0)
 		free_arr(map->copy_map, map->rows);
 	free_arr(map->map_arr, map->rows);
-	free(map);
 }

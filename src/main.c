@@ -1,11 +1,11 @@
 #include "cub3d.h"
 #include "../mlx/mlx.h"
 
-void	init_game(void)
+void	init_game(t_all *all)
 {
 
-	t_all *all;
-	all = ft_calloc(1, sizeof(t_all));
+	// t_all *all;
+	// all = ft_calloc(1, sizeof(t_all));
 	all->vars = ft_calloc(1, sizeof(t_vars));
 	all->data = ft_calloc(1, sizeof(t_data));
 	
@@ -32,18 +32,17 @@ void	init_game(void)
 int main(int argc, char **argv)
 
 {
-	
-	// t_all *all;
-	// all = ft_calloc(1, sizeof(t_all));
-	(void)argv;
+	t_all *all;
+
+	all = ft_calloc(1, sizeof(t_all));
     if (argc > 2 || argc == 1)
         write(2, "just one .cub argument!\n", 24);
     else
     {
-        if (init_parse(argv) != 0) //funcion q llama a otras para parsing mapa
+        if (init_parse(argv, &all->map) != 0) //funcion q llama a otras para parsing mapa
             return (1); //parsing error encounter
 		else
-			init_game();
+			init_game(all);
     }
     return (0);
 }

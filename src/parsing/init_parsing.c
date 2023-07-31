@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:59:43 by clballes          #+#    #+#             */
-/*   Updated: 2023/07/24 19:59:44 by clballes         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:42:55 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ int	cub_exten(char **argv)
 }
 
 
-int	init_parse(char **argv)
+int	init_parse(char **argv, t_map *map)
 {
 	int			fd;
 	t_element	*element;
 
 	element = malloc(6 * sizeof(t_element));
+	
 	if (cub_exten(argv) != 0)
 		return (1);
 	fd = open(argv[1], O_RDONLY);
@@ -55,7 +56,7 @@ int	init_parse(char **argv)
 	}
 	if (init_elements(element, fd) != 0)
 		return (1);
-	if (init_map(element, fd) != 0)
+	if (init_map(element, fd, map) != 0)
 		return (1);
 	return (0);
 }

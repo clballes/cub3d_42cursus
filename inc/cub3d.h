@@ -53,7 +53,6 @@ typedef struct s_element //esto sera un array que guardaremos la info de los ele
 {
     char *id; //identifier NO, SO, WE, EA, F, C
     char *direction; // direction or colors
-    t_map *map;
 }           t_element;
 
 typedef struct s_player
@@ -99,7 +98,6 @@ typedef struct s_map
     int	pos_y;
     int	pos_x;
 	int rows;
-	t_element *element; //puntero a estructura array del texto
 } t_map;
 
 typedef struct s_all {
@@ -111,9 +109,9 @@ typedef struct s_all {
 }	t_all;
 
 //parsing map
-int		init_parse(char **argv);
+int		init_parse(char **argv, t_map *map);
 int		init_elements(t_element *element, int fd);
-int 	init_map(t_element *element, int fd); //hacemos open del map y guardamos en estructura el mapa, que llamara otras funciones check errores
+int 	init_map(t_element *element, int fd, t_map *map); //hacemos open del map y guardamos en estructura el mapa, que llamara otras funciones check errores
 int		ft_digit(char *str);
 int		search_pos(t_map *map);
 void	copy_map(t_map *map);

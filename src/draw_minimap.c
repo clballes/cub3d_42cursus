@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/27 13:03:51 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:01:33 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,31 +60,32 @@ void	draw_walls(t_square *wall, t_data *data, int x, int y)
 void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 {
 	(void)player;
-	int map[8][8] = {{1,1,1,1,1,1,1,1},{1,'S',1,0,0,0,0,1},{1,1,0,0,0,0,0,1},{1,0,0,1,1,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1}};
-	int x_max = 8;
-	int y_max = 8;
+	// int map[8][8] = {{1,1,1,1,1,1,1,1},{1,'S',1,0,0,0,0,1},{1,1,0,0,0,0,0,1},{1,0,0,1,1,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1}};
+	// int x_max = 8;
+	// int y_max = 8;
 	int i;
 	int j;
 	t_square *wall;
-	
+	printf("num max cols:%d\n", all->map.cols);
+	// printf("%s\n")
 	wall = ft_calloc(1, sizeof(t_square));
-	wall->side =  WIN_X / x_max;
+	wall->side =  WIN_X / all->map.cols;
 	wall->color = TURQUOISE;
-	all->map.tile_size = WIN_X / x_max;
+	all->map.tile_size = WIN_X /all->map.cols;
 	// player_position = all->map.tile_size / 2 - all->map.tile_size / 20;
 	i = 0;
-	while (i < y_max)
+	while (i < all->map.rows)
 	{
 		j = 0;
-		while (j < x_max )
+		while (j < all->map.cols )
 		{
-			if (map[i][j] == 1)	
+			if (all->map.map_arr[i][j] == '1')	
 					draw_walls(wall, data, j, i);
 		
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
+			if (all->map.map_arr[i][j] == 'N' || all->map.map_arr[i][j] == 'S' || all->map.map_arr[i][j] == 'E' || all->map.map_arr[i][j] == 'W')
 			{
 
-				init_player(player, map[i][j],j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size);
+				init_player(player, all->map.map_arr[i][j],j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size);
 		
 				paint_square(player->square, data);
 			}
@@ -99,7 +100,7 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 int	is_valid_tile(t_map *map, int x, int y)
 {
 	t_corners	corners;
-	int map_mtx[8][8] = {{1,1,1,1,1,1,1,1},{1,'S',1,0,0,0,0,1},{1,1,0,0,0,0,0,1},{1,0,0,1,1,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1}};
+	// int map_mtx[8][8] = {{1,1,1,1,1,1,1,1},{1,'S',1,0,0,0,0,1},{1,1,0,0,0,0,0,1},{1,0,0,1,1,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1}};
 	int i;
 	
 	i = 0;
@@ -112,11 +113,11 @@ int	is_valid_tile(t_map *map, int x, int y)
 	corners.down_left_y = (y - 1 + map->tile_size / 10) / map->tile_size;
 	corners.down_right_x = (x - 1  + map->tile_size / 10) / map->tile_size;
 	corners.down_right_y =(y - 1 + map->tile_size / 10) / map->tile_size;
-	printf("entra is_valid_tile, matrix_x:%d, matrix_y:%d value = %d \n", corners.up_left_x, corners.up_left_y, map_mtx[corners.up_left_y][corners.up_left_x]);
-	if(map_mtx[corners.up_left_y][corners.up_left_x]!= 1 
-		&& map_mtx[corners.up_right_y][corners.up_right_x] != 1 
-		&& map_mtx[corners.down_left_y][corners.down_left_x] != 1 
-		&& map_mtx[corners.down_right_y][corners.down_right_x] != 1)
+	printf("entra is_valid_tile, matrix_x:%d, matrix_y:%d value = %d \n", corners.up_left_x, corners.up_left_y, map->map_arr[corners.up_left_y][corners.up_left_x]);
+	if(map->map_arr[corners.up_left_y][corners.up_left_x]!= 1 
+		&& map->map_arr[corners.up_right_y][corners.up_right_x] != 1 
+		&& map->map_arr[corners.down_left_y][corners.down_left_x] != 1 
+		&& map->map_arr[corners.down_right_y][corners.down_right_x] != 1)
 		return(1);
 	return(0);
 }
