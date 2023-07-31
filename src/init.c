@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/28 16:19:35 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:08:48 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	init_player(t_player *player, int orientation, int x, int y, int tile_size)
 	player->speed_adv = 1;
 	player->speed_rot = 3 * (M_PI / 180);
 	printf("al inicio speed_rot = %f\n", player->speed_rot);
-	player->pos_x = x + tile_size / 2; //centro del cuadrado que pintamos_x
-	player->pos_y = y + tile_size / 2; //centro del cuadrado que pintamos_y
+	player->pos->x = x + tile_size / 2; //centro del cuadrado que pintamos_x
+	player->pos->y = y + tile_size / 2; //centro del cuadrado que pintamos_y
 	player->square->side = tile_size/10;
 	player->square->x = x + tile_size / 2 - (tile_size / 20);
 	player->square->y = y + tile_size / 2 - (tile_size / 20);

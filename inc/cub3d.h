@@ -12,8 +12,8 @@
 #include <math.h>
 #include <fcntl.h>
 
-# define WIN_X 400
-# define WIN_Y 400
+# define WIN_X 1000
+# define WIN_Y 1000
 
 # define TURQUOISE 0x33b3a6
 
@@ -41,6 +41,13 @@ typedef struct s_square
 	int side;
 }	t_square;
 
+typedef struct s_point
+{
+	int x;
+	int y;
+	int color;
+}	t_point;
+
 typedef struct s_corners
 {
 	int up_left_x;
@@ -63,8 +70,7 @@ typedef struct s_player
 {
 	t_square	*square;
 	t_ray		*ray;
-    int		pos_x;
-	int		pos_y;
+	t_point		*pos;
 	int		tile_size;
 	double 	first_orientation;
 	int 	advance; // 0 = parado ; 1 = adelante -1 = atras
@@ -140,7 +146,7 @@ void	free_elements(t_element *element);
 void	free_all(t_map *map, t_element *element, int i);
 char	*free_var(char *src, char *dest);
 
-int	is_valid_tile(t_player *player, int x, int y);
+int	is_valid_tile(t_player *player, int x, int y, t_map *map);
 
 #endif
 

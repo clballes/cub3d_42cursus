@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/31 15:16:15 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:29:50 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,6 @@ void	draw_walls(t_square *wall, t_data *data, int x, int y)
 
 void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 {
-	(void)player;
-	// int map[8][8] = {{1,1,1,1,1,1,1,1},{1,'S',1,0,0,0,0,1},{1,1,0,0,0,0,0,1},{1,0,0,1,1,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1}};
-	// int x_max = 8;
-	// int y_max = 8;
 	int i;
 	int j;
 	t_square *wall;
@@ -97,44 +93,25 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 }
 
 
-int	is_valid_tile(t_player *player, int x, int y)
+int	is_valid_tile(t_player *player, int x, int y, t_map *map)
 {
 	t_corners	corners;
-	// int map_mtx[8][8] = {{1,1,1,1,1,1,1,1},{1,'S',1,0,0,0,0,1},{1,1,0,0,0,0,0,1},{1,0,0,1,1,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1}};
 	int i;
 	
 	i = 0;
-<<<<<<< HEAD
-	printf("tile_size: %d, x: %d, y: %d\n", map->tile_size, x, y);
-	corners.up_left_x = x / map->tile_size;
-	corners.up_left_y = y / map->tile_size;
-	corners.up_right_x = (x - 1  + map->tile_size / 10)/ map->tile_size;
-	corners.up_right_y = y / map->tile_size;
-	corners.down_left_x = x / map->tile_size;
-	corners.down_left_y = (y - 1 + map->tile_size / 10) / map->tile_size;
-	corners.down_right_x = (x - 1  + map->tile_size / 10) / map->tile_size;
-	corners.down_right_y =(y - 1 + map->tile_size / 10) / map->tile_size;
-	printf("entra is_valid_tile, matrix_x:%d, matrix_y:%d value = %d \n", corners.up_left_x, corners.up_left_y, map->map_arr[corners.up_left_y][corners.up_left_x]);
-	if(map->map_arr[corners.up_left_y][corners.up_left_x]!= 1 
-		&& map->map_arr[corners.up_right_y][corners.up_right_x] != 1 
-		&& map->map_arr[corners.down_left_y][corners.down_left_x] != 1 
-		&& map->map_arr[corners.down_right_y][corners.down_right_x] != 1)
-=======
 	printf("tile_size: %d, x: %d, y: %d\n", player->tile_size, x, y);
 	corners.up_left_x = x / player->tile_size;
 	corners.up_left_y = y / player->tile_size;
 	corners.up_right_x = (x - 1  + player->tile_size / 10)/ player->tile_size;
 	corners.up_right_y = y / player->tile_size;
 	corners.down_left_x = x / player->tile_size;
-	corners.down_left_y = (y - 1+ player->tile_size / 10) / player->tile_size;
-	corners.down_right_x = (x - 1  + player->tile_size / 10) / player->tile_size;
+	corners.down_left_y = (y - 1 + player->tile_size / 10) / player->tile_size;
+	corners.down_right_x = (x - 1 + player->tile_size / 10) / player->tile_size;
 	corners.down_right_y =(y - 1 + player->tile_size / 10) / player->tile_size;
-	printf("entra is_valid_tile, matrix_x:%d, matrix_y:%d value = %d \n", corners.up_left_x, corners.up_left_y, map_mtx[corners.up_left_y][corners.up_left_x]);
-	if(map_mtx[corners.up_left_y][corners.up_left_x]!= 1 
-		&& map_mtx[corners.up_right_y][corners.up_right_x] != 1 
-		&& map_mtx[corners.down_left_y][corners.down_left_x] != 1 
-		&& map_mtx[corners.down_right_y][corners.down_right_x] != 1)
->>>>>>> ray
+	if(map->map_arr[corners.up_left_y][corners.up_left_x]!= '1' 
+		&& map->map_arr[corners.up_right_y][corners.up_right_x] != '1' 
+		&& map->map_arr[corners.down_left_y][corners.down_left_x] != '1' 
+		&& map->map_arr[corners.down_right_y][corners.down_right_x] != '1')
 		return(1);
 	return(0);
 }
@@ -159,9 +136,9 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	paint_square(player->square, data);
 	new_x = roundf(player->square->x + (player->advance * cos(player->rotation_angle) * player->speed_adv));
 	new_y = roundf(player->square->y + (player->advance * sin(player->rotation_angle) * player->speed_adv));
-	if(is_valid_tile(player, new_x, new_y))
+	if(is_valid_tile(player, new_x, new_y, map))
 	{
-		printf("FLOAT:%f\n", player->square->y + (player->advance * sin(player->rotation_angle) * player->speed_adv));
+		// printf("FLOAT:%f\n", player->square->y + (player->advance * sin(player->rotation_angle) * player->speed_adv));
 		player->square->x = new_x;
 		player->square->y = new_y;
 	}
