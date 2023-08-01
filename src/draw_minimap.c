@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/31 15:29:50 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/01 16:32:16 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,12 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 	int i;
 	int j;
 	t_square *wall;
-	printf("num max cols:%d\n", all->map.cols);
-	// printf("%s\n")
+
+	
 	wall = ft_calloc(1, sizeof(t_square));
 	wall->side =  WIN_X / all->map.cols;
 	wall->color = TURQUOISE;
 	all->map.tile_size = WIN_X /all->map.cols;
-	// player_position = all->map.tile_size / 2 - all->map.tile_size / 20;
 	i = 0;
 	while (i < all->map.rows)
 	{
@@ -80,9 +79,7 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 		
 			if (all->map.map_arr[i][j] == 'N' || all->map.map_arr[i][j] == 'S' || all->map.map_arr[i][j] == 'E' || all->map.map_arr[i][j] == 'W')
 			{
-
 				init_player(player, all->map.map_arr[i][j],j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size);
-		
 				paint_square(player->square, data);
 			}
 			j++;
@@ -132,6 +129,7 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	int new_y;
 
 	(void)map;
+	init_ray(player);
 	player->square->color = 0x000000;
 	paint_square(player->square, data);
 	new_x = roundf(player->square->x + (player->advance * cos(player->rotation_angle) * player->speed_adv));

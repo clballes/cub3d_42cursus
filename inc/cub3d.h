@@ -12,8 +12,8 @@
 #include <math.h>
 #include <fcntl.h>
 
-# define WIN_X 1000
-# define WIN_Y 1000
+# define WIN_X 400
+# define WIN_Y 400
 
 # define TURQUOISE 0x33b3a6
 
@@ -23,6 +23,9 @@ typedef struct s_ray
 {
 	int colision_x;
 	int colision_y;
+
+	int intersection_x;
+	int intersection_y;
 
 	//ray direction
 	int down;
@@ -74,7 +77,7 @@ typedef struct s_player
 	t_point		pos;
     // int		pos_x;
 	// int		pos_y;
-	int		tile_size;
+	// int		tile_size;
 	double 	first_orientation;
 	int 	advance; // 0 = parado ; 1 = adelante -1 = atras
 	int 	rotate; // 1 = derecha ; -1 = izquierda 
@@ -150,6 +153,7 @@ void	free_all(t_map *map, t_element *element, int i);
 char	*free_var(char *src, char *dest);
 
 int	is_valid_tile(t_player *player, int x, int y, t_map *map);
+void	init_ray(t_player	*player);
 
 #endif
 
