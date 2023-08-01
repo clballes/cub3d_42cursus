@@ -34,22 +34,45 @@ int	check_id(t_element *element)
 	return (0);
 }
 
-int	parse_image_weight(char *path, int fd)
+int	ft_res(char *line)
 {
-	(void)path;
-	char *line;
-	int i;
+	char	*res;
+	char	*res2;
+	int		result;
+	int		result2;
 
+	res = ft_substr(line, 1, 3);
+	result = ft_atoi(res);
+	free(res);
+	res2 = ft_substr(line, 4, 2);
+	result2 = ft_atoi(res2);
+	free(res2);
+	free(line);
+	if (result > WIN_X || result2 > WIN_X)
+	{
+		write(2,"the size of the image is too heavy\n",35);
+		return (1);
+	}
+	return (0);
+}
+
+int	parse_image_weight(int fd)
+{
+	char	*line;
+	int		i;
+	char *res;
+
+	res = NULL;
 	i = 0;
-	while(i < 3)
+	while (i < 3)
 	{
 		line = get_next_line(fd);
 		free(line);
 		i++;
 	}
 	line = get_next_line(fd);
-	printf("la line es %s\n", line);
-	free(line);
+	if (ft_res(line) != 0)
+		return (1);
 	return (0);
 }	
 
@@ -70,7 +93,7 @@ int	check_path_direction(t_element *element)
 				write(2, "route doesn't exist\n", 20);
 				return (1);
 			}
-			parse_image_weight(element[i].direction, fd);
+			parse_image_weight(fd);
 		}
 	}
 	return (0);
