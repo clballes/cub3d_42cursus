@@ -92,7 +92,7 @@ void	elements_arr(t_element *element, int fd)
 		}
 		element[i].id = line;
 		j = 0;
-		while (line[j] != 32)
+		while (line[j] != 32 && line[j])
 			j++;
 		element_dir(element, line, i);
 		ft_strlcpy(element[i].id, line, j + 1);
@@ -111,6 +111,11 @@ int	init_elements(t_element *element, int fd)
 	{
 		free_elements(element);
 		write(2, "error with rgb numbers\n", 23);
+		return (1);
+	}
+	if (parse_elements(element) != 0)
+	{
+		free_elements(element);
 		return (1);
 	}
 	return (0);

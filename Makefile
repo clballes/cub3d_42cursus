@@ -23,6 +23,7 @@ SRC_DIR = src/
 INC_DIR = inc/
 MLX_DIR = mlx/
 PARSE = parsing/
+RENDER = rendering/
 MLX = ${MLX_DIR}libmlx.a
 MINILIBXCC	=  -L $(MLX_DIR) -lmlx
 OPENGL = -framework OpenGL -framework AppKit
@@ -36,6 +37,8 @@ SRC_FILES = main \
 			$(PARSE)init_map \
 			$(PARSE)map_valid \
 			$(PARSE)free_parsing \
+			$(PARSE)parse_textures \
+			$(RENDER)render \
 			end_game \
 			key_press \
 			draw_minimap \
@@ -50,6 +53,7 @@ DEPS 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_FILES)))
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 		mkdir -p $(OBJ_DIR)
 		mkdir -p $(OBJ_DIR)/parsing
+		mkdir -p $(OBJ_DIR)/rendering
 		echo "Compiling...[$<]"
 		$(CC) -I$(INC_DIR) -I mlx -I$(LIBFT_DIR) -c $(CFLAGS)  $< -o $@
 

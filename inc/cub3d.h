@@ -65,6 +65,7 @@ typedef struct s_element //esto sera un array que guardaremos la info de los ele
 {
     char *id; //identifier NO, SO, WE, EA, F, C
     char *direction; // direction or colors
+	char *xpm;
 }           t_element;
 
 typedef struct s_player
@@ -91,6 +92,10 @@ typedef struct s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	void	*xpm_NO;
+	void	*xpm_SO;
+	void	*xpm_EA;
+	void	*xpm_E;
 }		t_data;
 
 typedef struct s_vars{
@@ -119,16 +124,19 @@ typedef struct s_all {
 	t_vars		*vars;
 	t_map		map;
 	t_data		*data;
+	t_element	*element;
 
 }	t_all;
 
 //parsing map
-int		init_parse(char **argv, t_map *map);
+int     init_parse(char **argv, t_map *map, t_all *all);
 int		init_elements(t_element *element, int fd);
 int 	init_map(t_element *element, int fd, t_map *map); //hacemos open del map y guardamos en estructura el mapa, que llamara otras funciones check errores
 int		ft_digit(char *str);
 int		search_pos(t_map *map);
 void	copy_map(t_map *map);
+int		parse_elements(t_element *element);
+void	init_path_image(t_element *element, t_all *all);
 // int		map_closed(t_map *map, int playerRow, int playerCol);
 void	init_delta(t_map *map);
 int		backtrack(char **map_arr, int row, int col, t_map *map);
@@ -151,6 +159,9 @@ char	*free_var(char *src, char *dest);
 
 int	is_valid_tile(t_player *player, int x, int y, t_map *map);
 
+
+//render witnodw
+void	init_render(t_all *all);
 #endif
 
 
