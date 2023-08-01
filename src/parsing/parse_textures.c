@@ -34,7 +34,7 @@ int	check_id(t_element *element)
 	return (0);
 }
 
-int	ft_res(char *line)
+int	ft_res(char *line) //nose si es irrelevante esto
 {
 	char	*res;
 	char	*res2;

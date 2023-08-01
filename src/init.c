@@ -44,26 +44,22 @@ void	init_player(t_player *player, int orientation, int x, int y, int tile_size)
 
 void	init_path_image(t_element *element, t_all *all)
 {
-	int	h;
-	int	w;
 	int	i;
 
-	h = 32;
-	w = 32;
 	i = -1;
 	while(++i < 6)
 	{
 		if (ft_strncmp(element[i].id, "NO", 3) == 0)
 			all->data->xpm_NO = mlx_xpm_file_to_image(all->vars->mlx,
-			"./src/textures/a.xpm", &w, &h);
+			"./src/textures/a.xpm", &all->data->width, &all->data->height);
 		if (ft_strncmp(element[i].id, "SO", 3) == 0)
 			all->data->xpm_SO = mlx_xpm_file_to_image(all->vars->mlx,
-				element[i].direction, &w, &h);
+				element[i].direction, &all->data->width, &all->data->height);
 		if (ft_strncmp(element[i].id, "EA", 3) == 0)
 			all->data->xpm_EA = mlx_xpm_file_to_image(all->vars->mlx,
-				element[i].direction, &w, &h);
+				element[i].direction, &all->data->width, &all->data->height);
 		if (ft_strncmp(element[i].id, "E", 2) == 0)
 			all->data->xpm_E = mlx_xpm_file_to_image(all->vars->mlx,
-				element[i].direction, &w, &h);
+				element[i].direction, &all->data->width, &all->data->height);
 	}
 }

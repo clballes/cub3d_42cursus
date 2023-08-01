@@ -7,7 +7,6 @@ void	init_game(t_all *all)
 	// all = ft_calloc(1, sizeof(t_all));
 	all->vars = ft_calloc(1, sizeof(t_vars));
 	all->data = ft_calloc(1, sizeof(t_data));
-
 	all->vars->mlx = mlx_init();
 	all->vars->win = mlx_new_window(all->vars->mlx, WIN_X, WIN_Y, "Cub3d");
 	all->data->img = mlx_new_image(all->vars->mlx, WIN_X, WIN_Y);

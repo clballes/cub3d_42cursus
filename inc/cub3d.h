@@ -12,8 +12,8 @@
 #include <math.h>
 #include <fcntl.h>
 
-# define WIN_X 1000
-# define WIN_Y 1000
+# define WIN_X 400
+# define WIN_Y 400
 
 # define TURQUOISE 0x33b3a6
 
@@ -96,6 +96,8 @@ typedef struct s_data {
 	void	*xpm_SO;
 	void	*xpm_EA;
 	void	*xpm_E;
+	int		height;
+	int		width;
 }		t_data;
 
 typedef struct s_vars{
