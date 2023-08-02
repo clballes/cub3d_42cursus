@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/31 15:29:50 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:21:41 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ int	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 }
 
 
-void	paint_square(t_square *square, t_data *data)
+void	paint_square(t_point *point, t_data *data, int square_side)
 {
 	int	x;
 	int	y;
 	
 	
-	y = square->y;
+	y = point->y;
 	// printf("x: %d, y: %d\n", square->x, square->y);
-	while (y < square->y + square->side)
+	while (y < point->y + square_side)
 	{
-		x = square->x;
-		while(x < square->x + square->side)
+		x = point->x;
+		while(x < point->x + square_side)
 		{
-			my_mlx_pixel_put(data, x, y,square->color);		
+			my_mlx_pixel_put(data, x, y,point->color);		
 			
 			x++;
 		}
@@ -51,10 +51,10 @@ void	paint_square(t_square *square, t_data *data)
 
 void	draw_walls(t_square *wall, t_data *data, int x, int y)
 {
-	wall->color = TURQUOISE;
-	wall->x = x * wall->side;
-	wall->y = y * wall->side;
-	paint_square(wall, data);
+	wall->coord.color = TURQUOISE;
+	wall->coord.x = x * wall->side;
+	wall->coord.y = y * wall->side;
+	paint_square(&wall->coord, data, wall->side);
 }
 
 void	draw_initial_map(t_data *data, t_player *player, t_all *all)
@@ -62,13 +62,12 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 	int i;
 	int j;
 	t_square *wall;
-	printf("num max cols:%d\n", all->map.cols);
-	// printf("%s\n")
+
+	
 	wall = ft_calloc(1, sizeof(t_square));
 	wall->side =  WIN_X / all->map.cols;
-	wall->color = TURQUOISE;
+	wall->coord.color = TURQUOISE;
 	all->map.tile_size = WIN_X /all->map.cols;
-	// player_position = all->map.tile_size / 2 - all->map.tile_size / 20;
 	i = 0;
 	while (i < all->map.rows)
 	{
@@ -80,10 +79,9 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 		
 			if (all->map.map_arr[i][j] == 'N' || all->map.map_arr[i][j] == 'S' || all->map.map_arr[i][j] == 'E' || all->map.map_arr[i][j] == 'W')
 			{
-
 				init_player(player, all->map.map_arr[i][j],j * all->map.tile_size, i * all->map.tile_size, all->map.tile_size);
-		
-				paint_square(player->square, data);
+				paint_square(&player->square->coord, data, player->square->side);
+				// paint_ray(player, &all->map, data);
 			}
 			j++;
 		}
@@ -93,21 +91,22 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 }
 
 
-int	is_valid_tile(t_player *player, int x, int y, t_map *map)
+int	is_valid_tile_for_player(t_player *player, int x, int y, t_map *map)
 {
+	(void)player;
 	t_corners	corners;
 	int i;
 	
 	i = 0;
-	printf("tile_size: %d, x: %d, y: %d\n", player->tile_size, x, y);
-	corners.up_left_x = x / player->tile_size;
-	corners.up_left_y = y / player->tile_size;
-	corners.up_right_x = (x - 1  + player->tile_size / 10)/ player->tile_size;
-	corners.up_right_y = y / player->tile_size;
-	corners.down_left_x = x / player->tile_size;
-	corners.down_left_y = (y - 1 + player->tile_size / 10) / player->tile_size;
-	corners.down_right_x = (x - 1 + player->tile_size / 10) / player->tile_size;
-	corners.down_right_y =(y - 1 + player->tile_size / 10) / player->tile_size;
+	printf("tile_size: %d, x: %d, y: %d\n", map->tile_size, x, y);
+	corners.up_left_x = x / map->tile_size;
+	corners.up_left_y = y / map->tile_size;
+	corners.up_right_x = (x - 1  + map->tile_size / 10)/ map->tile_size;
+	corners.up_right_y = y / map->tile_size;
+	corners.down_left_x = x / map->tile_size;
+	corners.down_left_y = (y - 1 + map->tile_size / 10) / map->tile_size;
+	corners.down_right_x = (x - 1 + map->tile_size / 10) / map->tile_size;
+	corners.down_right_y =(y - 1 + map->tile_size / 10) / map->tile_size;
 	if(map->map_arr[corners.up_left_y][corners.up_left_x]!= '1' 
 		&& map->map_arr[corners.up_right_y][corners.up_right_x] != '1' 
 		&& map->map_arr[corners.down_left_y][corners.down_left_x] != '1' 
@@ -131,22 +130,25 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	int new_x;
 	int new_y;
 
-	(void)map;
-	player->square->color = 0x000000;
-	paint_square(player->square, data);
-	new_x = roundf(player->square->x + (player->advance * cos(player->rotation_angle) * player->speed_adv));
-	new_y = roundf(player->square->y + (player->advance * sin(player->rotation_angle) * player->speed_adv));
-	if(is_valid_tile(player, new_x, new_y, map))
+	player->square->coord.color = 0x000000;
+	paint_square(&player->square->coord, data, map->tile_size/10);
+	new_x = roundf(player->pos.x + (player->advance * cos(player->rotation_angle) * player->speed_adv));
+	new_y = roundf(player->pos.y + (player->advance * sin(player->rotation_angle) * player->speed_adv));
+	if(is_valid_tile_for_player(player, new_x - (map->tile_size / 20), new_y - (map->tile_size / 20), map))
 	{
-		// printf("FLOAT:%f\n", player->square->y + (player->advance * sin(player->rotation_angle) * player->speed_adv));
-		player->square->x = new_x;
-		player->square->y = new_y;
+		player->pos.x = new_x;
+		player->pos.y = new_y;
+		player->square->coord.x = new_x - (map->tile_size / 20);
+		player->square->coord.y = new_y - (map->tile_size / 20);
 	}
 	player->rotation_angle += player->rotate * player->speed_rot;
 	angle(&player->rotation_angle);
 	printf("rotation_angle:%f\n", player->rotation_angle);
-	player->square->color = 0xFFFFFF;
-	paint_square(player->square, data);
+	player->square->coord.color = 0xFFFFFF;
+	paint_square(&player->square->coord, data, map->tile_size/10);
+	printf("pos.x:%d, pos.y:%d\n", player->pos.x, player->pos.y);
+
+	paint_ray(player, map, data);
 	mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
 }
 

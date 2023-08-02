@@ -19,28 +19,6 @@
 
 typedef struct s_map t_map;
 
-typedef struct s_ray
-{
-	int colision_x;
-	int colision_y;
-
-	//ray direction
-	int down;
-	int left;
-
-	//crash
-	int horizontal_crash;
-	int vertical_crash;
-
-}	t_ray;
-typedef struct s_square
-{
-	int x;
-	int y;
-	int color;
-	int side;
-}	t_square;
-
 typedef struct s_point
 {
 	int x;
@@ -48,6 +26,35 @@ typedef struct s_point
 	int color;
 
 }	t_point;
+
+typedef struct s_ray
+{
+	t_point	colision;
+	// int colision_x;
+	// int colision_y;
+	t_point intersection;
+	// int intersection_x;
+	// int intersection_y;
+
+	//ray direction
+	int down;
+	int left;
+
+	//crash
+	// int horizontal_crash;
+	// int vertical_crash;
+
+}	t_ray;
+
+typedef struct s_square
+{
+	t_point coord;
+	// int x;
+	// int y;
+	//int color;
+	int side;
+}	t_square;
+
 
 typedef struct s_corners
 {
@@ -75,7 +82,7 @@ typedef struct s_player
 	t_point		pos;
     // int		pos_x;
 	// int		pos_y;
-	int		tile_size;
+	// int		tile_size;
 	double 	first_orientation;
 	int 	advance; // 0 = parado ; 1 = adelante -1 = atras
 	int 	rotate; // 1 = derecha ; -1 = izquierda 
@@ -159,11 +166,14 @@ void	free_elements(t_element *element);
 void	free_all(t_map *map, t_element *element, int i);
 char	*free_var(char *src, char *dest);
 
-int	is_valid_tile(t_player *player, int x, int y, t_map *map);
 
 
 //render witnodw
 void	init_render(t_all *all);
+int		is_valid_tile_for_player(t_player *player, int x, int y, t_map *map);
+void	init_ray(t_player	*player);
+int		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	paint_ray(t_player *player, t_map *map, t_data *data);
 #endif
 
 

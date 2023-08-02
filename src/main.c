@@ -13,7 +13,7 @@ void	init_game(t_all *all)
 	all->data->addr = mlx_get_data_addr(all->data->img, &all->data->bits_per_pixel, \
 		&all->data->line_length, &all->data->endian);
 	init_path_image(all->element, all);
-	draw_initial_map(all->data, &all->player, all);
+	draw_initial_map(all->data, &all->player, all);//esta funcion en verdad tiene que iniciar el minimap y el render inicial
 	mlx_hook(all->vars->win, 2, 0, key_press, all);
 	mlx_hook(all->vars->win, 3, 0, key_up, &all->player);
 	mlx_hook(all->vars->win, 17, 0, ft_destroy_window, &all->vars);
