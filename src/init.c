@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/01 16:31:56 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/02 16:53:53 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	init_player(t_player *player, int orientation, int x, int y, int tile_size)
 	
 	square = ft_calloc(1, sizeof(t_square));
 	player->square = square;
-	player->tile_size = tile_size;
+	
+	//  player->square->side = tile_size;
 	player->first_orientation = orientation;
 	if (orientation == 'N')
 		player->rotation_angle = 3 * M_PI_2;
@@ -36,9 +37,9 @@ void	init_player(t_player *player, int orientation, int x, int y, int tile_size)
 	player->pos.x = x + tile_size / 2; //centro del cuadrado que pintamos_x
 	player->pos.y = y + tile_size / 2; //centro del cuadrado que pintamos_y
 	player->square->side = tile_size/10;
-	player->square->x = x + tile_size / 2 - (tile_size / 20);
-	player->square->y = y + tile_size / 2 - (tile_size / 20);
-	printf("init_x:%d, init_y:%d\n", player->square->x, player->square->y );
-	player->square->color = 0xFFFFFF;
+	player->square->coord.x = x + tile_size / 2 - (tile_size / 20);
+	player->square->coord.y = y + tile_size / 2 - (tile_size / 20);
+	printf("init_x:%d, init_y:%d\n", player->square->coord.x, player->square->coord.y );
+	player->square->coord.color = 0xFFFFFF;
 
 }
