@@ -40,7 +40,7 @@ void	paint_square(t_square *square, t_data *data)
 		x = square->x;
 		while(x < square->x + square->side)
 		{
-			my_mlx_pixel_put(data, x, y,square->color);		
+			my_mlx_pixel_put(data, x, y,square->color);
 			
 			x++;
 		}

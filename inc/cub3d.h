@@ -2,6 +2,8 @@
 
 #ifndef CUB_3D_H
 # define CUB_3D_H
+# define ANGULO 60
+
 
 #include "libft.h"
 #include "get_next_line.h"
@@ -71,7 +73,9 @@ typedef struct s_element //esto sera un array que guardaremos la info de los ele
 typedef struct s_player
 {
 	t_square	*square;
-	t_ray		*ray;
+	t_ray		ray_front;
+	t_ray		ray_left;
+	t_ray		ray_right; 	
 	t_point		pos;
     // int		pos_x;
 	// int		pos_y;
@@ -163,7 +167,7 @@ int	is_valid_tile(t_player *player, int x, int y, t_map *map);
 
 
 //render witnodw
-void	init_render(t_all *all);
+int	init_render(t_all *all);
 #endif
 
 
