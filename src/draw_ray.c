@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/02 18:07:45 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:39:44 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,8 @@ void	init_ray(t_player	*player)
 	player->ray = ray;
 	player->ray->colision.x = 0;
 	player->ray->colision.y = 0;
-	player->ray->intersection.x = 0;
-	player->ray->intersection.y = 0;
 	player->ray->down = 0;
 	player->ray->left = 0;
-	
-	
 }
 
 //This function tell us the direction of the ray depending on the angle of the player.
@@ -38,9 +34,9 @@ void	direction_ray(t_player *player)
 		player->ray->down = 1;
 	if (player->rotation_angle > M_PI / 2 && player->rotation_angle < 3 * M_PI / 2)
 		player->ray->left = 1;
-	// printf("player is looking down?:%d\n",player->ray->down);
 }
 
+//This function returns 1 if there is a wall in the map
 int	is_there_a_wall(t_point *point, t_map *map)
 {
 	t_point colision;
@@ -54,40 +50,34 @@ int	is_there_a_wall(t_point *point, t_map *map)
 		return(1);
 	return(0);
 }
+
+
 void	horizontal_colision(t_player *player, t_map *map, t_data *data)
 {
 	float opposite_length;
 	int step_x;
 	int step_y;
-	// int next_hx;
-	// int next_hy;
 	int colision;
 	
 	step_x = 0;
 	step_y = 0;
 	colision = 0;
-	player->ray->intersection.y = floor(player->pos.x/ map->tile_size) * map->tile_size;
+	player->ray->colision.y = floor(player->pos.x/ map->tile_size) * map->tile_size;
 	if(player->ray->down)
-	{
-		printf("no entra\n");
-		player->ray->intersection.y += map->tile_size;
-		
-	}
-	opposite_length = player->pos.y - player->ray->intersection.y;
-	// printf("tan:%f\n", tan(player->rotation_angle));
-	player->ray->intersection.x = player->pos.x + opposite_length / (tan(player->rotation_angle));
-	printf("x_intersection:%d,y_intersection:%d opposite_length:%f rotat_angle:%f\n",player->ray->intersection.x, player->ray->intersection.y, opposite_length, player->rotation_angle);
+		player->ray->colision.y += map->tile_size;
+	opposite_length = player->pos.y - player->ray->colision.y;
+	printf("ANTESque hay aqui ray->pos.x:%d\n",player->pos.x);
+	printf("opposite_length:%f\n", opposite_length);
+	printf("tangente:%f\n", tan(player->rotation_angle));
+	// if((tan(player->rotation_angle)!= 0)
+	player->ray->colision.x = player->pos.x + (opposite_length / (tan(player->rotation_angle)));
+	printf("DESPUESque hay aqui ray->pos.x:%d\n",player->pos.x);
 	if(!player->ray->down)
-		player->ray->intersection.y--;
-	if(is_there_a_wall(&player->ray->intersection,map))
-	{
-		printf("hey\n");
-		printf("pos.x:%d, pos.y:%d, inter_x:%d, inter_y:%d\n", player->pos.x, player->pos.y, player->ray->intersection.x, player->ray->intersection.y);
-		draw_line(data, player->pos, player->ray->intersection);//se pinta la linea hasta la colision
-	}
+		player->ray->colision.y--;
+	if(is_there_a_wall(&player->ray->colision,map))
+		draw_line(data, player->pos, player->ray->colision);//se pinta la linea hasta la colision
 	else
 	{
-		printf("no deberia entrar\n");
 		// se añade un step y se comprueba en bucle añadiendo steps
 		//STEP
 		step_y = map->tile_size;
@@ -96,31 +86,66 @@ void	horizontal_colision(t_player *player, t_map *map, t_data *data)
 			step_y = -step_y;
 		if((player->ray->left && step_x > 0) || (!player->ray->left && step_x < 0))
 			step_x = -step_x;
-		// next_hx = player->ray->intersection.x;
-		// next_hy = player->ray->intersection.y; 
 		while (!colision)
 		{
-			if(!is_there_a_wall(&player->ray->intersection,map))
+			if(!is_there_a_wall(&player->ray->colision,map))
 			{
-				
-				player->ray->intersection.x += step_x;
-				player->ray->intersection.y += step_y;	
+				player->ray->colision.x += step_x;
+				player->ray->colision.y += step_y;	
 			}
 			else
 			{
-				// player->ray->colision.x = player->ray->intersection.x;
-				// player->ray->colision.y = next_hy;
 				colision = 1;
-				draw_line(data, player->pos, player->ray->intersection);
+				draw_line(data, player->pos, player->ray->colision);
 			}
-			// next_h= 
 		}
 	}
 }
-// // // void	vertical_colision(t_player *player)
-// // // {
+// void	vertical_colision(t_player *player, t_map *map, t_data *data)
+// {
+// 	float opposite_length;
+// 	int step_x;
+// 	int step_y;
+// 	int colision;
 	
-// // // }
+// 	step_x = 0;
+// 	step_y = 0;
+// 	colision = 0;
+// 	player->ray->colision.x = floor(player->pos.y/ map->tile_size) * map->tile_size;
+// 	if(player->ray->down)
+// 		player->ray->colision.x += map->tile_size;
+// 	opposite_length = player->pos.x - player->ray->colision.x;
+// 	player->ray->colision.y = player->pos.y + opposite_length / (tan(player->rotation_angle));
+// 	if(!player->ray->down)
+// 		player->ray->colision.x--;
+// 	if(is_there_a_wall(&player->ray->colision,map))
+// 		draw_line(data, player->pos, player->ray->colision);//se pinta la linea hasta la colision
+// 	else
+// 	{
+// 		// se añade un step y se comprueba en bucle añadiendo steps
+// 		//STEP
+// 		step_x= map->tile_size;
+// 		step_y = step_x / tan(player->rotation_angle);
+// 		if(!player->ray->down)
+// 			step_x = -step_x;
+// 		if((player->ray->left && step_y > 0) || (!player->ray->left && step_y < 0))
+// 			step_y = -step_y;
+// 		while (!colision)
+// 		{
+// 			if(!is_there_a_wall(&player->ray->colision,map))
+// 			{
+// 				player->ray->colision.x += step_x;
+// 				player->ray->colision.y += step_y;	
+// 			}
+// 			else
+// 			{
+// 				colision = 1;
+// 				draw_line(data, player->pos, player->ray->colision);
+// 			}
+// 		}
+// 	}
+	
+// }
 
 int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 {
@@ -155,9 +180,9 @@ void	paint_ray(t_player *player, t_map *map, t_data *data)
 {
 	
 	init_ray(player);
-	
 	direction_ray(player);
 	horizontal_colision(player, map, data);
+	// vertical_colision(player, map, data);
 	
 }
 // int	draw_line(t_all *all, t_point start, t_point end)

@@ -30,20 +30,8 @@ typedef struct s_point
 typedef struct s_ray
 {
 	t_point	colision;
-	// int colision_x;
-	// int colision_y;
-	t_point intersection;
-	// int intersection_x;
-	// int intersection_y;
-
-	//ray direction
 	int down;
 	int left;
-
-	//crash
-	// int horizontal_crash;
-	// int vertical_crash;
-
 }	t_ray;
 
 typedef struct s_square
