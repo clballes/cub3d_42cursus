@@ -6,12 +6,12 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/03 16:39:44 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:50:16 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3d.h"
+void	vertical_colision(t_player *player, t_map *map, t_data *data);
 
 int	draw_line(t_data *all, t_point pos_player, t_point pos_colision);
 //init values for ray structure
@@ -39,18 +39,24 @@ void	direction_ray(t_player *player)
 //This function returns 1 if there is a wall in the map
 int	is_there_a_wall(t_point *point, t_map *map)
 {
-	t_point colision;
-	printf("POINT x: %d, y: %d\n", point->x, point->y);
-	colision.x = point->x / map->tile_size;
-	colision.y = point->y / map->tile_size;
-	// if(point->y % map->tile_size ==0 )
-	// 	colision.y -= 1;
-	printf("MATRIZ x: %d, y: %d\n", colision.x, colision.y);
-	if(map->map_arr[colision.y][colision.x]== '1')
+	t_point matrix;
+	printf("POINT x: %f, y: %f\n", point->x, point->y);
+	if(point->x >= WIN_X)
+		point->x = WIN_X - 1;
+	if(point->x <= 0)
+		point->x = 0;
+	if(point->y >= WIN_Y)
+		point->y = WIN_Y - 1;
+	if (point->y <= 0)
+		point->y = 0;
+	matrix.x = point->x / map->tile_size;
+	matrix.y = point->y / map->tile_size;
+	printf("MATRIX x: %f, y: %f\n", matrix.x, matrix.y);
+	printf("MATRIX INT: %d, y: %d\n", (int)matrix.x, (int)matrix.y);
+	if(map->map_arr[(int)matrix.y][(int)matrix.x] == '1')
 		return(1);
 	return(0);
 }
-
 
 void	horizontal_colision(t_player *player, t_map *map, t_data *data)
 {
@@ -62,20 +68,20 @@ void	horizontal_colision(t_player *player, t_map *map, t_data *data)
 	step_x = 0;
 	step_y = 0;
 	colision = 0;
-	player->ray->colision.y = floor(player->pos.x/ map->tile_size) * map->tile_size;
+	player->ray->colision.y = floor(player->pos.y / map->tile_size) * map->tile_size;
 	if(player->ray->down)
 		player->ray->colision.y += map->tile_size;
-	opposite_length = player->pos.y - player->ray->colision.y;
-	printf("ANTESque hay aqui ray->pos.x:%d\n",player->pos.x);
-	printf("opposite_length:%f\n", opposite_length);
-	printf("tangente:%f\n", tan(player->rotation_angle));
-	// if((tan(player->rotation_angle)!= 0)
-	player->ray->colision.x = player->pos.x + (opposite_length / (tan(player->rotation_angle)));
-	printf("DESPUESque hay aqui ray->pos.x:%d\n",player->pos.x);
+	opposite_length = (player->pos.y - player->ray->colision.y) / tan(player->rotation_angle) ;
+	if(!player->ray->left && opposite_length > 0)//
+		player->ray->colision.x = player->pos.x + opposite_length;//
+	else//
+		player->ray->colision.x = player->pos.x - opposite_length;//
 	if(!player->ray->down)
 		player->ray->colision.y--;
 	if(is_there_a_wall(&player->ray->colision,map))
+	{
 		draw_line(data, player->pos, player->ray->colision);//se pinta la linea hasta la colision
+	}
 	else
 	{
 		// se añade un step y se comprueba en bucle añadiendo steps
@@ -88,19 +94,58 @@ void	horizontal_colision(t_player *player, t_map *map, t_data *data)
 			step_x = -step_x;
 		while (!colision)
 		{
-			if(!is_there_a_wall(&player->ray->colision,map))
+			if((!is_there_a_wall(&player->ray->colision,map)))
 			{
 				player->ray->colision.x += step_x;
 				player->ray->colision.y += step_y;	
 			}
 			else
 			{
+				printf("aqui\n");
 				colision = 1;
 				draw_line(data, player->pos, player->ray->colision);
 			}
 		}
 	}
 }
+
+int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
+{
+	t_point	delta;
+	t_point	pixel;
+	int		pixels;
+	int		len;
+	
+	delta.x = pos_colision.x - pos_player.x;
+	delta.y = pos_colision.y - pos_player.y;
+	pixels = sqrt((delta.x * delta.x) + \
+		(delta.y * delta.y));
+	len = pixels;
+	delta.x /= pixels;
+	delta.y /= pixels;
+	pixel.x = pos_player.x;
+	pixel.y = pos_player.y;
+	while (pixels > 0)
+	{
+		my_mlx_pixel_put(data, pixel.x, pixel.y \
+			, 0xFF0000);
+		pixel.x += delta.x;
+		pixel.y += delta.y;
+		pixels = pixels - 1;
+	}
+	return (1);
+}
+
+
+void	paint_ray(t_player *player, t_map *map, t_data *data)
+{
+	
+	init_ray(player);
+	direction_ray(player);
+	// horizontal_colision(player, map, data);
+	vertical_colision(player, map, data);
+}
+
 // void	vertical_colision(t_player *player, t_map *map, t_data *data)
 // {
 // 	float opposite_length;
@@ -114,8 +159,13 @@ void	horizontal_colision(t_player *player, t_map *map, t_data *data)
 // 	player->ray->colision.x = floor(player->pos.y/ map->tile_size) * map->tile_size;
 // 	if(player->ray->down)
 // 		player->ray->colision.x += map->tile_size;
-// 	opposite_length = player->pos.x - player->ray->colision.x;
-// 	player->ray->colision.y = player->pos.y + opposite_length / (tan(player->rotation_angle));
+// 	opposite_length =  (player->ray->colision.x - player->pos.x) / (tan(player->rotation_angle));
+// 	player->ray->colision.y = player->pos.y + opposite_length;
+// 	if(!player->ray->left && opposite_length > 0)//
+// 		player->ray->colision.y = player->pos.y + opposite_length;//
+// 	else//
+// 		player->ray->colision.y = player->pos.y - opposite_length;//
+	
 // 	if(!player->ray->down)
 // 		player->ray->colision.x--;
 // 	if(is_there_a_wall(&player->ray->colision,map))
@@ -145,69 +195,4 @@ void	horizontal_colision(t_player *player, t_map *map, t_data *data)
 // 		}
 // 	}
 	
-// }
-
-int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
-{
-	t_point	delta;
-	t_point	pixel;
-	int		pixels;
-	int		len;
-	
-	pos_player.color = 0xFF0000;
-	delta.x = pos_colision.x - pos_player.x;
-	delta.y = pos_colision.y - pos_player.y;
-	pixels = sqrt((delta.x * delta.x) + \
-		(delta.y * delta.y));
-	len = pixels;
-	delta.x /= pixels;
-	delta.y /= pixels;
-	pixel.x = pos_player.x;
-	pixel.y = pos_player.y;
-	while (pixels > 0)
-	{
-		my_mlx_pixel_put(data, pixel.x, pixel.y \
-			, pos_player.color);
-		pixel.x += delta.x;
-		pixel.y += delta.y;
-		pixels = pixels - 1;
-	}
-	return (1);
-}
-
-
-void	paint_ray(t_player *player, t_map *map, t_data *data)
-{
-	
-	init_ray(player);
-	direction_ray(player);
-	horizontal_colision(player, map, data);
-	// vertical_colision(player, map, data);
-	
-}
-// int	draw_line(t_all *all, t_point start, t_point end)
-// {
-// 	t_point	delta;
-// 	t_point	pixel;
-// 	int		pixels;
-// 	int		len;
-
-// 	delta.coord[X] = end.coord[X] - start.coord[X];
-// 	delta.coord[Y] = end.coord[Y] - start.coord[Y];
-// 	pixels = sqrt((delta.coord[X] * delta.coord[X]) + \
-// 		(delta.coord[Y] * delta.coord[Y]));
-// 	len = pixels;
-// 	delta.coord[X] /= pixels;
-// 	delta.coord[Y] /= pixels;
-// 	pixel.coord[X] = start.coord[X];
-// 	pixel.coord[Y] = start.coord[Y];
-// 	while (pixels > 0)
-// 	{
-// 		my_mlx_pixel_put(&all->data, pixel.coord[X], pixel.coord[Y] \
-// 			, start.color);
-// 		pixel.coord[X] += delta.coord[X];
-// 		pixel.coord[Y] += delta.coord[Y];
-// 		pixels = pixels - 1;
-// 	}
-// 	return (1);
 // }

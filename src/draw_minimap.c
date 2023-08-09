@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/02 17:21:41 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:59:05 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	is_valid_tile_for_player(t_player *player, int x, int y, t_map *map)
 	int i;
 	
 	i = 0;
-	printf("tile_size: %d, x: %d, y: %d\n", map->tile_size, x, y);
+	// printf("tile_size: %d, x: %d, y: %d\n", map->tile_size, x, y);
 	corners.up_left_x = x / map->tile_size;
 	corners.up_left_y = y / map->tile_size;
 	corners.up_right_x = (x - 1  + map->tile_size / 10)/ map->tile_size;
@@ -146,7 +146,7 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	printf("rotation_angle:%f\n", player->rotation_angle);
 	player->square->coord.color = 0xFFFFFF;
 	paint_square(&player->square->coord, data, map->tile_size/10);
-	printf("pos.x:%d, pos.y:%d\n", player->pos.x, player->pos.y);
+	printf("pos.x:%f, pos.y:%f\n", player->pos.x, player->pos.y);
 
 	paint_ray(player, map, data);
 	mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);

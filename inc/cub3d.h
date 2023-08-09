@@ -21,8 +21,8 @@ typedef struct s_map t_map;
 
 typedef struct s_point
 {
-	int x;
-	int y;
+	float x;
+	float y;
 	int color;
 
 }	t_point;
