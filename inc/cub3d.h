@@ -29,9 +29,12 @@ typedef struct s_point
 
 typedef struct s_ray
 {
-	t_point	colision;
-	int down;
-	int left;
+	t_point	colision_hor;
+	t_point	colision_ver;
+	float	distance_horizontal;
+	float	distance_vertical;
+	int		down;
+	int		left;
 }	t_ray;
 
 typedef struct s_square
