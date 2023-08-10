@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/09 15:59:05 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/10 12:17:06 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,9 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	int new_y;
 
 	player->square->coord.color = 0x000000;
+	// player->ray->colision.color = 0x000000;
 	paint_square(&player->square->coord, data, map->tile_size/10);
+	// paint_ray(player, map, data);
 	new_x = roundf(player->pos.x + (player->advance * cos(player->rotation_angle) * player->speed_adv));
 	new_y = roundf(player->pos.y + (player->advance * sin(player->rotation_angle) * player->speed_adv));
 	if(is_valid_tile_for_player(player, new_x - (map->tile_size / 20), new_y - (map->tile_size / 20), map))
@@ -145,9 +147,10 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	angle(&player->rotation_angle);
 	printf("rotation_angle:%f\n", player->rotation_angle);
 	player->square->coord.color = 0xFFFFFF;
+	// player->ray->colision.color = 0xFF0000;
 	paint_square(&player->square->coord, data, map->tile_size/10);
 	printf("pos.x:%f, pos.y:%f\n", player->pos.x, player->pos.y);
-
+	
 	paint_ray(player, map, data);
 	mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
 }

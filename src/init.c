@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/09 15:34:39 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/10 11:58:13 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	init_player(t_player *player, int orientation, int x, int y, int tile_size)
 	player->square->coord.y = y + tile_size / 2 - (tile_size / 20);
 	// printf("init_x:%d, init_y:%d\n", player->square->coord.x, player->square->coord.y );
 	player->square->coord.color = 0xFFFFFF;
+	// init_ray(player);
+
 
 }
 

@@ -145,6 +145,9 @@ int		key_press(int keycode, t_all *all);
 int		key_up(int keycode, t_player *player);
 void	draw_initial_map(t_data *data, t_player *player, t_all *all);
 void	init_player(t_player *player, int orientation, int x, int y, int tile_size);
+void	init_ray(t_player	*player);
+void	direction_ray(t_player *player);
+
 // int		movements(int keycode, t_player *player);
 void	update_map(t_player *player, t_map *map, t_data *data, t_all *all);
 

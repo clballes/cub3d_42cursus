@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/09 17:50:16 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/10 12:34:16 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	is_there_a_wall(t_point *point, t_map *map)
 
 void	horizontal_colision(t_player *player, t_map *map, t_data *data)
 {
-	float opposite_length;
+	float adjacent_length;
 	int step_x;
 	int step_y;
 	int colision;
@@ -71,11 +71,11 @@ void	horizontal_colision(t_player *player, t_map *map, t_data *data)
 	player->ray->colision.y = floor(player->pos.y / map->tile_size) * map->tile_size;
 	if(player->ray->down)
 		player->ray->colision.y += map->tile_size;
-	opposite_length = (player->pos.y - player->ray->colision.y) / tan(player->rotation_angle) ;
-	if(!player->ray->left && opposite_length > 0)//
-		player->ray->colision.x = player->pos.x + opposite_length;//
+	adjacent_length = (player->pos.y - player->ray->colision.y) / tan(player->rotation_angle) ;
+	if(!player->ray->left && adjacent_length > 0)//
+		player->ray->colision.x = player->pos.x + adjacent_length;//
 	else//
-		player->ray->colision.x = player->pos.x - opposite_length;//
+		player->ray->colision.x = player->pos.x - adjacent_length;//
 	if(!player->ray->down)
 		player->ray->colision.y--;
 	if(is_there_a_wall(&player->ray->colision,map))
@@ -96,12 +96,13 @@ void	horizontal_colision(t_player *player, t_map *map, t_data *data)
 		{
 			if((!is_there_a_wall(&player->ray->colision,map)))
 			{
+				printf("pruebo\n");
 				player->ray->colision.x += step_x;
 				player->ray->colision.y += step_y;	
 			}
 			else
 			{
-				printf("aqui\n");
+				printf("encuentro colision\n");
 				colision = 1;
 				draw_line(data, player->pos, player->ray->colision);
 			}
@@ -142,57 +143,54 @@ void	paint_ray(t_player *player, t_map *map, t_data *data)
 	
 	init_ray(player);
 	direction_ray(player);
-	// horizontal_colision(player, map, data);
+	horizontal_colision(player, map, data);
 	vertical_colision(player, map, data);
 }
 
-// void	vertical_colision(t_player *player, t_map *map, t_data *data)
-// {
-// 	float opposite_length;
-// 	int step_x;
-// 	int step_y;
-// 	int colision;
+void	vertical_colision(t_player *player, t_map *map, t_data *data)
+{
+	float opposite_length;
+	int step_x;
+	int step_y;
+	int colision;
 	
-// 	step_x = 0;
-// 	step_y = 0;
-// 	colision = 0;
-// 	player->ray->colision.x = floor(player->pos.y/ map->tile_size) * map->tile_size;
-// 	if(player->ray->down)
-// 		player->ray->colision.x += map->tile_size;
-// 	opposite_length =  (player->ray->colision.x - player->pos.x) / (tan(player->rotation_angle));
-// 	player->ray->colision.y = player->pos.y + opposite_length;
-// 	if(!player->ray->left && opposite_length > 0)//
-// 		player->ray->colision.y = player->pos.y + opposite_length;//
-// 	else//
-// 		player->ray->colision.y = player->pos.y - opposite_length;//
+	step_x = 0;
+	step_y = 0;
+	colision = 0;
+	player->ray->colision.x = floor(player->pos.x / map->tile_size) * map->tile_size;
+	if(!player->ray->left)
+		player->ray->colision.x += map->tile_size;
+	opposite_length =  (player->ray->colision.x - player->pos.x) * (tan(player->rotation_angle));
+	player->ray->colision.y = player->pos.y + opposite_length;
 	
-// 	if(!player->ray->down)
-// 		player->ray->colision.x--;
-// 	if(is_there_a_wall(&player->ray->colision,map))
-// 		draw_line(data, player->pos, player->ray->colision);//se pinta la linea hasta la colision
-// 	else
-// 	{
-// 		// se añade un step y se comprueba en bucle añadiendo steps
-// 		//STEP
-// 		step_x= map->tile_size;
-// 		step_y = step_x / tan(player->rotation_angle);
-// 		if(!player->ray->down)
-// 			step_x = -step_x;
-// 		if((player->ray->left && step_y > 0) || (!player->ray->left && step_y < 0))
-// 			step_y = -step_y;
-// 		while (!colision)
-// 		{
-// 			if(!is_there_a_wall(&player->ray->colision,map))
-// 			{
-// 				player->ray->colision.x += step_x;
-// 				player->ray->colision.y += step_y;	
-// 			}
-// 			else
-// 			{
-// 				colision = 1;
-// 				draw_line(data, player->pos, player->ray->colision);
-// 			}
-// 		}
-// 	}
 	
-// }
+	if(player->ray->left)
+		player->ray->colision.x--;
+	if(is_there_a_wall(&player->ray->colision,map))
+		draw_line(data, player->pos, player->ray->colision);//se pinta la linea hasta la colision
+	else
+	{
+		// se añade un step y se comprueba en bucle añadiendo steps
+		//STEP
+		step_x = map->tile_size;
+		step_y = step_x * (tan(player->rotation_angle));
+		if(player->ray->left)
+			step_x = -step_x;
+		if((!player->ray->down && step_y > 0) || (player->ray->down && step_y < 0))
+			step_y = -step_y;
+		while (!colision)
+		{
+			if(!is_there_a_wall(&player->ray->colision,map))
+			{
+				player->ray->colision.x += step_x;
+				player->ray->colision.y += step_y;	
+			}
+			else
+			{
+				colision = 1;
+				draw_line(data, player->pos, player->ray->colision);
+			}
+		}
+	}
+	
+}
