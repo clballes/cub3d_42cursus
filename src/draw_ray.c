@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/10 14:39:00 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/10 14:55:31 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@ void	init_ray(t_player	*player)
 	player->ray->colision_hor.y = 0;
 	player->ray->colision_ver.x = 0;
 	player->ray->colision_ver.y = 0;
-	player->ray->down = 0;
-	player->ray->left = 0;
+	// player->ray->down = 0;
+	// player->ray->left = 0;
 }
 
 //This function tell us the direction of the ray depending on the angle of the player.
 void	direction_ray(t_player *player)
 {
+	player->ray->down = 0;
+	player->ray->left = 0;
 	if (player->rotation_angle < M_PI)
 		player->ray->down = 1;
 	if (player->rotation_angle > M_PI / 2 && player->rotation_angle < 3 * M_PI / 2)
@@ -43,7 +45,7 @@ void	direction_ray(t_player *player)
 int	is_there_a_wall(t_point *point, t_map *map)
 {
 	t_point matrix;
-	printf("POINT x: %f, y: %f\n", point->x, point->y);
+	// printf("POINT x: %f, y: %f\n", point->x, point->y);
 	if(point->x >= WIN_X)
 		point->x = WIN_X - 1;
 	if(point->x <= 0)
@@ -54,8 +56,8 @@ int	is_there_a_wall(t_point *point, t_map *map)
 		point->y = 0;
 	matrix.x = point->x / map->tile_size;
 	matrix.y = point->y / map->tile_size;
-	printf("MATRIX x: %f, y: %f\n", matrix.x, matrix.y);
-	printf("MATRIX INT: %d, y: %d\n", (int)matrix.x, (int)matrix.y);
+	// printf("MATRIX x: %f, y: %f\n", matrix.x, matrix.y);
+	// printf("MATRIX INT: %d, y: %d\n", (int)matrix.x, (int)matrix.y);
 	if(map->map_arr[(int)matrix.y][(int)matrix.x] == '1')
 		return(1);
 	return(0);
@@ -100,13 +102,13 @@ void	horizontal_colision(t_player *player, t_map *map/*, t_data *data*/)
 		{
 			if((!is_there_a_wall(&player->ray->colision_hor,map)))
 			{
-				printf("pruebo\n");
+				// printf("pruebo\n");
 				player->ray->colision_hor.x += step_x;
 				player->ray->colision_hor.y += step_y;	
 			}
 			else
 			{
-				printf("encuentro colision\n");
+				// printf("encuentro colision\n");
 				colision = 1;
 				// draw_line(data, player->pos, player->ray->colision);
 				player->ray->distance_horizontal = ray_length(player->pos, player->ray->colision_hor);
@@ -134,7 +136,7 @@ int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 	while (pixels > 0)
 	{
 		my_mlx_pixel_put(data, pixel.x, pixel.y \
-			, 0xFF0000);
+			, pos_colision.color);
 		pixel.x += delta.x;
 		pixel.y += delta.y;
 		pixels = pixels - 1;
@@ -146,7 +148,7 @@ int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 void	paint_ray(t_player *player, t_map *map, t_data *data)
 {
 	
-	init_ray(player);
+	// init_ray(player);
 	direction_ray(player);
 	horizontal_colision(player, map/*, data*/);
 	vertical_colision(player, map/*, data*/);
