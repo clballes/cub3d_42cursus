@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:07:04 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/11 14:45:29 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/11 19:00:17 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@ void	vertical_colision(t_player *player, t_map *map)
 	opposite_length = (player->ray->colision_ver.x - player->pos.x) * tan(player->rotation_angle);
 	player->ray->colision_ver.y = player->pos.y + opposite_length;
 	if (player->ray->left)
+	{
 		player->ray->colision_ver.x--;
+		
+	}
+	// if(!player->ray->down)
 	if (is_there_a_wall(&player->ray->colision_ver,map, player))
 	{
-
+		printf("V1\n");
 		if (player->ray->left)
 			player->ray->colision_ver.x++;
 		player->ray->distance_vertical = ray_length(player->pos, player->ray->colision_ver);
@@ -49,9 +53,13 @@ void	vertical_colision(t_player *player, t_map *map)
 			step_y = -step_y;
 		while (!colision)
 		{
-			printf("V\n");
+			printf("V2\n");
 			if(!is_there_a_wall(&player->ray->colision_ver, map, player))
 			{
+				if(player->ray->colision_ver.x < 0 || player->ray->colision_ver.x > MAP_X)//
+					break;//
+				if(player->ray->colision_ver.x > MAP_X)
+					break;
 				player->ray->colision_ver.x += step_x;
 				player->ray->colision_ver.y += step_y;	
 			}

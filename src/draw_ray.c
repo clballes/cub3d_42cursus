@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/11 14:45:53 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/11 19:03:10 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	is_there_a_wall(t_point *point, t_map *map, t_player *player)
 {
 	(void)player;
 	t_point matrix;
+	
 	// if (point->x >= MAP_X)
 	// 	point->x = MAP_X - 1;
 	// if (point->x <= 0)
@@ -38,7 +39,7 @@ int	is_there_a_wall(t_point *point, t_map *map, t_player *player)
 	// 	point->y = MAP_Y - 1;
 	// if (point->y <= 0)
 	// 	point->y = 0;
-	// printf("POINT AFTER: %f, y: %f\n", point->x, point->y);
+	printf("POINT : %f, y: %f\n", point->x, point->y);
 	// printf("tile:%d \n", map->tile_size);
 	matrix.x = point->x / map->tile_size;
 	matrix.y = point->y / map->tile_size;
@@ -51,7 +52,7 @@ int	is_there_a_wall(t_point *point, t_map *map, t_player *player)
 	if(matrix.y <= 0)
 		matrix.y = 0;
 	// printf("MATRIX x: %f, y: %f\n", matrix.x, matrix.y);
-	// printf("MATRIX INT: %d, y: %d\n", (int)matrix.x, (int)matrix.y);
+	printf("MATRIX INT: %d, y: %d\n", (int)matrix.x, (int)matrix.y);
 	// exit(1);
 	if (map->map_arr[(int)matrix.y][(int)matrix.x] == '1')
 		return (1);
@@ -87,21 +88,29 @@ int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 
 void	paint_ray(t_player *player, t_map *map, t_data *data)
 {
-	// printf("Angulo:%f, pos_x:%f, pos_y:%f\n", player->rotation_angle, player->pos.x, player->pos.y);
 	direction_ray(player);
 	horizontal_colision(player, map);
 	vertical_colision(player, map);
-	printf("hor:%f, ver:%f\n",player->ray->distance_horizontal,player->ray->distance_vertical);
+	printf("dist_h:%f, dist_v:%f\n",player->ray->distance_horizontal ,player->ray->distance_vertical);
 	if(player->ray->distance_horizontal < player->ray->distance_vertical)
+	{
+		printf("la vertical es mas larga y la colision es en x:%f y:%f\n", player->ray->colision_ver.x, player->ray->colision_ver.y);
+		printf("la horizontal GANA es mas corta y la colision es en x:%f y:%f\n", player->ray->colision_hor.x, player->ray->colision_hor.y);	
 		draw_line(data, player->pos, player->ray->colision_hor);
+	}
 	else
+	{
+		printf("la horizontal es mas larga y la colision es en x:%f y:%f\n", player->ray->colision_hor.x, player->ray->colision_hor.y);
+		printf("la vertical GANA es mas corta y la colision es en x:%f y:%f\n", player->ray->colision_ver.x, player->ray->colision_ver.y);	
 		draw_line(data, player->pos, player->ray->colision_ver);
+	}
 		
 }
 
 //Pitagoras to know the length of the ray
 float	ray_length(t_point pos, t_point col)
 {
+	printf("ENTRO\n");
 	float	hypotenuse;
 	float	x;
 	float	y;
@@ -115,5 +124,6 @@ float	ray_length(t_point pos, t_point col)
 	else
 		y = col.y - pos.y;
 	hypotenuse = sqrt((x * x) + (y * y));
+	printf("PITAGORAS: x: %f, y: %f, hipotenusa:%f\n", x, y, hypotenuse);
 	return(hypotenuse);
 }

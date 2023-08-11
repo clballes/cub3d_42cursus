@@ -7,11 +7,11 @@ SO src/textures/a.xpm
 EA src/textures/a.xpm
 E src/textures/a.xpm
 
-F 30,30,12
-C 252,32,30
+F 220,100,0
+C 225,30,0
 
-11111111
-1N   1
-1 1 1111
-1    1
-11111111
+
+ 1111111
+ 10E0001
+1100001
+1111111
