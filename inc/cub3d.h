@@ -160,7 +160,11 @@ void	free_elements(t_element *element);
 void	free_all(t_map *map, t_element *element, int i);
 char	*free_var(char *src, char *dest);
 
-
+//colision
+void	horizontal_colision(t_player *player, t_map *map);
+void	vertical_colision(t_player *player, t_map *map);
+float	ray_length(t_point pos, t_point col);
+int		is_there_a_wall(t_point *point, t_map *map);
 
 //render witnodw
 void	init_render(t_all *all);
