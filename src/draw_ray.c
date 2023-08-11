@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/11 19:03:10 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/11 19:46:34 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	paint_ray(t_player *player, t_map *map, t_data *data)
 		printf("la vertical es mas larga y la colision es en x:%f y:%f\n", player->ray->colision_ver.x, player->ray->colision_ver.y);
 		printf("la horizontal GANA es mas corta y la colision es en x:%f y:%f\n", player->ray->colision_hor.x, player->ray->colision_hor.y);	
 		draw_line(data, player->pos, player->ray->colision_hor);
+		
 	}
 	else
 	{
