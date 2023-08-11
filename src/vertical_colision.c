@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:07:04 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/11 11:09:19 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:45:29 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ void	vertical_colision(t_player *player, t_map *map)
 	player->ray->colision_ver.y = player->pos.y + opposite_length;
 	if (player->ray->left)
 		player->ray->colision_ver.x--;
-	if (is_there_a_wall(&player->ray->colision_ver,map))
+	if (is_there_a_wall(&player->ray->colision_ver,map, player))
 	{
+
 		if (player->ray->left)
 			player->ray->colision_ver.x++;
 		player->ray->distance_vertical = ray_length(player->pos, player->ray->colision_ver);
+	
 	}
 	else
 	{
@@ -47,7 +49,8 @@ void	vertical_colision(t_player *player, t_map *map)
 			step_y = -step_y;
 		while (!colision)
 		{
-			if(!is_there_a_wall(&player->ray->colision_ver,map))
+			printf("V\n");
+			if(!is_there_a_wall(&player->ray->colision_ver, map, player))
 			{
 				player->ray->colision_ver.x += step_x;
 				player->ray->colision_ver.y += step_y;	

@@ -12,8 +12,10 @@
 #include <math.h>
 #include <fcntl.h>
 
-# define WIN_X 400
-# define WIN_Y 400
+# define WIN_X 1920
+# define WIN_Y 1024
+# define MAP_X WIN_X/8
+# define MAP_Y WIN_Y/8
 
 # define TURQUOISE 0x33b3a6
 
@@ -21,8 +23,8 @@ typedef struct s_map t_map;
 
 typedef struct s_point
 {
-	float x;
-	float y;
+	double x;
+	double y;
 	int color;
 
 }	t_point;
@@ -31,8 +33,8 @@ typedef struct s_ray
 {
 	t_point	colision_hor;
 	t_point	colision_ver;
-	float	distance_horizontal;
-	float	distance_vertical;
+	double	distance_horizontal;
+	double	distance_vertical;
 	int		down;
 	int		left;
 }	t_ray;
@@ -164,11 +166,11 @@ char	*free_var(char *src, char *dest);
 void	horizontal_colision(t_player *player, t_map *map);
 void	vertical_colision(t_player *player, t_map *map);
 float	ray_length(t_point pos, t_point col);
-int		is_there_a_wall(t_point *point, t_map *map);
+int		is_there_a_wall(t_point *point, t_map *map,t_player *player);
 
 //render witnodw
 void	init_render(t_all *all);
-int		is_valid_tile_for_player(t_player *player, int x, int y, t_map *map);
+int		is_valid_tile_for_player(int x, int y, t_map *map);
 void	init_ray(t_player	*player);
 int		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	paint_ray(t_player *player, t_map *map, t_data *data);

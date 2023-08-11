@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:06:34 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/11 11:09:35 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:52:23 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,18 @@ void	horizontal_colision(t_player *player, t_map *map)
 	if(player->ray->down)
 		player->ray->colision_hor.y += map->tile_size;
 	adjacent_length = (player->pos.y - player->ray->colision_hor.y) / tan(player->rotation_angle) ;
+	printf("adj:%f\n", adjacent_length);
 	if(!player->ray->left && adjacent_length > 0)//
 		player->ray->colision_hor.x = player->pos.x + adjacent_length;//
 	else//
 		player->ray->colision_hor.x = player->pos.x - adjacent_length;//
 	if(!player->ray->down)
 		player->ray->colision_hor.y--;
-	if(is_there_a_wall(&player->ray->colision_hor,map))
+	if(is_there_a_wall(&player->ray->colision_hor,map, player))
 	{
+
 		if(!player->ray->down)
-					player->ray->colision_hor.y++;
+			player->ray->colision_hor.y++;
 		player->ray->distance_horizontal = ray_length(player->pos, player->ray->colision_hor);
 	}
 	else
@@ -50,7 +52,8 @@ void	horizontal_colision(t_player *player, t_map *map)
 			step_x = -step_x;
 		while (!colision)
 		{
-			if((!is_there_a_wall(&player->ray->colision_hor,map)))
+
+			if((!is_there_a_wall(&player->ray->colision_hor,map, player)))
 			{
 				player->ray->colision_hor.x += step_x;
 				player->ray->colision_hor.y += step_y;	

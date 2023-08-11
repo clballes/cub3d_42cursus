@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/11 11:10:34 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:45:53 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,36 @@ void	direction_ray(t_player *player)
 }
 
 //This function returns 1 if there is a wall in the map
-int	is_there_a_wall(t_point *point, t_map *map)
+int	is_there_a_wall(t_point *point, t_map *map, t_player *player)
 {
+	(void)player;
 	t_point matrix;
-	// printf("POINT x: %f, y: %f\n", point->x, point->y);
-	if(point->x >= WIN_X)
-		point->x = WIN_X - 1;
-	if(point->x <= 0)
-		point->x = 0;
-	if(point->y >= WIN_Y)
-		point->y = WIN_Y - 1;
-	if (point->y <= 0)
-		point->y = 0;
+	// if (point->x >= MAP_X)
+	// 	point->x = MAP_X - 1;
+	// if (point->x <= 0)
+	// 	point->x = 0;
+	// if (point->y >= MAP_Y)
+	// 	point->y = MAP_Y - 1;
+	// if (point->y <= 0)
+	// 	point->y = 0;
+	// printf("POINT AFTER: %f, y: %f\n", point->x, point->y);
+	// printf("tile:%d \n", map->tile_size);
 	matrix.x = point->x / map->tile_size;
 	matrix.y = point->y / map->tile_size;
+	if(matrix.x >= map->cols)
+		matrix.x = map->cols - 1;
+	if(matrix.x <= 0)
+		matrix.x = 0;
+	if(matrix.y >= map->rows)
+		matrix.y = map->rows - 1;
+	if(matrix.y <= 0)
+		matrix.y = 0;
 	// printf("MATRIX x: %f, y: %f\n", matrix.x, matrix.y);
 	// printf("MATRIX INT: %d, y: %d\n", (int)matrix.x, (int)matrix.y);
-	if(map->map_arr[(int)matrix.y][(int)matrix.x] == '1')
-		return(1);
-	return(0);
+	// exit(1);
+	if (map->map_arr[(int)matrix.y][(int)matrix.x] == '1')
+		return (1);
+	return (0);
 }
 
 int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
@@ -76,9 +87,11 @@ int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 
 void	paint_ray(t_player *player, t_map *map, t_data *data)
 {
+	// printf("Angulo:%f, pos_x:%f, pos_y:%f\n", player->rotation_angle, player->pos.x, player->pos.y);
 	direction_ray(player);
 	horizontal_colision(player, map);
 	vertical_colision(player, map);
+	printf("hor:%f, ver:%f\n",player->ray->distance_horizontal,player->ray->distance_vertical);
 	if(player->ray->distance_horizontal < player->ray->distance_vertical)
 		draw_line(data, player->pos, player->ray->colision_hor);
 	else
