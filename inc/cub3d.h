@@ -16,6 +16,9 @@
 # define WIN_Y 1024
 # define MAP_X WIN_X/8
 # define MAP_Y WIN_Y/8
+# define FOV 60
+# define HALFFOV FOV/2
+
 
 # define TURQUOISE 0x33b3a6
 
@@ -37,14 +40,13 @@ typedef struct s_ray
 	double	distance_vertical;
 	int		down;
 	int		left;
+	// double	ray_rot_angle;
+	// double	length;
 }	t_ray;
 
 typedef struct s_square
 {
 	t_point coord;
-	// int x;
-	// int y;
-	//int color;
 	int side;
 }	t_square;
 
@@ -73,16 +75,13 @@ typedef struct s_player
 	t_square	*square;
 	t_ray		*ray;
 	t_point		pos;
-    // int		pos_x;
-	// int		pos_y;
-	// int		tile_size;
 	double 	first_orientation;
 	int 	advance; // 0 = parado ; 1 = adelante -1 = atras
 	int 	rotate; // 1 = derecha ; -1 = izquierda 
 	double 	rot_angle; // N = pi/2 ; S = 3pi/2 ; E = pi ; W = 2pi 
 	int 	speed_adv; // 3pixels
 	double 	speed_rot; // GRADOS //cuantos grados va a girar cada vez que le damos  3 * (pi / 180) // pi / 180 es cuantos radianes es un grado
-
+	double 	ray_rot_angle;
 	
 } t_player;
 
@@ -151,7 +150,7 @@ int		key_up(int keycode, t_player *player);
 void	draw_initial_map(t_data *data, t_player *player, t_all *all);
 void	init_player(t_player *player, int orientation, int x, int y, int tile_size);
 void	init_ray(t_player	*player);
-void	direction_ray(t_player *player);
+void	direction_ray(t_player *player, t_ray *ray);
 
 // int		movements(int keycode, t_player *player);
 void	update_map(t_player *player, t_map *map, t_data *data, t_all *all);
@@ -163,17 +162,20 @@ void	free_all(t_map *map, t_element *element, int i);
 char	*free_var(char *src, char *dest);
 
 //colision
-void	horizontal_colision(t_player *player, t_map *map);
-void	vertical_colision(t_player *player, t_map *map);
+void	horizontal_colision(t_player *player, t_map *map, t_ray *ray);
+void	vertical_colision(t_player *player, t_map *map, t_ray *ray);
 float	ray_length(t_point pos, t_point col);
 int		is_there_a_wall(t_point *point, t_map *map);
+// void	draw_fov_rays(t_player *player, t_map *map, t_data *data);
+void	angle(double *angle);
+double	grades_to_rads(double angle);
 
 //render witnodw
 void	init_render(t_all *all);
 int		is_valid_tile_for_player(int x, int y, t_map *map);
 void	init_ray(t_player	*player);
 int		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	paint_ray(t_player *player, t_map *map, t_data *data);
+void	paint_ray(t_player *player, t_map *map, t_data *data, int color_on);
 #endif
 
 

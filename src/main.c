@@ -16,7 +16,7 @@ void	init_game(t_all *all)
 	draw_initial_map(all->data, &all->player, all);//esta funcion en verdad tiene que iniciar el minimap y el render inicial
 	mlx_hook(all->vars->win, 2, 0, key_press, all);
 	mlx_hook(all->vars->win, 3, 0, key_up, &all->player);
-	mlx_hook(all->vars->win, 17, 0, ft_destroy_window, &all->vars);
+	mlx_hook(all->vars->win, 17, 0, ft_destroy_window, all->vars);
 	// mlx_hook(all.vars.win, 4, 0, ft_mouse_down, &all.vars);
 	// mlx_hook(all.vars.win, 5, 0, ft_mouse_up, &all.vars);
 	// mlx_hook(all.vars.win, 6, 0, ft_mouse_move, &all.vars);

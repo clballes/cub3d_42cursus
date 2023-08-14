@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/14 10:59:34 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/14 19:34:39 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	init_player(t_player *player, int orientation, int x, int y, int tile_size)
 	player->square->coord.x = x + tile_size / 2 - (tile_size / 20);
 	player->square->coord.y = y + tile_size / 2 - (tile_size / 20);
 	player->square->coord.color = 0xFFFFFF;
-	init_ray(player);
+	player->ray = ft_calloc(WIN_X, sizeof(t_ray));
 }
 
 void	init_path_image(t_element *element, t_all *all)
@@ -62,15 +62,3 @@ void	init_path_image(t_element *element, t_all *all)
 	}
 }
 
-//init values for ray structure
-void	init_ray(t_player	*player)
-{
-	//habra que ver cuantos rayos hay que dibujar;
-	t_ray *ray;
-	ray = ft_calloc(1, sizeof(t_ray));
-	player->ray = ray;
-	player->ray->colision_hor.x = 0;
-	player->ray->colision_hor.y = 0;
-	player->ray->colision_ver.x = 0;
-	player->ray->colision_ver.y = 0;
-}

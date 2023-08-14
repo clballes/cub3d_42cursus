@@ -6,7 +6,7 @@
 #    By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/23 14:55:16 by clballes          #+#    #+#              #
-#    Updated: 2023/08/14 11:43:48 by albagarc         ###   ########.fr        #
+#    Updated: 2023/08/14 14:56:35 by albagarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC_FILES = main \
 			$(COLISION)draw_ray \
 			$(COLISION)horizontal_colision \
 			$(COLISION)vertical_colision \
+			$(COLISION)field_of_view \
 			
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))

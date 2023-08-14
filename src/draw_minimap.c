@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/14 10:59:19 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:01:12 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,10 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	double new_x;
 	double new_y;
 	player->square->coord.color = 0x000000;
-	player->ray->colision_hor.color = 0x000000;
-	player->ray->colision_ver.color = 0x000000;
+	// player->ray->colision_hor.color = 0x000000;
+	// player->ray->colision_ver.color = 0x000000;
 	paint_square(&player->square->coord, data, map->tile_size/10);
-	paint_ray(player, map, data);
+	paint_ray(player, map, data, 0x000000);
 	new_x = player->pos.x + (player->advance * cos(player->rot_angle) * player->speed_adv);
 	new_y = player->pos.y + (player->advance * sin(player->rot_angle) * player->speed_adv);
 	if(is_valid_tile_for_player(new_x - (map->tile_size / 20), new_y - (map->tile_size / 20), map))
@@ -153,11 +153,11 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	angle(&player->rot_angle);
 	printf("rot_angle:%f\n", player->rot_angle);
 	player->square->coord.color = 0xFFFFFF;
-	player->ray->colision_hor.color = 0xFF0000;
-	player->ray->colision_ver.color = 0xFF0000;
+	// player->ray->colision_hor.color = 0xFF0000;
+	// player->ray->colision_ver.color = 0xFF0000;
 	paint_square(&player->square->coord, data, map->tile_size/10);
 	printf("pos.x:%f, pos.y:%f\n", player->pos.x, player->pos.y);
-	paint_ray(player, map, data);
+	paint_ray(player, map, data, 0xFF0000);
 	mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
 }
 
