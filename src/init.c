@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/11 11:24:32 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/14 10:59:34 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	init_player(t_player *player, int orientation, int x, int y, int tile_size)
 	player->square = square;
 	player->first_orientation = orientation;
 	if (orientation == 'N')
-		player->rotation_angle = 3 * M_PI_2;
+		player->rot_angle = 3 * M_PI_2;
 	if (orientation == 'S')
-		player->rotation_angle =  M_PI_2;
+		player->rot_angle =  M_PI_2;
 	if (orientation == 'E')
-		player->rotation_angle = 2 * M_PI;
+		player->rot_angle = 2 * M_PI;
 	if (orientation == 'W')
-		player->rotation_angle =  M_PI;
+		player->rot_angle =  M_PI;
 	player->advance = 0;
 	player->rotate = 0;
 	player->speed_adv = 1;

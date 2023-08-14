@@ -6,54 +6,39 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/11 19:46:34 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/14 11:02:36 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-//init values for ray structure
 
-
-//This function tell us the direction of the ray depending on the angle of the player.
+//This function tell us the direction of the ray depending on the angle
+// of the player.
 void	direction_ray(t_player *player)
 {
 	player->ray->down = 0;
 	player->ray->left = 0;
-	if (player->rotation_angle < M_PI)
+	if (player->rot_angle < M_PI)
 		player->ray->down = 1;
-	if (player->rotation_angle > M_PI / 2 && player->rotation_angle < 3 * M_PI / 2)
+	if (player->rot_angle > M_PI / 2 && player->rot_angle < 3 * M_PI / 2)
 		player->ray->left = 1;
 }
 
-//This function returns 1 if there is a wall in the map
-int	is_there_a_wall(t_point *point, t_map *map, t_player *player)
+//This function returns 1 if there is a wall in the point that is receiving.
+int	is_there_a_wall(t_point *point, t_map *map)
 {
-	(void)player;
-	t_point matrix;
-	
-	// if (point->x >= MAP_X)
-	// 	point->x = MAP_X - 1;
-	// if (point->x <= 0)
-	// 	point->x = 0;
-	// if (point->y >= MAP_Y)
-	// 	point->y = MAP_Y - 1;
-	// if (point->y <= 0)
-	// 	point->y = 0;
-	printf("POINT : %f, y: %f\n", point->x, point->y);
-	// printf("tile:%d \n", map->tile_size);
+	t_point	matrix;
+
 	matrix.x = point->x / map->tile_size;
 	matrix.y = point->y / map->tile_size;
-	if(matrix.x >= map->cols)
+	if (matrix.x >= map->cols)
 		matrix.x = map->cols - 1;
-	if(matrix.x <= 0)
+	if (matrix.x <= 0)
 		matrix.x = 0;
-	if(matrix.y >= map->rows)
+	if (matrix.y >= map->rows)
 		matrix.y = map->rows - 1;
-	if(matrix.y <= 0)
+	if (matrix.y <= 0)
 		matrix.y = 0;
-	// printf("MATRIX x: %f, y: %f\n", matrix.x, matrix.y);
-	printf("MATRIX INT: %d, y: %d\n", (int)matrix.x, (int)matrix.y);
-	// exit(1);
 	if (map->map_arr[(int)matrix.y][(int)matrix.x] == '1')
 		return (1);
 	return (0);
@@ -65,7 +50,7 @@ int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 	t_point	pixel;
 	int		pixels;
 	int		len;
-	
+
 	delta.x = pos_colision.x - pos_player.x;
 	delta.y = pos_colision.y - pos_player.y;
 	pixels = sqrt((delta.x * delta.x) + \
@@ -86,32 +71,22 @@ int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 	return (1);
 }
 
+// Compare the vertical and the horizontal colision and draw 
+// the ray that is shorter.
 void	paint_ray(t_player *player, t_map *map, t_data *data)
 {
 	direction_ray(player);
 	horizontal_colision(player, map);
 	vertical_colision(player, map);
-	printf("dist_h:%f, dist_v:%f\n",player->ray->distance_horizontal ,player->ray->distance_vertical);
-	if(player->ray->distance_horizontal < player->ray->distance_vertical)
-	{
-		printf("la vertical es mas larga y la colision es en x:%f y:%f\n", player->ray->colision_ver.x, player->ray->colision_ver.y);
-		printf("la horizontal GANA es mas corta y la colision es en x:%f y:%f\n", player->ray->colision_hor.x, player->ray->colision_hor.y);	
+	if (player->ray->distance_horizontal < player->ray->distance_vertical)
 		draw_line(data, player->pos, player->ray->colision_hor);
-		
-	}
 	else
-	{
-		printf("la horizontal es mas larga y la colision es en x:%f y:%f\n", player->ray->colision_hor.x, player->ray->colision_hor.y);
-		printf("la vertical GANA es mas corta y la colision es en x:%f y:%f\n", player->ray->colision_ver.x, player->ray->colision_ver.y);	
 		draw_line(data, player->pos, player->ray->colision_ver);
-	}
-		
 }
 
 //Pitagoras to know the length of the ray
 float	ray_length(t_point pos, t_point col)
 {
-	printf("ENTRO\n");
 	float	hypotenuse;
 	float	x;
 	float	y;
@@ -125,6 +100,5 @@ float	ray_length(t_point pos, t_point col)
 	else
 		y = col.y - pos.y;
 	hypotenuse = sqrt((x * x) + (y * y));
-	printf("PITAGORAS: x: %f, y: %f, hipotenusa:%f\n", x, y, hypotenuse);
-	return(hypotenuse);
+	return (hypotenuse);
 }

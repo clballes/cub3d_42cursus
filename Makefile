@@ -6,7 +6,7 @@
 #    By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/23 14:55:16 by clballes          #+#    #+#              #
-#    Updated: 2023/08/11 11:11:33 by albagarc         ###   ########.fr        #
+#    Updated: 2023/08/14 11:43:48 by albagarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ INC_DIR = inc/
 MLX_DIR = mlx/
 PARSE = parsing/
 RENDER = rendering/
+COLISION = colision/
 MLX = ${MLX_DIR}libmlx.a
 MINILIBXCC	=  -L $(MLX_DIR) -lmlx
 OPENGL = -framework OpenGL -framework AppKit
@@ -43,9 +44,9 @@ SRC_FILES = main \
 			key_press \
 			draw_minimap \
 			init \
-			draw_ray \
-			horizontal_colision \
-			vertical_colision \
+			$(COLISION)draw_ray \
+			$(COLISION)horizontal_colision \
+			$(COLISION)vertical_colision \
 			
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -56,6 +57,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 		mkdir -p $(OBJ_DIR)
 		mkdir -p $(OBJ_DIR)/parsing
 		mkdir -p $(OBJ_DIR)/rendering
+		mkdir -p $(OBJ_DIR)/colision
 		echo "Compiling...[$<]"
 		$(CC) -I$(INC_DIR) -I mlx -I$(LIBFT_DIR) -c $(CFLAGS)  $< -o $@
 
@@ -72,7 +74,7 @@ $(NAME): $(MLX) $(LIBFT) $(OBJ)
 
 clean:
 	$(RM) $(NAME)
-	$(RM) $(OBJ) 
+	$(RM) $(OBJ_DIR) 
 	rm -rf ${DEPS}
 	make clean -sC $(LIBFT_DIR)
 	make clean -sC $(MLX_DIR)

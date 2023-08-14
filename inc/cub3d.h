@@ -79,7 +79,7 @@ typedef struct s_player
 	double 	first_orientation;
 	int 	advance; // 0 = parado ; 1 = adelante -1 = atras
 	int 	rotate; // 1 = derecha ; -1 = izquierda 
-	double 	rotation_angle; // N = pi/2 ; S = 3pi/2 ; E = pi ; W = 2pi 
+	double 	rot_angle; // N = pi/2 ; S = 3pi/2 ; E = pi ; W = 2pi 
 	int 	speed_adv; // 3pixels
 	double 	speed_rot; // GRADOS //cuantos grados va a girar cada vez que le damos  3 * (pi / 180) // pi / 180 es cuantos radianes es un grado
 
@@ -166,7 +166,7 @@ char	*free_var(char *src, char *dest);
 void	horizontal_colision(t_player *player, t_map *map);
 void	vertical_colision(t_player *player, t_map *map);
 float	ray_length(t_point pos, t_point col);
-int		is_there_a_wall(t_point *point, t_map *map,t_player *player);
+int		is_there_a_wall(t_point *point, t_map *map);
 
 //render witnodw
 void	init_render(t_all *all);

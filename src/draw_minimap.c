@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/11 13:21:53 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/14 10:59:19 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	player->ray->colision_ver.color = 0x000000;
 	paint_square(&player->square->coord, data, map->tile_size/10);
 	paint_ray(player, map, data);
-	new_x = player->pos.x + (player->advance * cos(player->rotation_angle) * player->speed_adv);
-	new_y = player->pos.y + (player->advance * sin(player->rotation_angle) * player->speed_adv);
+	new_x = player->pos.x + (player->advance * cos(player->rot_angle) * player->speed_adv);
+	new_y = player->pos.y + (player->advance * sin(player->rot_angle) * player->speed_adv);
 	if(is_valid_tile_for_player(new_x - (map->tile_size / 20), new_y - (map->tile_size / 20), map))
 	{
 		player->pos.x = new_x;
@@ -149,9 +149,9 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 		player->square->coord.x = new_x - (map->tile_size / 20);
 		player->square->coord.y = new_y - (map->tile_size / 20);
 	}
-	player->rotation_angle += player->rotate * player->speed_rot;
-	angle(&player->rotation_angle);
-	printf("rotation_angle:%f\n", player->rotation_angle);
+	player->rot_angle += player->rotate * player->speed_rot;
+	angle(&player->rot_angle);
+	printf("rot_angle:%f\n", player->rot_angle);
 	player->square->coord.color = 0xFFFFFF;
 	player->ray->colision_hor.color = 0xFF0000;
 	player->ray->colision_ver.color = 0xFF0000;
