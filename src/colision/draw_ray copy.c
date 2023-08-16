@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/16 19:45:39 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/16 15:53:07 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,24 @@ void	direction_ray(t_player *player)
 }
 
 //This function returns 1 if there is a wall in the point that is receiving.
-// int	is_there_a_wall(t_point *point, t_map *map)
-// {
-// 	t_point	matrix;
+int	is_there_a_wall(t_point *point, t_map *map)
+{
+	t_point	matrix;
 	
-// 	matrix.x = point->x / map->tile_size;
-// 	matrix.y = point->y / map->tile_size;
-// 	if (matrix.x >= map->cols)
-// 		matrix.x = map->cols - 1;
-// 	if (matrix.x <= 0)
-// 		matrix.x = 0;
-// 	if (matrix.y >= map->rows)
-// 		matrix.y = map->rows - 1;
-// 	if (matrix.y <= 0)
-// 		matrix.y = 0;
-// 	if (map->map_arr[(int)matrix.y][(int)matrix.x] == '1')
-// 		return (1);
-// 	return (0);
-// }
+	matrix.x = point->x / map->tile_size;
+	matrix.y = point->y / map->tile_size;
+	if (matrix.x >= map->cols)
+		matrix.x = map->cols - 1;
+	if (matrix.x <= 0)
+		matrix.x = 0;
+	if (matrix.y >= map->rows)
+		matrix.y = map->rows - 1;
+	if (matrix.y <= 0)
+		matrix.y = 0;
+	if (map->map_arr[(int)matrix.y][(int)matrix.x] == '1')
+		return (1);
+	return (0);
+}
 
 int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 {
@@ -76,12 +76,12 @@ int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 void	paint_ray(t_player *player, t_map *map, t_data *data)
 {
 	direction_ray(player);
-	find_colision_with_horizontal_lines(player, map);
-	// vertical_colision(player, map);
-	// if (player->ray->distance_horizontal < player->ray->distance_vertical)
+	horizontal_colision(player, map);
+	vertical_colision(player, map);
+	if (player->ray->distance_horizontal < player->ray->distance_vertical)
 		draw_line(data, player->pos, player->ray->colision_hor);
-	// else
-	// 	draw_line(data, player->pos, player->ray->colision_ver);
+	else
+		draw_line(data, player->pos, player->ray->colision_ver);
 }
 
 //Pitagoras to know the length of the ray

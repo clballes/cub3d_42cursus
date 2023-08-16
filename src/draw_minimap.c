@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/16 16:47:22 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/16 21:10:25 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,9 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 }
 
 
-int	is_valid_tile_for_player(double x, double y, t_map *map)
+int	is_valid_tile_for_player(double x, double y, t_map *map, t_player *player)
 {
+	(void)player;
 	// t_corners	corners;
 	// int i;
 	int mat_x;
@@ -117,14 +118,17 @@ int	is_valid_tile_for_player(double x, double y, t_map *map)
 	// 	&& map->map_arr[corners.down_left_y][corners.down_left_x] != '1' 
 	// 	&& map->map_arr[corners.down_right_y][corners.down_right_x] != '1')
 	// 	return (1);
-	printf("X:%f, Y:%f\n", x, y);
 	mat_x = x / map->tile_size;
 	mat_y = y / map->tile_size;
 	
-
+	
 	if(map->map_arr[(int)mat_y][(int)mat_x] != '1')
 		return(1);
-	
+	// else
+	// {
+	// 	player->pos.x = (int)mat_x * map->tile_size;
+	// 	player->pos.y = (int)mat_y * map->tile_size;
+	// }
 	return (0);
 }
 
@@ -149,7 +153,7 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	paint_ray(player, map, data);
 	new_x = player->pos.x + (player->advance * cos(player->rot_angle) * player->speed_adv);
 	new_y = player->pos.y + (player->advance * sin(player->rot_angle) * player->speed_adv);
-	if(is_valid_tile_for_player(new_x , new_y, map))
+	if(is_valid_tile_for_player(new_x , new_y, map, player))
 	{
 		
 		player->pos.x = new_x;
@@ -157,6 +161,10 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 		player->square->coord.x = new_x - ((float)PLAYER/2);
 		player->square->coord.y = new_y - ((float)PLAYER/2);
 	}
+	// else
+	// {
+	// 	// player->pos = maxima posicion sin chocar con pared 
+	// }
 	player->rot_angle += player->rotate * player->speed_rot;
 	
 	angle(&player->rot_angle);

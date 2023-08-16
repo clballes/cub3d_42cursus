@@ -171,10 +171,12 @@ void	horizontal_colision(t_player *player, t_map *map);
 void	vertical_colision(t_player *player, t_map *map);
 float	ray_length(t_point pos, t_point col);
 int		is_there_a_wall(t_point *point, t_map *map);
+void	find_colision_with_horizontal_lines(t_player *player, t_map *map);
+
 
 //render witnodw
 void	init_render(t_all *all);
-int		is_valid_tile_for_player(double x, double y, t_map *map);
+int		is_valid_tile_for_player(double x, double y, t_map *map, t_player *player);
 void	init_ray(t_player	*player);
 int		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	paint_ray(t_player *player, t_map *map, t_data *data);
