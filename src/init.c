@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/14 19:34:39 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:38:39 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_player(t_player *player, int orientation, int x, int y, int tile_size)
 		player->rot_angle =  M_PI;
 	player->advance = 0;
 	player->rotate = 0;
-	player->speed_adv = 1;
+	player->speed_adv = 3;
 	player->speed_rot = 3 * (M_PI / 180);
 	player->pos.x = x + tile_size / 2; //centro del cuadrado que pintamos_x
 	player->pos.y = y + tile_size / 2; //centro del cuadrado que pintamos_y

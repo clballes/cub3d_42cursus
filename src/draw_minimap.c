@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/14 17:01:12 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/16 12:44:08 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	}
 	player->rot_angle += player->rotate * player->speed_rot;
 	angle(&player->rot_angle);
-	printf("rot_angle:%f\n", player->rot_angle);
+	// printf("rot_angle:%f\n", player->rot_angle);
 	player->square->coord.color = 0xFFFFFF;
 	// player->ray->colision_hor.color = 0xFF0000;
 	// player->ray->colision_ver.color = 0xFF0000;

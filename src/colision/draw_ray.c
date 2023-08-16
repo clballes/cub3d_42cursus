@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/14 19:36:51 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:33:50 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,18 @@ void	paint_ray(t_player *player, t_map *map, t_data *data, int color)
 		direction_ray(player, &player->ray[i]);
 		horizontal_colision(player, map, &player->ray[i]);
 		vertical_colision(player, map, &player->ray[i]);
-		// printf("H_x%f, H_y%f, H_dist %f\n",player->ray[i].colision_hor.x,player->ray[i].colision_hor.y,player->ray[i].distance_horizontal);
-		// printf("V_x%f, V_y%f, V_dist %f\n",player->ray[i].colision_ver.x,player->ray[i].colision_ver.y,player->ray[i].distance_vertical);
 		if (player->ray[i].distance_horizontal < player->ray[i].distance_vertical)
 		{
 			// printf("player->ray[%d].colision_hor=%f\n", i,player->ray[i].distance_horizontal);
+			printf("H_x%f, H_y%f, H_dist %f, angulo:%f\n",player->ray[i].colision_hor.x,player->ray[i].colision_hor.y,player->ray[i].distance_horizontal, player->ray_rot_angle);
 			draw_line(data, player->pos, player->ray[i].colision_hor);
 		}
 		else
+		{
+			printf("V_x%f, V_y%f, V_dist %f, angulo:%f\n",player->ray[i].colision_ver.x,player->ray[i].colision_ver.y,player->ray[i].distance_vertical, player->ray_rot_angle);
 			draw_line(data, player->pos, player->ray[i].colision_ver);
+			
+		}
 		player->ray_rot_angle += angle_increase;
 		angle(&player->ray_rot_angle);
 		i++;
@@ -110,11 +113,11 @@ void	paint_ray(t_player *player, t_map *map, t_data *data, int color)
 }
 
 //Pitagoras to know the length of the ray
-float	ray_length(t_point pos, t_point col)
+double	ray_length(t_point pos, t_point col)
 {
-	float	hypotenuse;
-	float	x;
-	float	y;
+	double	hypotenuse;
+	double	x;
+	double	y;
 
 	if (pos.x > col.x)
 		x = pos.x - col.x;

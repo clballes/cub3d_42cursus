@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:07:04 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/14 18:59:26 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:31:34 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@ void	first_vertical_colision_point(t_player *player, t_map *map, t_ray *ray)
 	* map->tile_size;
 	if (!ray->left)
 		ray->colision_ver.x += map->tile_size;
-	opposite_length = nearbyint((ray->colision_ver.x - player->pos.x) \
-	* tan(player->ray_rot_angle));
+	opposite_length = (ray->colision_ver.x - player->pos.x) \
+	* tan(player->ray_rot_angle);
 	ray->colision_ver.y = player->pos.y + opposite_length;
 	if (ray->left)
+	{
 		ray->colision_ver.x--;
+		
+	}
 }
 
 // Calculates the next intersection points with vertical lines and stops if 

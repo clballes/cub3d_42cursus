@@ -164,7 +164,7 @@ char	*free_var(char *src, char *dest);
 //colision
 void	horizontal_colision(t_player *player, t_map *map, t_ray *ray);
 void	vertical_colision(t_player *player, t_map *map, t_ray *ray);
-float	ray_length(t_point pos, t_point col);
+double	ray_length(t_point pos, t_point col);
 int		is_there_a_wall(t_point *point, t_map *map);
 // void	draw_fov_rays(t_player *player, t_map *map, t_data *data);
 void	angle(double *angle);

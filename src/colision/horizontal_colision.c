@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:06:34 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/14 18:54:21 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:31:36 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,14 @@ void	first_horizontal_colision_point(t_player *player, t_map *map, t_ray *ray)
 	* map->tile_size;
 	if (ray->down)
 		ray->colision_hor.y += map->tile_size;
-	adjacent_length = nearbyint((player->pos.y - ray->colision_hor.y) \
-	/ tan(player->ray_rot_angle));
-	printf("adj:%f\n", adjacent_length);
-	printf("tan:%f\n", tan(player->ray_rot_angle));
-	printf("rotation_angle:%f\n", player->ray_rot_angle);
+	adjacent_length =(player->pos.y - ray->colision_hor.y) \
+	/ tan(player->ray_rot_angle);
+	// printf("adj:%f\n", adjacent_length);
+	// printf("tan:%f\n", tan(player->ray_rot_angle));
+	// printf("rotation_angle:%f\n", player->ray_rot_angle);
 	if (!ray->left && adjacent_length > 0)
 	{
-		printf("entra\n");
-		ray->colision_hor.x = player->pos.x + adjacent_length;
-		
+		ray->colision_hor.x = player->pos.x + adjacent_length;	
 	}
 	else
 		ray->colision_hor.x = player->pos.x - adjacent_length;
@@ -74,7 +72,10 @@ void	horizontal_colision(t_player *player, t_map *map, t_ray *ray)
 	if (is_there_a_wall(&ray->colision_hor, map))
 	{
 		if (!ray->down)
+		{
+			printf("sumo1\n");
 			ray->colision_hor.y++;
+		}
 		ray->distance_horizontal = ray_length(player->pos, \
 		ray->colision_hor);
 	}
@@ -82,7 +83,10 @@ void	horizontal_colision(t_player *player, t_map *map, t_ray *ray)
 	{
 		next_horizontal_colision_point(player, map, ray);
 		if (!ray->down)
+		{
+			printf("sumo2\n");
 			ray->colision_hor.y++;
+		}
 		ray->distance_horizontal = ray_length(player->pos, \
 		ray->colision_hor);
 	}
