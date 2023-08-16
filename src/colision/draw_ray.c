@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/14 11:02:36 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/16 15:53:07 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	direction_ray(t_player *player)
 int	is_there_a_wall(t_point *point, t_map *map)
 {
 	t_point	matrix;
-
+	
 	matrix.x = point->x / map->tile_size;
 	matrix.y = point->y / map->tile_size;
 	if (matrix.x >= map->cols)

@@ -46,6 +46,7 @@ int	check_letter(t_map *map, int i, int j)
 	if (map->map_arr[i][j] == 'S' || map->map_arr[i][j] == 'W'
 		|| map->map_arr[i][j] == 'E' || map->map_arr[i][j] == 'N')
 	{
+		map->player_orientation = map->map_arr[i][j];
 		map->pos_x = j;
 		map->pos_y = i;
 		return (0);

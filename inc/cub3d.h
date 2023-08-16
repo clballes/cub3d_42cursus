@@ -14,8 +14,11 @@
 
 # define WIN_X 1920
 # define WIN_Y 1024
+
 # define MAP_X WIN_X/8
 # define MAP_Y WIN_Y/8
+# define PLAYER	5
+
 
 # define TURQUOISE 0x33b3a6
 
@@ -119,6 +122,7 @@ typedef struct s_map
     int	pos_y;
     int	pos_x;
 	int rows;
+	int	player_orientation;
 } t_map;
 
 typedef struct s_all {
@@ -149,7 +153,7 @@ int		ft_destroy_window(t_vars *vars);
 int		key_press(int keycode, t_all *all);
 int		key_up(int keycode, t_player *player);
 void	draw_initial_map(t_data *data, t_player *player, t_all *all);
-void	init_player(t_player *player, int orientation, int x, int y, int tile_size);
+void	init_player(t_player *player, t_map *map);
 void	init_ray(t_player	*player);
 void	direction_ray(t_player *player);
 
@@ -170,7 +174,7 @@ int		is_there_a_wall(t_point *point, t_map *map);
 
 //render witnodw
 void	init_render(t_all *all);
-int		is_valid_tile_for_player(int x, int y, t_map *map);
+int		is_valid_tile_for_player(double x, double y, t_map *map);
 void	init_ray(t_player	*player);
 int		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	paint_ray(t_player *player, t_map *map, t_data *data);

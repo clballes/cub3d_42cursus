@@ -6,37 +6,39 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/14 10:59:34 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:46:30 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_player(t_player *player, int orientation, int x, int y, int tile_size)
+void	init_player(t_player *player, t_map *map)
 {
 	t_square	*square;
 	
 	square = ft_calloc(1, sizeof(t_square));
 	player->square = square;
-	player->first_orientation = orientation;
-	if (orientation == 'N')
+	player->first_orientation = map->player_orientation;
+	if (map->player_orientation == 'N')
 		player->rot_angle = 3 * M_PI_2;
-	if (orientation == 'S')
+	if (map->player_orientation == 'S')
 		player->rot_angle =  M_PI_2;
-	if (orientation == 'E')
+	if (map->player_orientation == 'E')
 		player->rot_angle = 2 * M_PI;
-	if (orientation == 'W')
+	if (map->player_orientation == 'W')
 		player->rot_angle =  M_PI;
 	player->advance = 0;
 	player->rotate = 0;
 	player->speed_adv = 1;
 	player->speed_rot = 3 * (M_PI / 180);
-	player->pos.x = x + tile_size / 2; //centro del cuadrado que pintamos_x
-	player->pos.y = y + tile_size / 2; //centro del cuadrado que pintamos_y
-	player->square->side = tile_size/10;
-	player->square->coord.x = x + tile_size / 2 - (tile_size / 20);
-	player->square->coord.y = y + tile_size / 2 - (tile_size / 20);
+	player->pos.x = map->pos_x * map->tile_size + map->tile_size / 2; //centro del cuadrado que pintamos_x
+	player->pos.y = map->pos_y * map->tile_size + map->tile_size / 2; //centro del cuadrado que pintamos_y
+	// printf("player_pos_X:%f player_pos_Y= %f\n",  player->pos.x, player->pos.y);
+	// player->square->side = PLAYER;
+	player->square->coord.x = player->pos.x  - (float)PLAYER/2;
+	player->square->coord.y = player->pos.y  - (float)PLAYER/2;
 	player->square->coord.color = 0xFFFFFF;
+
 	init_ray(player);
 }
 
