@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/16 21:10:25 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/17 11:37:49 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,10 +147,10 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	double new_x;
 	double new_y;
 	player->square->coord.color = 0x000000;
-	player->ray->colision_hor.color = 0x000000;
-	player->ray->colision_ver.color = 0x000000;
+	// player->ray->colision_hor.color = 0x000000;
+	// player->ray->colision_ver.color = 0x000000;
 	paint_square(&player->square->coord, data, PLAYER);
-	paint_ray(player, map, data);
+	// paint_ray(player, map, data);
 	new_x = player->pos.x + (player->advance * cos(player->rot_angle) * player->speed_adv);
 	new_y = player->pos.y + (player->advance * sin(player->rot_angle) * player->speed_adv);
 	if(is_valid_tile_for_player(new_x , new_y, map, player))

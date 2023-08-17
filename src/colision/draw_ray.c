@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/16 19:45:39 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/17 13:03:52 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,25 @@ void	direction_ray(t_player *player)
 		player->ray->left = 1;
 }
 
-//This function returns 1 if there is a wall in the point that is receiving.
-// int	is_there_a_wall(t_point *point, t_map *map)
-// {
-// 	t_point	matrix;
+// This function returns 1 if there is a wall in the point that is receiving.
+int	is_there_a_wall(t_point *point, t_map *map)
+{
+	t_point	matrix;
 	
-// 	matrix.x = point->x / map->tile_size;
-// 	matrix.y = point->y / map->tile_size;
-// 	if (matrix.x >= map->cols)
-// 		matrix.x = map->cols - 1;
-// 	if (matrix.x <= 0)
-// 		matrix.x = 0;
-// 	if (matrix.y >= map->rows)
-// 		matrix.y = map->rows - 1;
-// 	if (matrix.y <= 0)
-// 		matrix.y = 0;
-// 	if (map->map_arr[(int)matrix.y][(int)matrix.x] == '1')
-// 		return (1);
-// 	return (0);
-// }
+	matrix.x = point->x / map->tile_size;
+	matrix.y = point->y / map->tile_size;
+	if (matrix.x >= map->cols)
+		matrix.x = map->cols - 1;
+	if (matrix.x <= 0)
+		matrix.x = 0;
+	if (matrix.y >= map->rows)
+		matrix.y = map->rows - 1;
+	if (matrix.y <= 0)
+		matrix.y = 0;
+	if (map->map_arr[(int)matrix.y][(int)matrix.x] == '1')
+		return (1);
+	return (0);
+}
 
 int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 {
