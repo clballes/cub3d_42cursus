@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:06:34 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/16 21:13:26 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/17 11:12:42 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,17 @@ int	is_there_a_wall(t_point *point, t_map *map)
 		matrix.y = map->rows - 1;
 	if (matrix.y <= 0)
 		matrix.y = 0;
-	printf("X: %f Y: %f\n", point->x, point->y);
-	printf("M X: %f Y: %f\n", matrix.x, matrix.y);
-	for (int i = 0; i < map->rows; i++) {
-		for (int j = 0; j < map->cols; j++) {
-			if (i == (int)matrix.y && j == (int)matrix.x)
-				printf("#");
-			else
-				printf("%c", map->map_arr[i][j]);
-		}
-		printf("\n");
-	}
+	// printf("X: %f Y: %f\n", point->x, point->y);
+	// printf("M X: %f Y: %f\n", matrix.x, matrix.y);
+	// for (int i = 0; i < map->rows; i++) {
+	// 	for (int j = 0; j < map->cols; j++) {
+	// 		if (i == (int)matrix.y && j == (int)matrix.x)
+	// 			printf("#");
+	// 		else
+	// 			printf("%c", map->map_arr[i][j]);
+	// 	}
+	// 	printf("\n");
+	// }
 	if (map->map_arr[(int)matrix.y][(int)matrix.x] == '1')
 	{
 		printf("PARED\n");
@@ -77,7 +77,10 @@ int	is_there_a_wall(t_point *point, t_map *map)
 void	find_colision_with_horizontal_lines(t_player *player, t_map *map)
 {
 	if(player->rot_angle == 0 || player->rot_angle == M_PI)
+	{
+		printf("miro al este y no pinto\n");
 		return ;
+	}
 	player->ray->colision_hor.x = 0;
 	player->ray->colision_hor.y = 0;
 	while(1)
