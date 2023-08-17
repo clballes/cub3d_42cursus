@@ -172,6 +172,7 @@ void	vertical_colision(t_player *player, t_map *map);
 float	ray_length(t_point pos, t_point col);
 int		is_there_a_wall(t_point *point, t_map *map);
 void	find_colision_with_horizontal_lines(t_player *player, t_map *map);
+void	find_colision_with_vertical_lines(t_player *player, t_map *map);
 
 
 //render witnodw

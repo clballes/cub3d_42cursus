@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:06:34 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/17 13:04:09 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:49:56 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	find_colision_with_horizontal_lines(t_player *player, t_map *map)
 {
 	if(player->rot_angle == 0 || player->rot_angle == M_PI )
 	{
-		printf("miro al este y no pinto\n");
+		//distancia horizontal maxima;
 		return ;
 	}
 	if((player->rot_angle > M_PI  && player->rot_angle <= 2 * M_PI))
@@ -48,12 +48,12 @@ void	find_colision_with_horizontal_lines(t_player *player, t_map *map)
 				if(player->ray->down)
 				{
 					player->ray->colision_hor.y += map->tile_size;
-					player->ray->colision_hor.x += (map->tile_size)/tan(player->rot_angle);
+					player->ray->colision_hor.x += (map->tile_size) / tan(player->rot_angle);
 				}
 				else
 				{
 					player->ray->colision_hor.y -= map->tile_size;
-					player->ray->colision_hor.x += (-map->tile_size)/tan(player->rot_angle);
+					player->ray->colision_hor.x += (-map->tile_size) / tan(player->rot_angle);
 				}
 			}
 		else

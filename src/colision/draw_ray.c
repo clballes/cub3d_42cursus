@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/17 13:03:52 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/17 13:33:29 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,14 @@ int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 void	paint_ray(t_player *player, t_map *map, t_data *data)
 {
 	direction_ray(player);
-	find_colision_with_horizontal_lines(player, map);
+	// find_colision_with_horizontal_lines(player, map);
+	find_colision_with_vertical_lines(player, map);
 	// vertical_colision(player, map);
 	// if (player->ray->distance_horizontal < player->ray->distance_vertical)
-		draw_line(data, player->pos, player->ray->colision_hor);
+		// player->ray->colision_ver.color = 0x008000;
+		// player->ray->colision_hor.color = 0x800080;
+		// draw_line(data, player->pos, player->ray->colision_hor);
+		draw_line(data, player->pos, player->ray->colision_ver);
 	// else
 	// 	draw_line(data, player->pos, player->ray->colision_ver);
 }

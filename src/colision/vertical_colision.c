@@ -6,71 +6,68 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:07:04 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/14 11:34:04 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:59:20 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	first_vertical_colision_point(t_player *player, t_map *map)
+void	 vcol_left(t_player *player, t_map *map)
 {
-	double	opposite_length;
-
-	player->ray->colision_ver.x = floor(player->pos.x / map->tile_size) \
-	* map->tile_size;
-	if (!player->ray->left)
-		player->ray->colision_ver.x += map->tile_size;
-	opposite_length = nearbyint((player->ray->colision_ver.x - player->pos.x) \
-	* tan(player->rot_angle));
-	player->ray->colision_ver.y = player->pos.y + opposite_length;
-	if (player->ray->left)
-		player->ray->colision_ver.x--;
+	player->ray->colision_ver.x = ((int)(player->pos.x / map->tile_size) * map->tile_size) - 0.0001;
+	// UP (la resta es negativa)(la tangente es positiva) la y nos tiene que dar mas pequena
+	// DOWN(la resta es negativa)(la tangente es negativa) la y nos tiene que dar mas grande
+	player->ray->colision_ver.y = (player->ray->colision_ver.x - player->pos.x) * tan(player->rot_angle) + player->pos.y;
+	printf("LEFT::colision_x:%f colision_y:%f\n",player->ray->colision_ver.x,player->ray->colision_ver.y );
+	printf("tang=%f\n", tan(player->rot_angle));
 }
 
-void	next_vertical_colision_point(t_player *player, t_map *map)
+void	vcol_right(t_player *player, t_map *map)
 {
-	int		step_x;
-	int		step_y;
+	player->ray->colision_ver.x =((int)(player->pos.x / map->tile_size) * map->tile_size) + map->tile_size;
+	player->ray->colision_ver.y = ((player->pos.x - player->ray->colision_hor.x ) * tan(player->rot_angle)) + player->pos.y;
+	printf("RIGHT::colision_x:%f colision_y:%f\n",player->ray->colision_ver.x,player->ray->colision_ver.y );
+	printf("tang=%f\n", tan(player->rot_angle));
+}
 
-	step_x = map->tile_size;
-	step_y = step_x * (tan(player->rot_angle));
-	if (player->ray->left)
-		step_x = -step_x;
-	if ((!player->ray->down && step_y > 0) || (player->ray->down && step_y < 0))
-		step_y = -step_y;
-	while (1)
+void	find_colision_with_vertical_lines(t_player *player, t_map *map)
+{
+	printf("player->rot_angle:%f\n", player->rot_angle);
+	// if(player->rot_angle == (3 * M_PI / 2) || player->rot_angle == (M_PI / 2))
+	// {
+	// 	printf("A\n");
+	// 	//distancia vertical maxima;
+	// 	return ;
+	// }
+	if(player->rot_angle > (M_PI / 2) && player->rot_angle < (3 * M_PI / 2))
 	{
-		if (!is_there_a_wall(&player->ray->colision_ver, map))
-		{
-			if (player->ray->colision_ver.x < 0 || player->ray->colision_ver.x \
-			> MAP_X)
-				break ;
-			if (player->ray->colision_ver.x > MAP_X)
-				break ;
-			player->ray->colision_ver.x += step_x;
-			player->ray->colision_ver.y += step_y;
-		}
+		printf("izquierda\n");
+		vcol_left(player, map);
+	}
+	if((player->rot_angle > (3 * M_PI / 2) && player->rot_angle <= (2 * M_PI)) || (player->rot_angle >= 0  && player->rot_angle <= (M_PI / 2)))
+	{
+		printf("derecha\n");
+		vcol_right(player, map);
+	}
+	while(1)
+	{
+		printf("siguientes\n");
+		if(!is_there_a_wall(&player->ray->colision_ver, map)&& player->ray->colision_ver.y / map->tile_size <= map->rows)
+			{
+				if(!player->ray->left)
+				{
+					player->ray->colision_ver.x += map->tile_size;
+					player->ray->colision_ver.y += map->tile_size * tan(player->rot_angle);
+				}
+				else
+				{
+					player->ray->colision_ver.x -= map->tile_size;
+					player->ray->colision_ver.y += (-map->tile_size) * tan(player->rot_angle);
+				}
+			}
 		else
-			break ;
-	}
-}
-
-void	vertical_colision(t_player *player, t_map *map)
-{
-	first_vertical_colision_point(player, map);
-	if (is_there_a_wall(&player->ray->colision_ver, map))
-	{
-		if (player->ray->left)
-			player->ray->colision_ver.x++;
-		player->ray->distance_vertical = ray_length(player->pos, \
-		player->ray->colision_ver);
-	}
-	else
-	{
-		next_vertical_colision_point(player, map);
-		if (player->ray->left)
-			player->ray->colision_ver.x++;
-		player->ray->distance_vertical = ray_length(player->pos, \
-		player->ray->colision_ver);
+		{
+			break;
+		}
 	}
 }
