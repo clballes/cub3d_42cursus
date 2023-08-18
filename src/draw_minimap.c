@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/18 13:54:57 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/18 19:14:47 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,30 +101,49 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all, int first_time
 int	is_valid_tile_for_player(double x, double y, t_map *map, t_player *player)
 {
 	(void)player;
-	// t_corners	corners;
+	t_corners	corners;
 	// int i;
 	int mat_x;
 	int mat_y;
 	// i = 0;
-	// corners.up_left_x = x / map->tile_size;
-	// corners.up_left_y = y / map->tile_size;
-	// corners.up_right_x = (x  + map->tile_size / 10)/ map->tile_size;
-	// corners.up_right_y = y / map->tile_size;
-	// corners.down_left_x = x / map->tile_size;
-	// corners.down_left_y = (y  + map->tile_size / 10) / map->tile_size;
-	// corners.down_right_x = (x + map->tile_size / 10) / map->tile_size;
-	// corners.down_right_y =(y  + map->tile_size / 10) / map->tile_size;
-	// if (map->map_arr[corners.up_left_y][corners.up_left_x]!= '1' 
-	// 	&& map->map_arr[corners.up_right_y][corners.up_right_x] != '1' 
-	// 	&& map->map_arr[corners.down_left_y][corners.down_left_x] != '1' 
-	// 	&& map->map_arr[corners.down_right_y][corners.down_right_x] != '1')
-	// 	return (1);
+	corners.up_left_x = x / map->tile_size;
+	corners.up_left_y = y / map->tile_size;
+	corners.down_left_x = x / map->tile_size;
+	corners.down_left_y = (y  + PLAYER) / map->tile_size;
+	corners.up_right_x = (x  + PLAYER)/ map->tile_size;
+	corners.up_right_y = y / map->tile_size;
+	corners.down_right_x = (x + PLAYER) / map->tile_size;
+	corners.down_right_y =(y  + PLAYER) / map->tile_size;
+	printf("----------------------\n");
+	//se estan imprimiento en la matriz 
+	printf("esquina_sup_izq: x=%d ,y=%d\n",corners.up_left_x, corners.up_left_y);
+	printf("esquina_sup_dcha: x=%d ,y=%d\n",corners.up_right_x, corners.up_right_y);
+	printf("esquina_inf_izq: x=%d ,y=%d\n",corners.down_left_x, corners.down_left_y);
+	printf("esquina_inf_dcha: x=%d ,y=%d\n",corners.down_right_x, corners.down_right_y);
+	// if (map->map_arr[corners.up_left_y][corners.up_left_x] == '1' && map->map_arr[corners.up_right_y][corners.up_right_x] == 1) //recta horizontal del jugador superior
+	// {
+	// 	// calcular el maximo y sumar la y hasta que sea el maximo
+	// }
+	// if (map->map_arr[corners.up_left_y][corners.up_left_x] == '1' && map->map_arr[corners.down_left_y][corners.down_left_x] == 1) // vertical del jugador izquierda
+	// {
+	// 	// calcular el maximo y  sumar la x hasta que sea el maximo
+	// }
+	// if (map->map_arr[corners.down_left_y][corners.down_left_x] == '1' && map->map_arr[corners.down_right_y][corners.down_right_x] == 1) // horizontal del jugador inferior
+	// {
+	// 	// calcular el maximo y restar la y hasta que sea el maximo
+	// }
+	// if (map->map_arr[corners.up_right_y][corners.up_left_x] == '1' && map->map_arr[corners.down_right_y][corners.down_right_x] == 1)//vertical del jugador derecha
+	// {
+	// 	// calcular el maximo y restar la x hasta que sea el maximo
+	// }
+	
 	mat_x = x / map->tile_size;
 	mat_y = y / map->tile_size;
-	
+
 	
 	if(map->map_arr[(int)mat_y][(int)mat_x] != '1')
 		return(1);
+	
 	// else
 	// {
 	// 	player->pos.x = (int)mat_x * map->tile_size;
@@ -151,9 +170,10 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	
 	paint_square(&player->square->coord, data, PLAYER);//clear map
 	paint_ray(player, map, data, 0x000000);//clear map
-	draw_initial_map(data, player, all, 0);
+	draw_initial_map(data, player, all, 0);//clear map
 	new_x = player->pos.x + (player->advance * cos(player->rot_angle) * player->speed_adv);
 	new_y = player->pos.y + (player->advance * sin(player->rot_angle) * player->speed_adv);
+	
 	if(is_valid_tile_for_player(new_x , new_y, map, player))
 	{
 		

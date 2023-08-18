@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:06:34 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/18 13:58:03 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/18 17:36:31 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,5 @@ void	find_colision_with_horizontal_lines(t_player *player, t_map *map, t_ray *ra
 			ray->distance_horizontal = ray_length(player->pos, ray->colision_hor);
 			break;
 		}
-		
 	}
 }
