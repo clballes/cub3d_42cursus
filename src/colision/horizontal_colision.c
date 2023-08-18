@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:06:34 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/17 15:49:56 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/18 12:26:42 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ void hcol_down(t_player *player, t_map *map)
 
 void	find_colision_with_horizontal_lines(t_player *player, t_map *map)
 {
-	if(player->rot_angle == 0 || player->rot_angle == M_PI )
-	{
-		//distancia horizontal maxima;
-		return ;
-	}
 	if((player->rot_angle > M_PI  && player->rot_angle <= 2 * M_PI))
 	{
 		hcol_up(player, map);
