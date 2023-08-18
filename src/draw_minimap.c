@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/17 11:37:49 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/18 13:54:57 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	draw_walls_blanks(t_square *wall, t_data *data, int x, int y)
 	paint_square(&wall->coord, data, wall->side);
 }
 
-void	draw_initial_map(t_data *data, t_player *player, t_all *all)
+void	draw_initial_map(t_data *data, t_player *player, t_all *all, int first_time)
 {
 	int i;
 	int j;
@@ -84,7 +84,7 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 				
 		
 			// if (all->map.map_arr[i][j] == 'N' || all->map.map_arr[i][j] == 'S' || all->map.map_arr[i][j] == 'E' || all->map.map_arr[i][j] == 'W')
-			if(i == all->map.pos_y && j == all->map.pos_x)
+			if(i == all->map.pos_y && j == all->map.pos_x && first_time)
 			{
 				init_player(player, &all->map);
 				paint_square(&player->square->coord, data, PLAYER);
@@ -93,7 +93,8 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all)
 		}
 		i++;
 	}
-	mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
+	if(first_time)
+		mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
 }
 
 
@@ -146,11 +147,11 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 {
 	double new_x;
 	double new_y;
-	player->square->coord.color = 0x000000;
-	// player->ray->colision_hor.color = 0x000000;
-	// player->ray->colision_ver.color = 0x000000;
-	paint_square(&player->square->coord, data, PLAYER);
-	// paint_ray(player, map, data);
+	player->square->coord.color = 0x000000;//clear map
+	
+	paint_square(&player->square->coord, data, PLAYER);//clear map
+	paint_ray(player, map, data, 0x000000);//clear map
+	draw_initial_map(data, player, all, 0);
 	new_x = player->pos.x + (player->advance * cos(player->rot_angle) * player->speed_adv);
 	new_y = player->pos.y + (player->advance * sin(player->rot_angle) * player->speed_adv);
 	if(is_valid_tile_for_player(new_x , new_y, map, player))
@@ -161,10 +162,7 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 		player->square->coord.x = new_x - ((float)PLAYER/2);
 		player->square->coord.y = new_y - ((float)PLAYER/2);
 	}
-	// else
-	// {
-	// 	// player->pos = maxima posicion sin chocar con pared 
-	// }
+	
 	player->rot_angle += player->rotate * player->speed_rot;
 	
 	angle(&player->rot_angle);
@@ -172,7 +170,7 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	player->ray->colision_hor.color = 0xFF0000;
 	player->ray->colision_ver.color = 0xFF0000;
 	paint_square(&player->square->coord, data, PLAYER);
-	paint_ray(player, map, data);
+	paint_ray(player, map, data, 0xFF0000);
 	mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
 }
 

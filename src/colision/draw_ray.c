@@ -6,22 +6,22 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/18 12:38:37 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/18 13:48:25 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
+double	grades_to_rads(double angle);
 //This function tell us the direction of the ray depending on the angle
 // of the player.
-void	direction_ray(t_player *player)
+void	direction_ray(t_player *player, t_ray *ray)
 {
-	player->ray->down = 0;
-	player->ray->left = 0;
-	if (player->rot_angle < M_PI)
-		player->ray->down = 1;
-	if (player->rot_angle > M_PI / 2 && player->rot_angle < 3 * M_PI / 2)
-		player->ray->left = 1;
+	ray->down = 0;
+	ray->left = 0;
+	if (player->ray_rot_angle < M_PI)
+		ray->down = 1;
+	if (player->ray_rot_angle > M_PI / 2 && player->ray_rot_angle < 3 * M_PI / 2)
+		ray->left = 1;
 }
 
 // This function returns 1 if there is a wall in the point that is receiving.
@@ -73,19 +73,34 @@ int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 
 // Compare the vertical and the horizontal colision and draw 
 // the ray that is shorter.
-void	paint_ray(t_player *player, t_map *map, t_data *data)
+void	paint_ray(t_player *player, t_map *map, t_data *data, int color)
 {
-	direction_ray(player);
-	find_colision_with_horizontal_lines(player, map);
-	find_colision_with_vertical_lines(player, map);
-	// vertical_colision(player, map);
-	// if (player->ray->distance_horizontal < player->ray->distance_vertical)
-		player->ray->colision_ver.color = 0x008000;
-		player->ray->colision_hor.color = 0x800080;
-		draw_line(data, player->pos, player->ray->colision_hor);
-		draw_line(data, player->pos, player->ray->colision_ver);
-	// else
-	// 	draw_line(data, player->pos, player->ray->colision_ver);
+	int i;
+	double	angle_increase;
+	double initial_ray_rot_angle;
+
+	angle_increase = grades_to_rads((double)FOV / (double)WIN_X);
+	initial_ray_rot_angle = player->rot_angle - grades_to_rads((double)HALFFOV);
+	angle(&initial_ray_rot_angle);
+	player->ray_rot_angle = initial_ray_rot_angle;
+
+	i = 0;
+	while(i < WIN_X)
+	{
+		player->ray[i].colision_hor.color = color;
+		player->ray[i].colision_ver.color = color;
+		direction_ray(player,&player->ray[i]);
+		find_colision_with_horizontal_lines(player, map, &player->ray[i]);
+		find_colision_with_vertical_lines(player, map, &player->ray[i]);
+		
+		if (player->ray[i].distance_horizontal < player->ray[i].distance_vertical)
+			draw_line(data, player->pos, player->ray[i].colision_hor);
+		else
+			draw_line(data, player->pos, player->ray[i].colision_ver);
+		player->ray_rot_angle += angle_increase;
+		angle(&player->ray_rot_angle);
+		i++;
+	}
 }
 
 //Pitagoras to know the length of the ray
@@ -105,4 +120,10 @@ float	ray_length(t_point pos, t_point col)
 		y = col.y - pos.y;
 	hypotenuse = sqrt((x * x) + (y * y));
 	return (hypotenuse);
+}
+
+double	grades_to_rads(double angle)
+{
+	angle = angle * M_PI / 180;
+	return (angle);
 }

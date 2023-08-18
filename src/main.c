@@ -6,7 +6,7 @@ void draw_image(t_all *all)
 	//pintaremos la imagen en 3d
 	
 	//pintaremos el minimap
-	draw_initial_map(all->data, &all->player, all);
+	draw_initial_map(all->data, &all->player, all, 1);
 }
 
 void	init_game(t_all *all)
