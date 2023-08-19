@@ -17,7 +17,7 @@
 
 # define MAP_X WIN_X/8
 # define MAP_Y WIN_Y/8
-# define PLAYER	5
+# define PLAYER	(float)6
 # define FOV 60
 # define HALFFOV FOV/2
 

@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/18 19:14:47 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/19 20:51:29 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,40 +102,80 @@ int	is_valid_tile_for_player(double x, double y, t_map *map, t_player *player)
 {
 	(void)player;
 	t_corners	corners;
-	// int i;
+
 	int mat_x;
 	int mat_y;
-	// i = 0;
-	corners.up_left_x = x / map->tile_size;
-	corners.up_left_y = y / map->tile_size;
-	corners.down_left_x = x / map->tile_size;
-	corners.down_left_y = (y  + PLAYER) / map->tile_size;
-	corners.up_right_x = (x  + PLAYER)/ map->tile_size;
-	corners.up_right_y = y / map->tile_size;
-	corners.down_right_x = (x + PLAYER) / map->tile_size;
-	corners.down_right_y =(y  + PLAYER) / map->tile_size;
+	int x_max;
+	int y_max;
+	
+	corners.up_left_x = (x - PLAYER/2 )/ map->tile_size;
+	corners.up_left_y = (y - PLAYER/2 ) / map->tile_size ;
+	corners.down_left_x = (x - PLAYER/2) / map->tile_size ;
+	corners.down_left_y = (y  + PLAYER/2)/ map->tile_size ;
+	corners.up_right_x = (x  + PLAYER/2) / map->tile_size;
+	corners.up_right_y = (y - PLAYER/2 ) / map->tile_size;
+	corners.down_right_x = (x + PLAYER/2)  / map->tile_size ;
+	corners.down_right_y =(y  + PLAYER/2)  / map->tile_size ;
 	printf("----------------------\n");
-	//se estan imprimiento en la matriz 
-	printf("esquina_sup_izq: x=%d ,y=%d\n",corners.up_left_x, corners.up_left_y);
-	printf("esquina_sup_dcha: x=%d ,y=%d\n",corners.up_right_x, corners.up_right_y);
-	printf("esquina_inf_izq: x=%d ,y=%d\n",corners.down_left_x, corners.down_left_y);
-	printf("esquina_inf_dcha: x=%d ,y=%d\n",corners.down_right_x, corners.down_right_y);
-	// if (map->map_arr[corners.up_left_y][corners.up_left_x] == '1' && map->map_arr[corners.up_right_y][corners.up_right_x] == 1) //recta horizontal del jugador superior
-	// {
-	// 	// calcular el maximo y sumar la y hasta que sea el maximo
-	// }
-	// if (map->map_arr[corners.up_left_y][corners.up_left_x] == '1' && map->map_arr[corners.down_left_y][corners.down_left_x] == 1) // vertical del jugador izquierda
-	// {
-	// 	// calcular el maximo y  sumar la x hasta que sea el maximo
-	// }
-	// if (map->map_arr[corners.down_left_y][corners.down_left_x] == '1' && map->map_arr[corners.down_right_y][corners.down_right_x] == 1) // horizontal del jugador inferior
-	// {
-	// 	// calcular el maximo y restar la y hasta que sea el maximo
-	// }
-	// if (map->map_arr[corners.up_right_y][corners.up_left_x] == '1' && map->map_arr[corners.down_right_y][corners.down_right_x] == 1)//vertical del jugador derecha
-	// {
-	// 	// calcular el maximo y restar la x hasta que sea el maximo
-	// }
+
+
+	x_max = (int)(player->pos.x / map->tile_size) * map->tile_size;
+	y_max = (int)(player->pos.y / map->tile_size) * map->tile_size;
+	if (map->map_arr[corners.up_left_y][corners.up_left_x] == '1' && map->map_arr[corners.up_right_y][corners.up_right_x] == '1') //recta horizontal del jugador superior
+	{
+		printf("BBB\n");
+		player->pos.y = y_max + PLAYER/2 ;
+		return(0);
+		// calcular el maximo y sumar la y hasta que sea el maximo
+	}
+	else if ( map->map_arr[corners.down_left_y][corners.down_left_x] == '1' && map->map_arr[corners.up_left_y][corners.up_left_x] == '1') // vertical del jugador izquierda
+	{
+		player->pos.x = x_max + PLAYER/2 ;
+		return(0);
+		// calcular el maximo y  sumar la x hasta que sea el maximo
+	}
+	else if (map->map_arr[corners.down_right_y][corners.down_right_x] == '1' && map->map_arr[corners.down_left_y][corners.down_left_x] == '1') // horizontal del jugador inferior
+	{
+		player->pos.y = y_max + map->tile_size - PLAYER/2;
+		return(0);
+		// calcular el maximo y restar la y hasta que sea el maximo
+	}
+	else if (map->map_arr[corners.up_right_y][corners.up_right_x] == '1' && map->map_arr[corners.down_right_y][corners.down_right_x] == '1')//vertical del jugador derecha
+	{
+		player->pos.x = x_max + map->tile_size - PLAYER/2;
+		return(0);
+		// calcular el maximo y restar la x hasta que sea el maximo
+	}
+	else if(map->map_arr[corners.up_left_y][corners.up_left_x] == '1')
+	{
+		printf("CCCC\n");
+			// player->pos.y = y_max + PLAYER/2 ;
+			// player->pos.x = x_max + PLAYER/2 ;
+			return(0);
+	// 	mover sumar y &&sumar x
+	}
+	else if(map->map_arr[corners.up_right_y][corners.up_right_x] == '1')
+	{
+		printf("AAAAAA: %f\n", (x + PLAYER/2)  / map->tile_size);
+		// player->pos.y = y_max + PLAYER/2; 
+		// player->pos.x = x_max + map->tile_size - PLAYER/2 ;
+		return(0);
+	// 	mover sumar y &&restar x
+	}
+	else if(map->map_arr[corners.down_left_y][corners.down_left_x] == '1')
+	{
+		// player->pos.y = y_max + map->tile_size - PLAYER/2 ;
+		// player->pos.x = x_max + PLAYER/2 ;
+		return(0);
+	// 	mover restar y && sumar x
+	}
+	else if(map->map_arr[corners.down_right_y][corners.down_right_x] == '1')
+	{
+		// player->pos.y = y_max + map->tile_size - PLAYER/2 ;
+		// player->pos.x = x_max + map->tile_size - PLAYER/2 ;
+	// 	mover restary y && restar x
+		return(0);
+	}
 	
 	mat_x = x / map->tile_size;
 	mat_y = y / map->tile_size;
@@ -179,18 +219,18 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 		
 		player->pos.x = new_x;
 		player->pos.y = new_y;
-		player->square->coord.x = new_x - ((float)PLAYER/2);
-		player->square->coord.y = new_y - ((float)PLAYER/2);
 	}
 	
+	player->square->coord.x = player->pos.x - ((float)PLAYER/2);
+	player->square->coord.y = player->pos.y - ((float)PLAYER/2);
 	player->rot_angle += player->rotate * player->speed_rot;
 	
 	angle(&player->rot_angle);
 	player->square->coord.color = 0xFFFFFF;
 	player->ray->colision_hor.color = 0xFF0000;
 	player->ray->colision_ver.color = 0xFF0000;
-	paint_square(&player->square->coord, data, PLAYER);
 	paint_ray(player, map, data, 0xFF0000);
+	paint_square(&player->square->coord, data, PLAYER);
 	mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
 }
 
