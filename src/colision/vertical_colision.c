@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:07:04 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/18 13:57:27 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/21 16:27:35 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,6 @@ void	vcol_right(t_player *player, t_map *map, t_ray *ray)
 
 void	find_colision_with_vertical_lines(t_player *player, t_map *map, t_ray *ray)
 {
-	// printf("player->rot_angle:%f y tile_size:%d\n", player->rot_angle, map->tile_size);
-	// if(player->rot_angle == (3 * M_PI / 2) || player->rot_angle == (M_PI / 2))
-	// {
-	// 	printf("A\n");
-	// 	//distancia vertical maxima;
-	// 	return ;
-	// }
 	if(player->ray_rot_angle > (M_PI / 2) && player->ray_rot_angle < (3 * M_PI / 2))
 	{
 
@@ -50,7 +43,7 @@ void	find_colision_with_vertical_lines(t_player *player, t_map *map, t_ray *ray)
 	}
 	while(1)
 	{
-		if(!is_there_a_wall(&ray->colision_ver, map) && ray->colision_ver.y / map->tile_size <= map->rows &&  ray->colision_ver.y / map->tile_size >= 0)
+		if(!is_there_a_wall(&ray->colision_ver, map, ray) && ray->colision_ver.y / map->tile_size <= map->rows &&  ray->colision_ver.y / map->tile_size >= 0)
 			{
 				if(!ray->left)
 				{

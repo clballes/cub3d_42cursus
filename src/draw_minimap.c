@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/19 20:51:29 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/21 13:32:13 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void	paint_square(t_point *point, t_data *data, int square_side)
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 	
 	
 	y = point->y;
@@ -121,31 +121,57 @@ int	is_valid_tile_for_player(double x, double y, t_map *map, t_player *player)
 
 	x_max = (int)(player->pos.x / map->tile_size) * map->tile_size;
 	y_max = (int)(player->pos.y / map->tile_size) * map->tile_size;
-	if (map->map_arr[corners.up_left_y][corners.up_left_x] == '1' && map->map_arr[corners.up_right_y][corners.up_right_x] == '1') //recta horizontal del jugador superior
+	if (map->map_arr[corners.up_left_y][corners.up_left_x] == '1' \
+	&& map->map_arr[corners.up_right_y][corners.up_right_x] == '1') //recta horizontal del jugador superior
 	{
 		printf("BBB\n");
 		player->pos.y = y_max + PLAYER/2 ;
 		return(0);
 		// calcular el maximo y sumar la y hasta que sea el maximo
 	}
-	else if ( map->map_arr[corners.down_left_y][corners.down_left_x] == '1' && map->map_arr[corners.up_left_y][corners.up_left_x] == '1') // vertical del jugador izquierda
+	else if ( map->map_arr[corners.down_left_y][corners.down_left_x] == '1' \
+	&& map->map_arr[corners.up_left_y][corners.up_left_x] == '1') // vertical del jugador izquierda
 	{
 		player->pos.x = x_max + PLAYER/2 ;
 		return(0);
 		// calcular el maximo y  sumar la x hasta que sea el maximo
 	}
-	else if (map->map_arr[corners.down_right_y][corners.down_right_x] == '1' && map->map_arr[corners.down_left_y][corners.down_left_x] == '1') // horizontal del jugador inferior
+	else if (map->map_arr[corners.down_right_y][corners.down_right_x] == '1' \
+	&& map->map_arr[corners.down_left_y][corners.down_left_x] == '1') // horizontal del jugador inferior
 	{
 		player->pos.y = y_max + map->tile_size - PLAYER/2;
 		return(0);
 		// calcular el maximo y restar la y hasta que sea el maximo
 	}
-	else if (map->map_arr[corners.up_right_y][corners.up_right_x] == '1' && map->map_arr[corners.down_right_y][corners.down_right_x] == '1')//vertical del jugador derecha
+	else if (map->map_arr[corners.up_right_y][corners.up_right_x] == '1' \
+	&& map->map_arr[corners.down_right_y][corners.down_right_x] == '1')//vertical del jugador derecha
 	{
 		player->pos.x = x_max + map->tile_size - PLAYER/2;
 		return(0);
 		// calcular el maximo y restar la x hasta que sea el maximo
 	}
+
+	
+	//caso raro 
+	// if(map->map_arr[corners.up_right_y][corners.up_right_x] == '1' && map->map_arr[corners.down_left_y][corners.down_left_x])
+	// {
+	// 	printf("AQUI\n");
+	// 	// player->pos.y = y_max +  PLAYER/2 ;
+	// 	// player->pos.x = x_max + PLAYER/2 ;
+	// 	player->pos.y = y_max + map->tile_size - PLAYER/2 ;
+	// 	player->pos.x = x_max + map->tile_size - PLAYER/2 ;
+	// 	return(0);
+	// }
+	// if(map->map_arr[corners.up_left_y][corners.up_left_x] == '1' && map->map_arr[corners.down_right_y][corners.up_right_x])
+	// {
+	// 	player->pos.y = y_max +  PLAYER/2 ;
+	// 	player->pos.x = x_max + PLAYER/2 ;
+	// 	// player->pos.y = y_max + map->tile_size - PLAYER/2 ;
+	// 	// player->pos.x = x_max + map->tile_size - PLAYER/2 ;
+	// 	return(0);
+	// }
+
+	
 	else if(map->map_arr[corners.up_left_y][corners.up_left_x] == '1')
 	{
 		printf("CCCC\n");
@@ -157,22 +183,16 @@ int	is_valid_tile_for_player(double x, double y, t_map *map, t_player *player)
 	else if(map->map_arr[corners.up_right_y][corners.up_right_x] == '1')
 	{
 		printf("AAAAAA: %f\n", (x + PLAYER/2)  / map->tile_size);
-		// player->pos.y = y_max + PLAYER/2; 
-		// player->pos.x = x_max + map->tile_size - PLAYER/2 ;
 		return(0);
 	// 	mover sumar y &&restar x
 	}
 	else if(map->map_arr[corners.down_left_y][corners.down_left_x] == '1')
 	{
-		// player->pos.y = y_max + map->tile_size - PLAYER/2 ;
-		// player->pos.x = x_max + PLAYER/2 ;
 		return(0);
 	// 	mover restar y && sumar x
 	}
 	else if(map->map_arr[corners.down_right_y][corners.down_right_x] == '1')
 	{
-		// player->pos.y = y_max + map->tile_size - PLAYER/2 ;
-		// player->pos.x = x_max + map->tile_size - PLAYER/2 ;
 	// 	mover restary y && restar x
 		return(0);
 	}
@@ -183,12 +203,6 @@ int	is_valid_tile_for_player(double x, double y, t_map *map, t_player *player)
 	
 	if(map->map_arr[(int)mat_y][(int)mat_x] != '1')
 		return(1);
-	
-	// else
-	// {
-	// 	player->pos.x = (int)mat_x * map->tile_size;
-	// 	player->pos.y = (int)mat_y * map->tile_size;
-	// }
 	return (0);
 }
 
@@ -202,7 +216,7 @@ void	angle(double *angle)
 	
 }
 
-void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
+void	update_variables(t_player *player, t_map *map, t_data *data, t_all *all)
 {
 	double new_x;
 	double new_y;
@@ -213,18 +227,14 @@ void	update_map(t_player *player, t_map *map, t_data *data, t_all *all)
 	draw_initial_map(data, player, all, 0);//clear map
 	new_x = player->pos.x + (player->advance * cos(player->rot_angle) * player->speed_adv);
 	new_y = player->pos.y + (player->advance * sin(player->rot_angle) * player->speed_adv);
-	
 	if(is_valid_tile_for_player(new_x , new_y, map, player))
 	{
-		
 		player->pos.x = new_x;
 		player->pos.y = new_y;
 	}
-	
 	player->square->coord.x = player->pos.x - ((float)PLAYER/2);
 	player->square->coord.y = player->pos.y - ((float)PLAYER/2);
 	player->rot_angle += player->rotate * player->speed_rot;
-	
 	angle(&player->rot_angle);
 	player->square->coord.color = 0xFFFFFF;
 	player->ray->colision_hor.color = 0xFF0000;

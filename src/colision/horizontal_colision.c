@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:06:34 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/18 17:36:31 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/21 16:26:57 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,20 @@ void	find_colision_with_horizontal_lines(t_player *player, t_map *map, t_ray *ra
 	}
 	while(1)
 	{
-		if(!is_there_a_wall(&ray->colision_hor, map) && ray->colision_hor.x / map->tile_size <= map->cols && ray->colision_hor.x / map->tile_size >= 0)
+		if(!is_there_a_wall(&ray->colision_hor, map, ray) && ray->colision_hor.x / map->tile_size <= map->cols && ray->colision_hor.x / map->tile_size >= 0)
+		{
+			if(ray->down)
 			{
-				if(ray->down)
-				{
-					ray->colision_hor.y += map->tile_size;
-					ray->colision_hor.x += (map->tile_size) / tan(player->ray_rot_angle);
-				}
-				else
-				{
-					ray->colision_hor.y -= map->tile_size;
-					ray->colision_hor.x += (-map->tile_size) / tan(player->ray_rot_angle);
-				}
+				ray->colision_hor.y += map->tile_size;
+				ray->colision_hor.x += (map->tile_size) / tan(player->ray_rot_angle);
 			}
+			else
+			{
+				ray->colision_hor.y -= map->tile_size;
+				ray->colision_hor.x += (-map->tile_size) / tan(player->ray_rot_angle);
+			}
+			printf("Hx:%f, Hy%f\n",ray->colision_hor.x,ray->colision_hor.y );
+		}
 		else
 		{
 			ray->distance_horizontal = ray_length(player->pos, ray->colision_hor);

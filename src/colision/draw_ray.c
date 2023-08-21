@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/18 17:35:28 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:20:38 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,17 @@ void	direction_ray(t_player *player, t_ray *ray)
 		ray->left = 1;
 }
 
+void	check_corner
+
 // This function returns 1 if there is a wall in the point that is receiving.
-int	is_there_a_wall(t_point *point, t_map *map)
+int	is_there_a_wall(t_point *point, t_map *map, t_ray *ray)
 {
 	t_point	matrix;
-	
+	int i;
+	i = 0;
 	matrix.x = point->x / map->tile_size;
 	matrix.y = point->y / map->tile_size;
+	
 	if (matrix.x >= map->cols)
 		matrix.x = map->cols - 1;
 	if (matrix.x <= 0)
@@ -39,8 +43,32 @@ int	is_there_a_wall(t_point *point, t_map *map)
 		matrix.y = map->rows - 1;
 	if (matrix.y <= 0)
 		matrix.y = 0;
-	if (map->map_arr[(int)matrix.y][(int)matrix.x] == '1')
+
+	if(((int)point->x % map->tile_size == 0 && (int)(point->y) % map->tile_size == 0) || ((int)(point->x + 0.0001) % map->tile_size == 0 && (int)(point->y + 0.0001) % map->tile_size == 0))
+		{
+			if(ray->down && map->map_arr[(int)matrix.y - 1][(int)matrix.x] == '1')
+				i++;
+			if(!ray->left && map->map_arr[(int)matrix.y][(int)matrix.x - 1] == '1')
+				i++;
+			if(!ray->down && map->map_arr[(int)matrix.y + 1][(int)matrix.x] == '1')
+				i++;
+			if(ray->left && map->map_arr[(int)matrix.y][(int)matrix.x + 1] == '1')
+				i++;
+		}
+	if(i == 2)
+		return(1);
+	// for (int j = 0; j < map->rows; j++) {
+	// 	for (int i = 0; i < map->cols; i++) {
+	// 		if (j == (int)matrix.y && i == (int)matrix.x)
+	// 			printf("\x1b[31m%c\x1b[0m", map->map_arr[j][i]);
+	// 		else
+	// 			printf("%c", map->map_arr[j][i]);
+	// 	}
+		// printf("\n");
+	// }
+	if (map->map_arr[(int)matrix.y][(int)matrix.x] == '1') {
 		return (1);
+	}
 	return (0);
 }
 
@@ -83,7 +111,11 @@ void	paint_ray(t_player *player, t_map *map, t_data *data, int color)
 	initial_ray_rot_angle = player->rot_angle - grades_to_rads((double)HALFFOV);
 	angle(&initial_ray_rot_angle);
 	player->ray_rot_angle = initial_ray_rot_angle;
-
+	// player->ray_rot_angle = player->rot_angle;
+	// player->pos.x = 33;
+	// player->pos.y = 63;
+	// player->rot_angle = 3.979351;
+	// i =WIN_X/2;
 	i = 0;
 	while(i < WIN_X)
 	{
@@ -94,9 +126,15 @@ void	paint_ray(t_player *player, t_map *map, t_data *data, int color)
 		find_colision_with_vertical_lines(player, map, &player->ray[i]);
 		
 		if (player->ray[i].distance_horizontal < player->ray[i].distance_vertical)
+		{
+			// printf("H\n");
 			draw_line(data, player->pos, player->ray[i].colision_hor);
+		}
 		else
+		{
+			// printf("V\n");
 			draw_line(data, player->pos, player->ray[i].colision_ver);
+		}
 		player->ray_rot_angle += angle_increase;
 		angle(&player->ray_rot_angle);
 		i++;

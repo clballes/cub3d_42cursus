@@ -153,7 +153,7 @@ void	init_player(t_player *player, t_map *map);
 // void	init_ray(t_player	*player);
 
 // int		movements(int keycode, t_player *player);
-void	update_map(t_player *player, t_map *map, t_data *data, t_all *all);
+void	update_variables(t_player *player, t_map *map, t_data *data, t_all *all);
 
 //free functions
 void	free_arr(char **copy_map, int rows);
@@ -165,7 +165,7 @@ char	*free_var(char *src, char *dest);
 void	horizontal_colision(t_player *player, t_map *map);
 void	vertical_colision(t_player *player, t_map *map);
 float	ray_length(t_point pos, t_point col);
-int		is_there_a_wall(t_point *point, t_map *map);
+int		is_there_a_wall(t_point *point, t_map *map, t_ray *ray);
 void	find_colision_with_horizontal_lines(t_player *player, t_map *map,t_ray *ray);
 void	find_colision_with_vertical_lines(t_player *player, t_map *map, t_ray *ray);
 void	angle(double *angle);
