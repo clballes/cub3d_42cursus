@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:06:34 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/21 16:26:57 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/22 12:36:14 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	find_colision_with_horizontal_lines(t_player *player, t_map *map, t_ray *ra
 				ray->colision_hor.y -= map->tile_size;
 				ray->colision_hor.x += (-map->tile_size) / tan(player->ray_rot_angle);
 			}
-			printf("Hx:%f, Hy%f\n",ray->colision_hor.x,ray->colision_hor.y );
+			// printf("Hx:%f, Hy%f\n",ray->colision_hor.x,ray->colision_hor.y );
 		}
 		else
 		{

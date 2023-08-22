@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/18 18:28:23 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/22 12:58:33 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_player(t_player *player, t_map *map)
 	player->square->coord.y = player->pos.y  - (float)PLAYER/2;
 	player->square->coord.color = 0xFFFFFF;
 	player->ray = ft_calloc(WIN_X, sizeof(t_ray));
+	// player->ray->colision = ft_calloc(WIN_X, sizeof(t_point));
 }
 
 void	init_path_image(t_element *element, t_all *all)
@@ -72,4 +73,14 @@ void	init_path_image(t_element *element, t_all *all)
 // 	player->ray->colision_hor.y = 0;
 // 	player->ray->colision_ver.x = 0;
 // 	player->ray->colision_ver.y = 0;
+// }
+
+// void init_colision_points(t_player *player)
+// {
+// 	int i;
+// 	i = 0;
+// 	while(i < WIN_X)
+// 	{
+// 		t_poi
+// 	}
 // }

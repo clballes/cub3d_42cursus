@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/21 18:20:38 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:11:05 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,41 @@ void	direction_ray(t_player *player, t_ray *ray)
 		ray->left = 1;
 }
 
-void	check_corner
+//Check the intersection points of the grid.
+//Sometimes we had to adjust this point with a 0.0001 accuracy,
+// so we check those intersections as well.
+//if we find a colision  in two intersections we have corner colision. 
+int	check_colision_corner(t_point *point, t_map *map, t_ray *ray, t_point *matrix)
+{
+	int i;
+
+	i = 0;
+	if(((int)point->x % map->tile_size == 0 && \
+	(int)(point->y) % map->tile_size == 0) || \
+	((int)(point->x + 0.0001) % map->tile_size == 0 && \
+	(int)(point->y + 0.0001) % map->tile_size == 0))
+	{
+		if(ray->down && map->map_arr[(int)matrix->y - 1][(int)matrix->x] == '1')
+			i++;
+		if(!ray->left && map->map_arr[(int)matrix->y][(int)matrix->x - 1] == '1')
+			i++;
+		if(!ray->down && map->map_arr[(int)matrix->y + 1][(int)matrix->x] == '1')
+			i++;
+		if(ray->left && map->map_arr[(int)matrix->y][(int)matrix->x + 1] == '1')
+			i++;
+	}
+	if(i == 2)
+		return(1);
+	return(0);
+}
 
 // This function returns 1 if there is a wall in the point that is receiving.
 int	is_there_a_wall(t_point *point, t_map *map, t_ray *ray)
 {
 	t_point	matrix;
-	int i;
-	i = 0;
+	
 	matrix.x = point->x / map->tile_size;
 	matrix.y = point->y / map->tile_size;
-	
 	if (matrix.x >= map->cols)
 		matrix.x = map->cols - 1;
 	if (matrix.x <= 0)
@@ -42,20 +66,8 @@ int	is_there_a_wall(t_point *point, t_map *map, t_ray *ray)
 	if (matrix.y >= map->rows)
 		matrix.y = map->rows - 1;
 	if (matrix.y <= 0)
-		matrix.y = 0;
-
-	if(((int)point->x % map->tile_size == 0 && (int)(point->y) % map->tile_size == 0) || ((int)(point->x + 0.0001) % map->tile_size == 0 && (int)(point->y + 0.0001) % map->tile_size == 0))
-		{
-			if(ray->down && map->map_arr[(int)matrix.y - 1][(int)matrix.x] == '1')
-				i++;
-			if(!ray->left && map->map_arr[(int)matrix.y][(int)matrix.x - 1] == '1')
-				i++;
-			if(!ray->down && map->map_arr[(int)matrix.y + 1][(int)matrix.x] == '1')
-				i++;
-			if(ray->left && map->map_arr[(int)matrix.y][(int)matrix.x + 1] == '1')
-				i++;
-		}
-	if(i == 2)
+		matrix.y = 0;	
+	if(check_colision_corner(point, map, ray, &matrix))
 		return(1);
 	// for (int j = 0; j < map->rows; j++) {
 	// 	for (int i = 0; i < map->cols; i++) {
@@ -66,9 +78,8 @@ int	is_there_a_wall(t_point *point, t_map *map, t_ray *ray)
 	// 	}
 		// printf("\n");
 	// }
-	if (map->map_arr[(int)matrix.y][(int)matrix.x] == '1') {
+	if (map->map_arr[(int)matrix.y][(int)matrix.x] == '1')
 		return (1);
-	}
 	return (0);
 }
 
@@ -99,43 +110,67 @@ int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 	return (1);
 }
 
-// Compare the vertical and the horizontal colision and draw 
-// the ray that is shorter.
-void	paint_ray(t_player *player, t_map *map, t_data *data, int color)
+void	set_angles_for_rays(t_player *player)
 {
-	int i;
-	double	angle_increase;
 	double initial_ray_rot_angle;
 
-	angle_increase = grades_to_rads((double)FOV / (double)WIN_X);
+	player->angle_increase = grades_to_rads((double)FOV / (double)WIN_X);
 	initial_ray_rot_angle = player->rot_angle - grades_to_rads((double)HALFFOV);
 	angle(&initial_ray_rot_angle);
 	player->ray_rot_angle = initial_ray_rot_angle;
-	// player->ray_rot_angle = player->rot_angle;
-	// player->pos.x = 33;
-	// player->pos.y = 63;
-	// player->rot_angle = 3.979351;
-	// i =WIN_X/2;
+}
+void paint_rays(t_player *player, t_data *data, int color)
+{
+	int i;
+
+	i = 0;
+	if(player->ray[i].colision == NULL)
+	{
+		printf("primer\n");
+		return;
+	}
+	// if(color == 0xFF0000)
+		// exit(1);
+	printf("segun col%p hor%p ver%p\n", player->ray[i].colision, &player->ray[i].colision_hor, &player->ray[i].colision_ver);
+	while(i < WIN_X)
+	{
+		// printf("i%p \n", player->ray[i].colision);
+		player->ray[i].colision->color = color;
+		draw_line(data, player->pos, *player->ray[i].colision);
+		// printf("peto %d x:%f, y:%f,\n", i, player->ray[i].colision->x, player->ray[i].colision->y);
+		i++;
+	}
+	
+}
+// Compare the vertical and the horizontal colision and draw 
+// the rays that are shorter.
+void	calculate_colisions(t_player *player, t_map *map, t_data *data/*, int color*/)
+{
+	int i;
+	(void)data;
+	set_angles_for_rays(player);
+	
 	i = 0;
 	while(i < WIN_X)
 	{
-		player->ray[i].colision_hor.color = color;
-		player->ray[i].colision_ver.color = color;
+		// player->ray[i].colision_hor.color = color;
+		// player->ray[i].colision_ver.color = color;
 		direction_ray(player,&player->ray[i]);
 		find_colision_with_horizontal_lines(player, map, &player->ray[i]);
 		find_colision_with_vertical_lines(player, map, &player->ray[i]);
-		
 		if (player->ray[i].distance_horizontal < player->ray[i].distance_vertical)
 		{
-			// printf("H\n");
-			draw_line(data, player->pos, player->ray[i].colision_hor);
+			// draw_line(data, player->pos, player->ray[i].colision_hor);
+			player->ray[i].colision = &player->ray[i].colision_hor;
+			player->ray[i].length = player->ray[i].distance_horizontal;
 		}
 		else
 		{
-			// printf("V\n");
-			draw_line(data, player->pos, player->ray[i].colision_ver);
+			player->ray[i].colision = &player->ray[i].colision_ver;
+			// draw_line(data, player->pos, player->ray[i].colision_ver);
+			player->ray[i].length = player->ray[i].distance_vertical;
 		}
-		player->ray_rot_angle += angle_increase;
+		player->ray_rot_angle += player->angle_increase;
 		angle(&player->ray_rot_angle);
 		i++;
 	}

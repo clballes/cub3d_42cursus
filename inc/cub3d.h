@@ -41,6 +41,8 @@ typedef struct s_ray
 	double	distance_vertical;
 	int		down;
 	int		left;
+	double	length;
+	t_point *colision;
 	
 }	t_ray;
 
@@ -82,6 +84,7 @@ typedef struct s_player
 	int 	speed_adv; // 3pixels
 	double 	speed_rot; // GRADOS //cuantos grados va a girar cada vez que le damos  3 * (pi / 180) // pi / 180 es cuantos radianes es un grado
 	double 	ray_rot_angle; 
+	double	angle_increase;
 	
 } t_player;
 
@@ -177,7 +180,8 @@ void	init_render(t_all *all);
 int		is_valid_tile_for_player(double x, double y, t_map *map, t_player *player);
 // void	init_ray(t_player	*player);
 int		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	paint_ray(t_player *player, t_map *map, t_data *data, int color);
+void	calculate_colisions(t_player *player, t_map *map, t_data *data);
+void	paint_rays(t_player *player, t_data *data, int color);
 #endif
 
 

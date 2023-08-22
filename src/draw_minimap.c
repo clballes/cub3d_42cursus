@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/21 13:32:13 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/22 12:33:44 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,10 +220,10 @@ void	update_variables(t_player *player, t_map *map, t_data *data, t_all *all)
 {
 	double new_x;
 	double new_y;
-	player->square->coord.color = 0x000000;//clear map
 	
+	player->square->coord.color = 0x000000;//clear map
 	paint_square(&player->square->coord, data, PLAYER);//clear map
-	paint_ray(player, map, data, 0x000000);//clear map
+	paint_rays(player, data, 0x000000);//clear map
 	draw_initial_map(data, player, all, 0);//clear map
 	new_x = player->pos.x + (player->advance * cos(player->rot_angle) * player->speed_adv);
 	new_y = player->pos.y + (player->advance * sin(player->rot_angle) * player->speed_adv);
@@ -237,10 +237,10 @@ void	update_variables(t_player *player, t_map *map, t_data *data, t_all *all)
 	player->rot_angle += player->rotate * player->speed_rot;
 	angle(&player->rot_angle);
 	player->square->coord.color = 0xFFFFFF;
-	player->ray->colision_hor.color = 0xFF0000;
-	player->ray->colision_ver.color = 0xFF0000;
-	paint_ray(player, map, data, 0xFF0000);
+	calculate_colisions(player, map, data);
 	paint_square(&player->square->coord, data, PLAYER);
+	paint_rays(player, data, 0xFF0000);
+		
 	mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
 }
 
