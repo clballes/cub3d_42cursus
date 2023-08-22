@@ -6,7 +6,7 @@
 #    By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/23 14:55:16 by clballes          #+#    #+#              #
-#    Updated: 2023/08/22 18:03:06 by albagarc         ###   ########.fr        #
+#    Updated: 2023/08/22 18:52:22 by albagarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ MLX_DIR = mlx/
 PARSE = parsing/
 RENDER = rendering/
 COLISION = colision/
+MINIMAP = minimap/
 MLX = ${MLX_DIR}libmlx.a
 MINILIBXCC	=  -L $(MLX_DIR) -lmlx
 OPENGL = -framework OpenGL -framework AppKit
@@ -42,13 +43,15 @@ SRC_FILES = main \
 			$(RENDER)render \
 			end_game \
 			key_press \
-			draw_minimap \
-			draw_player \
 			init \
 			$(COLISION)draw_ray \
 			$(COLISION)horizontal_colision \
 			$(COLISION)vertical_colision \
 			$(COLISION)utils_colision \
+			$(MINIMAP)draw_minimap\
+			$(MINIMAP)draw_empty_map\
+			$(MINIMAP)checks_player\
+			
 			
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -60,6 +63,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 		mkdir -p $(OBJ_DIR)/parsing
 		mkdir -p $(OBJ_DIR)/rendering
 		mkdir -p $(OBJ_DIR)/colision
+		mkdir -p $(OBJ_DIR)/minimap
 		echo "Compiling...[$<]"
 		$(CC) -I$(INC_DIR) -I mlx -I$(LIBFT_DIR) -c $(CFLAGS)  $< -o $@
 

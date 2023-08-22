@@ -1,59 +1,65 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_player.c                                      :+:      :+:    :+:   */
+/*   checks_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:59:05 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/22 17:59:51 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:03:47 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+//Locate the position of the corners of the square that represents the player.
 void	set_player_corners(double x, double y, t_map *map, t_corners *corners)
 {
-	corners->up_left_x = (x - PLAYER/2 ) / map->tile;
-	corners->up_left_y = (y - PLAYER/2 ) / map->tile ;
-	corners->down_left_x = (x - PLAYER/2) / map->tile ;
-	corners->down_left_y = (y  + PLAYER/2) / map->tile ;
-	corners->up_right_x = (x  + PLAYER/2) / map->tile;
-	corners->up_right_y = (y - PLAYER/2 ) / map->tile;
-	corners->down_right_x = (x + PLAYER/2) / map->tile ;
-	corners->down_right_y = (y  + PLAYER/2) / map->tile ;
+	corners->up_left_x = (x - PLAYER / 2) / map->tile;
+	corners->up_left_y = (y - PLAYER / 2) / map->tile;
+	corners->down_left_x = (x - PLAYER / 2) / map->tile;
+	corners->down_left_y = (y + PLAYER / 2) / map->tile;
+	corners->up_right_x = (x + PLAYER / 2) / map->tile;
+	corners->up_right_y = (y - PLAYER / 2) / map->tile;
+	corners->down_right_x = (x + PLAYER / 2) / map->tile;
+	corners->down_right_y = (y + PLAYER / 2) / map->tile;
 }
 
+//check if the edges of the square are going to be  inside a wall and in that 
+//case readjust the position of the player. 
+//first if : horizontal up   // second if: vertical left
+//third if : horizontal down // fourth if: vertical right.
 int	check_edges(t_map *map, t_player *player, t_corners *corners, t_point *max)
 {
 	if (map->map_arr[corners->up_left_y][corners->up_left_x] == '1' \
-	&& map->map_arr[corners->up_right_y][corners->up_right_x] == '1') //recta horizontal del jugador superior
+	&& map->map_arr[corners->up_right_y][corners->up_right_x] == '1')
 	{
-		player->pos.y = max->y + PLAYER/2 ;
-		return(1);
+		player->pos.y = max->y + PLAYER / 2 ;
+		return (1);
 	}
-	else if ( map->map_arr[corners->down_left_y][corners->down_left_x] == '1' \
-	&& map->map_arr[corners->up_left_y][corners->up_left_x] == '1') // vertical del jugador izquierda
+	else if (map->map_arr[corners->down_left_y][corners->down_left_x] == '1' \
+	&& map->map_arr[corners->up_left_y][corners->up_left_x] == '1')
 	{
-		player->pos.x = max->x + PLAYER/2 ;
-		return(1);
+		player->pos.x = max->x + PLAYER / 2 ;
+		return (1);
 	}
 	else if (map->map_arr[corners->down_right_y][corners->down_right_x] == '1' \
-	&& map->map_arr[corners->down_left_y][corners->down_left_x] == '1') // horizontal del jugador inferior
+	&& map->map_arr[corners->down_left_y][corners->down_left_x] == '1')
 	{
-		player->pos.y = max->y + map->tile - PLAYER/2;
-		return(1);
+		player->pos.y = max->y + map->tile - PLAYER / 2;
+		return (1);
 	}
 	else if (map->map_arr[corners->up_right_y][corners->up_right_x] == '1' \
-	&& map->map_arr[corners->down_right_y][corners->down_right_x] == '1')//vertical del jugador derecha
+	&& map->map_arr[corners->down_right_y][corners->down_right_x] == '1')
 	{
-		player->pos.x = max->x + map->tile - PLAYER/2;
+		player->pos.x = max->x + map->tile - PLAYER / 2;
 		return (1);
 	}
 	return (0);
 }
 
-int check_only_one_corner(t_map *map, t_corners *corners)
+//Check if 1 corner is inside a wall in that case it doesn't move 
+int	check_only_one_corner(t_map *map, t_corners *corners)
 {
 	if (map->map_arr[corners->up_left_y][corners->up_left_x] == '1')
 		return (1);
@@ -66,6 +72,8 @@ int check_only_one_corner(t_map *map, t_corners *corners)
 	return (0);
 }
 
+//Check if the new position of the player is valid, 
+//If it is valid the player will advance.
 int	is_valid_tile_for_player(double x, double y, t_map *map, t_player *player)
 {
 	t_corners	corners;
