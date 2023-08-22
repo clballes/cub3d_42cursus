@@ -6,13 +6,12 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/22 12:33:44 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/22 18:02:38 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-// #include "../mlx/mlx.h"
-//malloc de esta??
+
 int	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -23,7 +22,6 @@ int	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 	return (0);
 }
-
 
 void	paint_square(t_point *point, t_data *data, int square_side)
 {
@@ -48,25 +46,21 @@ void	paint_square(t_point *point, t_data *data, int square_side)
 
 void	draw_walls_blanks(t_square *wall, t_data *data, int x, int y)
 {
-	// wall->coord.color = TURQUOISE;
 	wall->coord.x = x * wall->side;
 	wall->coord.y = y * wall->side;
 	paint_square(&wall->coord, data, wall->side);
 }
 
-void	draw_initial_map(t_data *data, t_player *player, t_all *all, int first_time)
+void	draw_map(t_data *data, t_all *all)
 {
 	int i;
 	int j;
 	t_square *wall;
 
-	
 	wall = ft_calloc(1, sizeof(t_square));
 	wall->side =  MAP_X / all->map.cols;
-	
-	all->map.tile_size = MAP_X / all->map.cols;
-	i = 0;
-	while (i < all->map.rows)
+	i = -1;
+	while (++i < all->map.rows)
 	{
 		j = 0;
 		while (j < all->map.cols )
@@ -78,134 +72,13 @@ void	draw_initial_map(t_data *data, t_player *player, t_all *all, int first_time
 			}
 			else
 			{
-				wall->coord.color = 0x000000;
+				wall->coord.color = BLACK;
 				draw_walls_blanks(wall, data, j, i);
-			}
-				
-		
-			// if (all->map.map_arr[i][j] == 'N' || all->map.map_arr[i][j] == 'S' || all->map.map_arr[i][j] == 'E' || all->map.map_arr[i][j] == 'W')
-			if(i == all->map.pos_y && j == all->map.pos_x && first_time)
-			{
-				init_player(player, &all->map);
-				paint_square(&player->square->coord, data, PLAYER);
 			}
 			j++;
 		}
-		i++;
 	}
-	if(first_time)
-		mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
 }
-
-
-int	is_valid_tile_for_player(double x, double y, t_map *map, t_player *player)
-{
-	(void)player;
-	t_corners	corners;
-
-	int mat_x;
-	int mat_y;
-	int x_max;
-	int y_max;
-	
-	corners.up_left_x = (x - PLAYER/2 )/ map->tile_size;
-	corners.up_left_y = (y - PLAYER/2 ) / map->tile_size ;
-	corners.down_left_x = (x - PLAYER/2) / map->tile_size ;
-	corners.down_left_y = (y  + PLAYER/2)/ map->tile_size ;
-	corners.up_right_x = (x  + PLAYER/2) / map->tile_size;
-	corners.up_right_y = (y - PLAYER/2 ) / map->tile_size;
-	corners.down_right_x = (x + PLAYER/2)  / map->tile_size ;
-	corners.down_right_y =(y  + PLAYER/2)  / map->tile_size ;
-	printf("----------------------\n");
-
-
-	x_max = (int)(player->pos.x / map->tile_size) * map->tile_size;
-	y_max = (int)(player->pos.y / map->tile_size) * map->tile_size;
-	if (map->map_arr[corners.up_left_y][corners.up_left_x] == '1' \
-	&& map->map_arr[corners.up_right_y][corners.up_right_x] == '1') //recta horizontal del jugador superior
-	{
-		printf("BBB\n");
-		player->pos.y = y_max + PLAYER/2 ;
-		return(0);
-		// calcular el maximo y sumar la y hasta que sea el maximo
-	}
-	else if ( map->map_arr[corners.down_left_y][corners.down_left_x] == '1' \
-	&& map->map_arr[corners.up_left_y][corners.up_left_x] == '1') // vertical del jugador izquierda
-	{
-		player->pos.x = x_max + PLAYER/2 ;
-		return(0);
-		// calcular el maximo y  sumar la x hasta que sea el maximo
-	}
-	else if (map->map_arr[corners.down_right_y][corners.down_right_x] == '1' \
-	&& map->map_arr[corners.down_left_y][corners.down_left_x] == '1') // horizontal del jugador inferior
-	{
-		player->pos.y = y_max + map->tile_size - PLAYER/2;
-		return(0);
-		// calcular el maximo y restar la y hasta que sea el maximo
-	}
-	else if (map->map_arr[corners.up_right_y][corners.up_right_x] == '1' \
-	&& map->map_arr[corners.down_right_y][corners.down_right_x] == '1')//vertical del jugador derecha
-	{
-		player->pos.x = x_max + map->tile_size - PLAYER/2;
-		return(0);
-		// calcular el maximo y restar la x hasta que sea el maximo
-	}
-
-	
-	//caso raro 
-	// if(map->map_arr[corners.up_right_y][corners.up_right_x] == '1' && map->map_arr[corners.down_left_y][corners.down_left_x])
-	// {
-	// 	printf("AQUI\n");
-	// 	// player->pos.y = y_max +  PLAYER/2 ;
-	// 	// player->pos.x = x_max + PLAYER/2 ;
-	// 	player->pos.y = y_max + map->tile_size - PLAYER/2 ;
-	// 	player->pos.x = x_max + map->tile_size - PLAYER/2 ;
-	// 	return(0);
-	// }
-	// if(map->map_arr[corners.up_left_y][corners.up_left_x] == '1' && map->map_arr[corners.down_right_y][corners.up_right_x])
-	// {
-	// 	player->pos.y = y_max +  PLAYER/2 ;
-	// 	player->pos.x = x_max + PLAYER/2 ;
-	// 	// player->pos.y = y_max + map->tile_size - PLAYER/2 ;
-	// 	// player->pos.x = x_max + map->tile_size - PLAYER/2 ;
-	// 	return(0);
-	// }
-
-	
-	else if(map->map_arr[corners.up_left_y][corners.up_left_x] == '1')
-	{
-		printf("CCCC\n");
-			// player->pos.y = y_max + PLAYER/2 ;
-			// player->pos.x = x_max + PLAYER/2 ;
-			return(0);
-	// 	mover sumar y &&sumar x
-	}
-	else if(map->map_arr[corners.up_right_y][corners.up_right_x] == '1')
-	{
-		printf("AAAAAA: %f\n", (x + PLAYER/2)  / map->tile_size);
-		return(0);
-	// 	mover sumar y &&restar x
-	}
-	else if(map->map_arr[corners.down_left_y][corners.down_left_x] == '1')
-	{
-		return(0);
-	// 	mover restar y && sumar x
-	}
-	else if(map->map_arr[corners.down_right_y][corners.down_right_x] == '1')
-	{
-	// 	mover restary y && restar x
-		return(0);
-	}
-	
-	mat_x = x / map->tile_size;
-	mat_y = y / map->tile_size;
-
-	
-	if(map->map_arr[(int)mat_y][(int)mat_x] != '1')
-		return(1);
-	return (0);
-}
-
 
 void	angle(double *angle)
 {
@@ -216,15 +89,11 @@ void	angle(double *angle)
 	
 }
 
-void	update_variables(t_player *player, t_map *map, t_data *data, t_all *all)
+void	update_variables(t_player *player, t_map *map)
 {
 	double new_x;
 	double new_y;
-	
-	player->square->coord.color = 0x000000;//clear map
-	paint_square(&player->square->coord, data, PLAYER);//clear map
-	paint_rays(player, data, 0x000000);//clear map
-	draw_initial_map(data, player, all, 0);//clear map
+
 	new_x = player->pos.x + (player->advance * cos(player->rot_angle) * player->speed_adv);
 	new_y = player->pos.y + (player->advance * sin(player->rot_angle) * player->speed_adv);
 	if(is_valid_tile_for_player(new_x , new_y, map, player))
@@ -236,11 +105,22 @@ void	update_variables(t_player *player, t_map *map, t_data *data, t_all *all)
 	player->square->coord.y = player->pos.y - ((float)PLAYER/2);
 	player->rot_angle += player->rotate * player->speed_rot;
 	angle(&player->rot_angle);
-	player->square->coord.color = 0xFFFFFF;
-	calculate_colisions(player, map, data);
-	paint_square(&player->square->coord, data, PLAYER);
-	paint_rays(player, data, 0xFF0000);
-		
-	mlx_put_image_to_window(all->vars->mlx, all->vars->win, all->data->img, 0, 0);
+	calculate_colisions(player, map);
 }
+
+void	clear_map( t_data *data, t_player *player)
+{
+	player->square->coord.color = BLACK;//clear map
+	paint_square(&player->square->coord, data, PLAYER);//clear map
+	paint_rays(player, data, BLACK);//clear map
+}
+
+void draw_minimap_and_rays(t_all *all, t_data *data, t_player *player)
+{
+	draw_map(data, all);
+	player->square->coord.color = WHITE;
+	paint_square(&player->square->coord, data, PLAYER);
+	paint_rays(player, data, RED);
+}
+
 

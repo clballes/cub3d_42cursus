@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:55:44 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/21 12:50:49 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:39:15 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	key_press(int keycode, t_all *all)
 		all->player.rotate = 1;
 	if (keycode == KEY_LEFT)
 		all->player.rotate = -1;
-	printf("X:%f Y:%f ANGLE:%f\n",all->player.pos.x, all->player.pos.y, all->player.rot_angle);
-	update_variables(&all->player, &all->map, all->data, all);
+	// update_variables(&all->player, &all->map, all->data, all);
+	draw_image(all);
 	return (0);
 }
 

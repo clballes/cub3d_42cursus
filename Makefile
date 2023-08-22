@@ -6,7 +6,7 @@
 #    By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/23 14:55:16 by clballes          #+#    #+#              #
-#    Updated: 2023/08/14 11:43:48 by albagarc         ###   ########.fr        #
+#    Updated: 2023/08/22 18:03:06 by albagarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,10 +43,12 @@ SRC_FILES = main \
 			end_game \
 			key_press \
 			draw_minimap \
+			draw_player \
 			init \
 			$(COLISION)draw_ray \
 			$(COLISION)horizontal_colision \
 			$(COLISION)vertical_colision \
+			$(COLISION)utils_colision \
 			
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))

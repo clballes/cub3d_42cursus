@@ -21,7 +21,10 @@
 # define FOV 60
 # define HALFFOV FOV/2
 
-# define TURQUOISE 0x33b3a6
+# define TURQUOISE 	0x33b3a6
+# define BLACK		0x000000
+# define WHITE		0xFFFFFF
+# define RED		0xFF0000
 
 typedef struct s_map t_map;
 
@@ -35,10 +38,10 @@ typedef struct s_point
 
 typedef struct s_ray
 {
-	t_point	colision_hor;
-	t_point	colision_ver;
-	double	distance_horizontal;
-	double	distance_vertical;
+	t_point	col_hor;
+	t_point	col_ver;
+	double	dist_hor;
+	double	dist_ver;
 	int		down;
 	int		left;
 	double	length;
@@ -83,7 +86,7 @@ typedef struct s_player
 	double 	rot_angle; // N = pi/2 ; S = 3pi/2 ; E = pi ; W = 2pi 
 	int 	speed_adv; // 3pixels
 	double 	speed_rot; // GRADOS //cuantos grados va a girar cada vez que le damos  3 * (pi / 180) // pi / 180 es cuantos radianes es un grado
-	double 	ray_rot_angle; 
+	double 	ray_angle; 
 	double	angle_increase;
 	
 } t_player;
@@ -109,7 +112,7 @@ typedef struct s_vars{
 
 typedef struct s_map
 {
-	int 		tile_size;
+	int 		tile;
     char **map_arr;
     char **copy_map;
 	char *map_unid;
@@ -151,12 +154,12 @@ int		ft_destroy_window(t_vars *vars);
 
 int		key_press(int keycode, t_all *all);
 int		key_up(int keycode, t_player *player);
-void	draw_initial_map(t_data *data, t_player *player, t_all *all, int first_time);
+void	draw_map(t_data *data, t_all *all);
 void	init_player(t_player *player, t_map *map);
 // void	init_ray(t_player	*player);
 
 // int		movements(int keycode, t_player *player);
-void	update_variables(t_player *player, t_map *map, t_data *data, t_all *all);
+void	update_variables(t_player *player, t_map *map);
 
 //free functions
 void	free_arr(char **copy_map, int rows);
@@ -165,12 +168,10 @@ void	free_all(t_map *map, t_element *element, int i);
 char	*free_var(char *src, char *dest);
 
 //colision
-void	horizontal_colision(t_player *player, t_map *map);
-void	vertical_colision(t_player *player, t_map *map);
 float	ray_length(t_point pos, t_point col);
 int		is_there_a_wall(t_point *point, t_map *map, t_ray *ray);
-void	find_colision_with_horizontal_lines(t_player *player, t_map *map,t_ray *ray);
-void	find_colision_with_vertical_lines(t_player *player, t_map *map, t_ray *ray);
+void	colision_with_horizontal_lines(t_player *player, t_map *map,t_ray *ray);
+void	colision_with_vertical_lines(t_player *player, t_map *map, t_ray *ray);
 void	angle(double *angle);
 void	direction_ray(t_player *player, t_ray *ray);
 
@@ -180,8 +181,12 @@ void	init_render(t_all *all);
 int		is_valid_tile_for_player(double x, double y, t_map *map, t_player *player);
 // void	init_ray(t_player	*player);
 int		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	calculate_colisions(t_player *player, t_map *map, t_data *data);
+void	calculate_colisions(t_player *player, t_map *map);
 void	paint_rays(t_player *player, t_data *data, int color);
+
+void	clear_map( t_data *data, t_player *player);
+void	draw_minimap_and_rays(t_all *all, t_data *data, t_player *player);
+void draw_image(t_all *all);
 #endif
 
 

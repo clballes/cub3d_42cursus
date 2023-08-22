@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/22 12:58:33 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:20:30 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_player(t_player *player, t_map *map)
 {
 	t_square	*square;
 	
+	map->tile = MAP_X / map->cols;//mirar a ver si me lo puede dar clara del parsing
 	square = ft_calloc(1, sizeof(t_square));
 	player->square = square;
 	player->first_orientation = map->player_orientation;
@@ -31,8 +32,8 @@ void	init_player(t_player *player, t_map *map)
 	player->rotate = 0;
 	player->speed_adv = 3;
 	player->speed_rot = 3 * (M_PI / 180);
-	player->pos.x = map->pos_x * map->tile_size + map->tile_size / 2; //centro del cuadrado que pintamos_x
-	player->pos.y = map->pos_y * map->tile_size + map->tile_size / 2; //centro del cuadrado que pintamos_y
+	player->pos.x = map->pos_x * map->tile + map->tile / 2; //centro del cuadrado que pintamos_x
+	player->pos.y = map->pos_y * map->tile + map->tile / 2; //centro del cuadrado que pintamos_y
 	player->square->coord.x = player->pos.x  - (float)PLAYER/2;
 	player->square->coord.y = player->pos.y  - (float)PLAYER/2;
 	player->square->coord.color = 0xFFFFFF;
