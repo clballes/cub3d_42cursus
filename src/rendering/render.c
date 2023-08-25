@@ -13,13 +13,13 @@
 #include "cub3d.h"
 
 
-void	print_pixels(t_ray *ray_px)
-{
+// void	print_pixels(t_ray *ray_px)
+// {
 
-}
-// void	draw_render(t_all *all)
+// }
+void	draw_render(t_all *all)
 {
-	int i = 0;
+	// int i = 0;
 	double PlanoProyeccion;
 	double distance;
 	double alturaMuro;
@@ -38,11 +38,11 @@ void	print_pixels(t_ray *ray_px)
 	printf("la y es %d\n", end);
 
 	//PART 3 ---- priniting pixels while
-	while(i < WIN_X)
-	{
-		print_pixels(all->player.ray[i]);
-		i++;
-	}
+	// while(i < WIN_X)
+	// {
+	// 	print_pixels(all->player.ray[i]);
+	// 	i++;
+	// }
 	// print_pixels();
 	// la x es la columna q cada rayo lleva asignada
 
