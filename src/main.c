@@ -19,9 +19,8 @@ void	draw_image(t_all *all)
 	clear_map(all->data, &all->player);
 	update_variables(&all->player, &all->map);
 	//pintaremos la imagen en 3d
-	
+	draw_render(all);
 	//pintaremos el minimap
-	// draw_initial_map(all->data, &all->player, all, 1);
 	draw_minimap_and_rays(all, all->data, &all->player);
 	mlx_put_image_to_window(all->vars->mlx, all->vars->win, \
 		all->data->img, 0, 0);
@@ -61,10 +60,7 @@ int	main(int argc, char **argv)
 			return (1);
 		}
 		else
-		{
 			init_game(all);
-			init_render(all);
-		}
 	}
 	return (0);
 }

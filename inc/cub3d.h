@@ -44,9 +44,9 @@ typedef struct s_ray
 	double		dist_ver;
 	int			down;
 	int			left;
-	double		length;
-	t_point		*colision;
-	
+	double		length; //tamaño de cada rayo, la pequeña entre la vertical y horizontal
+	t_point		*colision; // punto de colision de la length exacto x y
+	double		each_ray_angle;
 }	t_ray;
 
 typedef struct s_square
@@ -88,6 +88,7 @@ typedef struct s_player
 	double 		speed_rot; // GRADOS //cuantos grados va a girar cada vez que le damos  3 * (pi / 180) // pi / 180 es cuantos radianes es un grado
 	double 		ray_angle; 
 	double		angle_increase;
+	//guardar distancia plano proyeccion
 	
 } t_player;
 
@@ -189,6 +190,7 @@ void	paint_square(t_point *point, t_data *data, int square_side);
 void	init_player(t_player *player, t_map *map);
 void	update_variables(t_player *player, t_map *map);
 void	draw_image(t_all *all);
+void	draw_render(t_all *all);
 
 #endif
 

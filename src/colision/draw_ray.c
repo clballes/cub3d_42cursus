@@ -97,6 +97,7 @@ void	calculate_colisions(t_player *player, t_map *map)
 			player->ray[i].colision = &player->ray[i].col_ver;
 			player->ray[i].length = player->ray[i].dist_ver;
 		}
+		player->ray[i].each_ray_angle = player->ray_angle;
 		player->ray_angle += player->angle_increase;
 		angle(&player->ray_angle);
 		i++;
