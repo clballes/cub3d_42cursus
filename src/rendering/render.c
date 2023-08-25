@@ -13,40 +13,46 @@
 #include "cub3d.h"
 
 
-// void	print_pixels(t_ray *ray_px)
-// {
+void	clear_render(t_data *data)
+{
+	int x;
+	int y;
+	x = 0;
+	y = 0;
+	while (y <= WIN_X)
+	{
+		x = 0;
+		while (x <= WIN_X)
+		{
+			my_mlx_pixel_put(data, x, y, BLACK);
+			x++;
+		}
+		y++;
+	}
+}
 
-// }
 void	draw_render(t_all *all)
 {
-	// int i = 0;
+	int i;
 	double PlanoProyeccion;
 	double distance;
 	double alturaMuro;
+	int start;
+	int end;
 
-	PlanoProyeccion = (WIN_X / 2) / tan(30);
-	distance = all->player.ray[WIN_X / 2].length;
-	alturaMuro = WIN_Y / distance * PlanoProyeccion;
-	printf("plano proyeccion es: %f\n", PlanoProyeccion);
-	printf("la distance es %f\n", distance);
-	printf("altura muro es  %f\n", alturaMuro);
-
-	// -------------------- PART 2
-	int start = (WIN_Y / 2) - (alturaMuro / 2);
-	int end = start + alturaMuro;
-	printf("la y es %d\n", start);
-	printf("la y es %d\n", end);
-
-	//PART 3 ---- priniting pixels while
-	// while(i < WIN_X)
-	// {
-	// 	print_pixels(all->player.ray[i]);
-	// 	i++;
-	// }
-	// print_pixels();
-	// la x es la columna q cada rayo lleva asignada
-
-	// printf("el rayo length %f\n", all->player.ray[WIN_X / 2].length);
-	// printf("el rayo length %d\n", all->map.tile);
-	// printf("tay anngleee %f\n", player->ray[WIN_X / 2].each_ray_angle);
+	i = 0;
+	PlanoProyeccion = (WIN_X / 2) / tan(30); //sempre el mateix
+	while (i < WIN_X)
+	{
+		distance = all->player.ray[i].length * all->map.tile;
+		alturaMuro = (WIN_Y / distance) * PlanoProyeccion;
+		start = (WIN_Y / 2) - (alturaMuro / 2);
+		end = start + alturaMuro;
+		while(end < start)
+		{
+			my_mlx_pixel_put(all->data, i, end, 0xFF0000);
+			end++;
+		}
+		i++;
+	}
 }

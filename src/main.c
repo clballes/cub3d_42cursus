@@ -17,6 +17,7 @@ void	draw_image(t_all *all)
 {
 	//clear_map
 	clear_map(all->data, &all->player);
+	clear_render(all->data);
 	update_variables(&all->player, &all->map);
 	//pintaremos la imagen en 3d
 	draw_render(all);

@@ -166,11 +166,13 @@ char	*free_var(char *src, char *dest);
 //render witnodw
 void	init_render(t_all *all);
 int		is_valid_tile_for_player(double x, double y, t_map *map, t_player *player);
+void	clear_render(t_data *data);
 
 // void	init_ray(t_player	*player);
 int		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	calculate_colisions(t_player *player, t_map *map);
 void	paint_rays(t_player *player, t_data *data, int color);
+double	grades_to_rads(double angle);
 
 //colision
 float	ray_length(t_point pos, t_point col);
