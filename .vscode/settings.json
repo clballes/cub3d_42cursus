@@ -5,6 +5,7 @@
 		"complex": "c",
 		"__string": "c",
 		"string": "c",
-		"string_view": "c"
+		"string_view": "c",
+		"cub3d.h": "c"
 	}
 }

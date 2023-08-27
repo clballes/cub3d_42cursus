@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/22 19:18:37 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/27 19:39:27 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	init_player(t_player *player, t_map *map)
 {
 	t_square	*square;
 
-	map->tile = MAP_X / map->cols;
+	// map->tile = MAP_X / map->cols;
+	map->tile = WIN_X / map->cols;
+	player->player_size = map->tile/5;
+	printf("tile:%d\n", map->tile/8);
 	square = ft_calloc(1, sizeof(t_square));
 	player->square = square;
 	player->first_orientation = map->player_orientation;
@@ -32,12 +35,13 @@ void	init_player(t_player *player, t_map *map)
 		player->rot_angle = M_PI;
 	player->advance = 0;
 	player->rotate = 0;
-	player->speed_adv = 3;
+	player->speed_adv = 20;
 	player->speed_rot = 3 * (M_PI / 180);
 	player->pos.x = map->pos_x * map->tile + map->tile / 2;
 	player->pos.y = map->pos_y * map->tile + map->tile / 2;
-	player->square->coord.x = player->pos.x - (float)PLAYER / 2;
-	player->square->coord.y = player->pos.y - (float)PLAYER / 2;
+	printf("x:%f y:%f\n", player->pos.x,player->pos.y);	
+	player->square->coord.x = player->pos.x - player->player_size / 2;
+	player->square->coord.y = player->pos.y - player->player_size / 2;
 	player->square->coord.color = 0xFFFFFF;
 	player->ray = ft_calloc(WIN_X, sizeof(t_ray));
 }

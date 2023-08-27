@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 19:07:39 by clballes          #+#    #+#             */
-/*   Updated: 2023/07/31 19:07:41 by clballes         ###   ########.fr       */
+/*   Updated: 2023/08/27 17:25:54 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	draw_render(t_all *all)
 	
 	while (i < WIN_X)
 	{
-		distance = all->player.ray[i].length * all->map.tile;
+		distance = all->player.ray[i].length;
 		alturaMuro = (WIN_Y / distance) * PlanoProyeccion;
 		start = (WIN_Y / 2) - (alturaMuro / 2);
 		end = start + alturaMuro;

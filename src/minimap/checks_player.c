@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:59:05 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/22 19:03:47 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/27 19:14:26 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,19 @@
 //Locate the position of the corners of the square that represents the player.
 void	set_player_corners(double x, double y, t_map *map, t_corners *corners)
 {
-	corners->up_left_x = (x - PLAYER / 2) / map->tile;
-	corners->up_left_y = (y - PLAYER / 2) / map->tile;
-	corners->down_left_x = (x - PLAYER / 2) / map->tile;
-	corners->down_left_y = (y + PLAYER / 2) / map->tile;
-	corners->up_right_x = (x + PLAYER / 2) / map->tile;
-	corners->up_right_y = (y - PLAYER / 2) / map->tile;
-	corners->down_right_x = (x + PLAYER / 2) / map->tile;
-	corners->down_right_y = (y + PLAYER / 2) / map->tile;
+	double player_size ;
+	player_size = map->tile/5;
+	corners->up_left_x = (x - player_size / 2) / map->tile;
+	corners->up_left_y = (y - player_size / 2) / map->tile;
+	corners->down_left_x = (x - player_size / 2) / map->tile;
+	corners->down_left_y = (y + player_size / 2) / map->tile;
+	corners->up_right_x = (x + player_size / 2) / map->tile;
+	corners->up_right_y = (y - player_size / 2) / map->tile;
+	corners->down_right_x = (x + player_size / 2) / map->tile;
+	corners->down_right_y = (y + player_size / 2) / map->tile;
+	// printf("arriba izq:x:%d, y:%d\n",corners->up_left_x,corners->up_left_y);
+	// printf("arriba dcha:x:%d, y:%d\n",corners->up_right_x,corners->up_right_y);
+	
 }
 
 //check if the edges of the square are going to be  inside a wall and in that 
@@ -34,25 +39,25 @@ int	check_edges(t_map *map, t_player *player, t_corners *corners, t_point *max)
 	if (map->map_arr[corners->up_left_y][corners->up_left_x] == '1' \
 	&& map->map_arr[corners->up_right_y][corners->up_right_x] == '1')
 	{
-		player->pos.y = max->y + PLAYER / 2 ;
+		player->pos.y = max->y + player->player_size/ 2 ;
 		return (1);
 	}
 	else if (map->map_arr[corners->down_left_y][corners->down_left_x] == '1' \
 	&& map->map_arr[corners->up_left_y][corners->up_left_x] == '1')
 	{
-		player->pos.x = max->x + PLAYER / 2 ;
+		player->pos.x = max->x + player->player_size / 2 ;
 		return (1);
 	}
 	else if (map->map_arr[corners->down_right_y][corners->down_right_x] == '1' \
 	&& map->map_arr[corners->down_left_y][corners->down_left_x] == '1')
 	{
-		player->pos.y = max->y + map->tile - PLAYER / 2;
+		player->pos.y = max->y + map->tile - player->player_size / 2;
 		return (1);
 	}
 	else if (map->map_arr[corners->up_right_y][corners->up_right_x] == '1' \
 	&& map->map_arr[corners->down_right_y][corners->down_right_x] == '1')
 	{
-		player->pos.x = max->x + map->tile - PLAYER / 2;
+		player->pos.x = max->x + map->tile - player->player_size / 2;
 		return (1);
 	}
 	return (0);
