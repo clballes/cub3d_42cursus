@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/27 19:39:27 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/27 19:50:42 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ void	init_player(t_player *player, t_map *map)
 {
 	t_square	*square;
 
-	// map->tile = MAP_X / map->cols;
 	map->tile = WIN_X / map->cols;
 	player->player_size = map->tile/5;
-	printf("tile:%d\n", map->tile/8);
 	square = ft_calloc(1, sizeof(t_square));
 	player->square = square;
 	player->first_orientation = map->player_orientation;
@@ -39,7 +37,6 @@ void	init_player(t_player *player, t_map *map)
 	player->speed_rot = 3 * (M_PI / 180);
 	player->pos.x = map->pos_x * map->tile + map->tile / 2;
 	player->pos.y = map->pos_y * map->tile + map->tile / 2;
-	printf("x:%f y:%f\n", player->pos.x,player->pos.y);	
 	player->square->coord.x = player->pos.x - player->player_size / 2;
 	player->square->coord.y = player->pos.y - player->player_size / 2;
 	player->square->coord.color = 0xFFFFFF;

@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/27 19:43:33 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/27 19:49:42 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,6 @@ void	update_variables(t_player *player, t_map *map)
 	}
 	player->square->coord.x = (player->pos.x - player->player_size / 2)/8;
 	player->square->coord.y = (player->pos.y - player->player_size / 2)/8;
-
-	// player->square->coord.x = (player->square->coord.x * 30) / 240;
-	// player->square->coord.y = (player->square->coord.y * 30 )/240 ;
-	
-	printf("sq x:%f sq y:%f\n", player->square->coord.x, player->square->coord.y);
-	printf("divi x:%f divi y:%f\n", player->pos.x, player->pos.y);
 	player->rot_angle += player->rotate * player->speed_rot;
 	angle(&player->rot_angle);
 	calculate_colisions(player, map);
