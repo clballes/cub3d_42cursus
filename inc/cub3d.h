@@ -17,7 +17,7 @@
 
 # define MAP_X WIN_X/8
 # define MAP_Y WIN_Y/8
-# define PLAYER	(float)6
+// # define PLAYER	(float)6
 # define FOV 60
 # define HALFFOV FOV/2
 
@@ -88,6 +88,7 @@ typedef struct s_player
 	double 		speed_rot; // GRADOS //cuantos grados va a girar cada vez que le damos  3 * (pi / 180) // pi / 180 es cuantos radianes es un grado
 	double 		ray_angle; 
 	double		angle_increase;
+	double		player_size;
 	//guardar distancia plano proyeccion
 	
 } t_player;
