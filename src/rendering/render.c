@@ -15,8 +15,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Function to convert RGB to hexadecimal color code
+/**
+ * Returns color of pixel in pos(x,y)
+*/
 
+int	img_pix_get(t_data *data, int x, int y)
+{
+	char	*pixel;
+
+	pixel = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	return (*(int *)pixel);
+}
+
+// Function to convert RGB to hexadecimal color code
 void	pixel_top_floor(int end, int start, t_all *all, int i)
 {
 	int j;
@@ -63,7 +74,8 @@ void	draw_render(t_all *all)
 
 	i = 0;
 	PlanoProyeccion = (WIN_X / 2) / tan(30); //sempre el mateix
-	
+	//correccion ojo pez
+	// distance = distance * cos(angulojugador - angulo);
 	while (i < WIN_X)
 	{
 		distance = all->player.ray[i].length;
@@ -73,7 +85,8 @@ void	draw_render(t_all *all)
 		pixel_top_floor(end, start, all, i); //nose si cal passarli el end i el start amb -1 o no
 		while(end < start)
 		{
-			my_mlx_pixel_put(all->data, i, end, 0xFF0000);
+			my_mlx_pixel_put(all->data, i, end, img_pix_get(all->data->xpm_NO, i, end)); //la funcio et retorna el int del color i poses el pixel alla, pero he de pillar el pixel de nose on
+			// my_mlx_pixel_put(all->data, i, end, 0xFF0000);
 			end++;
 		}
 		i++;

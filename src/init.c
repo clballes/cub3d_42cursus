@@ -52,7 +52,7 @@ void	init_path_image(t_element *element, t_all *all)
 	{
 		if (ft_strncmp(element[i].id, "NO", 3) == 0)
 			all->data->xpm_NO = mlx_xpm_file_to_image(all->vars->mlx, \
-			"./src/textures/a.xpm", &all->data->width, &all->data->height);
+			"./src/textures/d.xpm", &all->data->width, &all->data->height);
 		if (ft_strncmp(element[i].id, "SO", 3) == 0)
 			all->data->xpm_SO = mlx_xpm_file_to_image(all->vars->mlx, \
 			element[i].direction, &all->data->width, &all->data->height);
