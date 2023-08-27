@@ -39,6 +39,7 @@ SRC_FILES = main \
 			$(PARSE)init_map \
 			$(PARSE)map_valid \
 			$(PARSE)free_parsing \
+			$(PARSE)utils_rgb \
 			$(PARSE)parse_textures \
 			$(RENDER)render \
 			end_game \

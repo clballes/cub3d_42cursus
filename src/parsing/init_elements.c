@@ -20,6 +20,7 @@ int	check_colors(char *direction, char *str, int rgb)
 
 	start = 0;
 	i = -1;
+	
 	while (++i <= (int)ft_strlen(direction))
 	{
 		if (direction[i] == ',' || direction[i] == '\0')
@@ -111,6 +112,12 @@ int	init_elements(t_element *element, int fd)
 	{
 		free_elements(element);
 		write(2, "error with rgb numbers\n", 23);
+		return (1);
+	}
+	if (convert_rgb_hex(element) != 0)
+	{
+		free_elements(element);
+		write(2, "error with rgb to hexx\n", 23);
 		return (1);
 	}
 	if (parse_elements(element) != 0)

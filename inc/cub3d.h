@@ -55,7 +55,6 @@ typedef struct s_square
 	int			side;
 }	t_square;
 
-
 typedef struct s_corners
 {
 	int		 	up_left_x;
@@ -66,13 +65,17 @@ typedef struct s_corners
 	int 		down_left_y;
 	int 		down_right_x;
 	int 		down_right_y;
-
 }	t_corners;
+
 typedef struct s_element //esto sera un array que guardaremos la info de los elementos de texto del mapa
 {
     char 		*id; //identifier NO, SO, WE, EA, F, C
-    char 		*direction; // direction or colors
-	char 		*xpm;
+    char 		*direction; // direction or 
+	char		*hexa; //element[0].hexa es per floor y element[1].hexa es el ceiling
+	int			r;
+	int			g;
+	int			color;
+	int			b;
 }           t_element;
 
 typedef struct s_player
@@ -89,7 +92,6 @@ typedef struct s_player
 	double 		ray_angle; 
 	double		angle_increase;
 	//guardar distancia plano proyeccion
-	
 } t_player;
 
 typedef struct s_data {
@@ -146,6 +148,8 @@ int		search_pos(t_map *map);
 void	copy_map(t_map *map);
 int		parse_elements(t_element *element);
 void	init_path_image(t_element *element, t_all *all);
+int		convert_rgb_hex(t_element *element);
+
 // int		map_closed(t_map *map, int playerRow, int playerCol);
 void	init_delta(t_map *map);
 int		backtrack(char **map_arr, int row, int col, t_map *map);
