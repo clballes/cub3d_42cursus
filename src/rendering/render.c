@@ -75,16 +75,18 @@ void	draw_render(t_all *all)
 	PlanoProyeccion = (WIN_X / 2) / tan(30); //sempre el mateix
 	while (i < WIN_X)
 	{
-		distance = all->player.ray[i].length;
 		//correccion ojo pez
-		// distance = distance * cos(angulojugador - angulo);
+		distance = all->player.ray[i].length;
+		// distance = distance * cos(angulojugador - angulo); esto es lo q dice le tio en le video
+		// distance = all->player.ray[i].length * cos(angulojugador - angulo); // esta seria la buena
 		alturaMuro = (WIN_Y / distance) * PlanoProyeccion;
 		start = (WIN_Y / 2) - (alturaMuro / 2);
 		end = start + alturaMuro;
 		pixel_top_floor(end, start, all, i); //nose si cal passarli el end i el start amb -1 o no
 		while(end < start)
 		{
-			my_mlx_pixel_put(all->data, i, end, img_pix_get(all->data->xpm_NO, i, end)); //la funcio et retorna el int del color i poses el pixel alla, pero he de pillar el pixel de nose on
+			my_mlx_pixel_put(all->data, i, end,
+				img_pix_get(all->data->xpm_NO, i, end)); //la funcio et retorna el int del color i poses el pixel alla, pero he de pillar el pixel de nose on
 			// my_mlx_pixel_put(all->data, i, end, 0xFF0000);
 			end++;
 		}
