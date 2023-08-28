@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 19:07:39 by clballes          #+#    #+#             */
-/*   Updated: 2023/08/27 17:25:54 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/28 13:10:04 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	draw_render(t_all *all)
 	while (i < WIN_X)
 	{
 		//correccion ojo pez
-		distance = all->player.ray[i].length;
+		distance = all->player.ray[i].length * cos(all->player.rot_angle - all->player.ray[i].each_ray_angle);
 		// distance = distance * cos(angulojugador - angulo); esto es lo q dice le tio en le video
 		// distance = all->player.ray[i].length * cos(angulojugador - angulo); // esta seria la buena
 		alturaMuro = (WIN_Y / distance) * PlanoProyeccion;

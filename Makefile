@@ -6,7 +6,7 @@
 #    By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/23 14:55:16 by clballes          #+#    #+#              #
-#    Updated: 2023/08/22 18:52:22 by albagarc         ###   ########.fr        #
+#    Updated: 2023/08/28 16:02:33 by albagarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,7 @@ clean:
 	rm -rf ${DEPS}
 	make clean -sC $(LIBFT_DIR)
 	make clean -sC $(MLX_DIR)
-	echo "\n🌼 It is all safe and clean 🌼\n"
+	@echo "\n🌼 It is all safe and clean 🌼\n"
 
 fclean: clean
 	make fclean -sC $(LIBFT_DIR)
