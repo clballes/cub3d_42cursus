@@ -71,11 +71,10 @@ typedef struct s_element //esto sera un array que guardaremos la info de los ele
 {
     char 		*id; //identifier NO, SO, WE, EA, F, C
     char 		*direction; // direction or 
-	char		*hexa; //element[0].hexa es per floor y element[1].hexa es el ceiling
 	int			r;
 	int			g;
-	int			color;
 	int			b;
+	int			color;
 }           t_element;
 
 typedef struct s_player

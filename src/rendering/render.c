@@ -18,7 +18,6 @@
 /**
  * Returns color of pixel in pos(x,y)
 */
-
 int	img_pix_get(t_data *data, int x, int y)
 {
 	char	*pixel;
@@ -74,11 +73,11 @@ void	draw_render(t_all *all)
 
 	i = 0;
 	PlanoProyeccion = (WIN_X / 2) / tan(30); //sempre el mateix
-	//correccion ojo pez
-	// distance = distance * cos(angulojugador - angulo);
 	while (i < WIN_X)
 	{
 		distance = all->player.ray[i].length;
+		//correccion ojo pez
+		// distance = distance * cos(angulojugador - angulo);
 		alturaMuro = (WIN_Y / distance) * PlanoProyeccion;
 		start = (WIN_Y / 2) - (alturaMuro / 2);
 		end = start + alturaMuro;
