@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:20:24 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/27 19:40:09 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:35:59 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,10 @@
 
 void	draw_image(t_all *all)
 {
-	//clear_map
 	clear_map(all->data, &all->player);
 	clear_render(all->data);
 	update_variables(&all->player, &all->map);
-	//pintaremos la imagen en 3d
 	draw_render(all);
-	//pintaremos el minimap
 	draw_minimap_and_rays(all, all->data, &all->player);
 	mlx_put_image_to_window(all->vars->mlx, all->vars->win, \
 		all->data->img, 0, 0);

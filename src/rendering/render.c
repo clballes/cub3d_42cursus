@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 19:07:39 by clballes          #+#    #+#             */
-/*   Updated: 2023/08/29 17:51:09 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:57:40 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,22 @@ t_data	find_texture( t_all *all, t_ray *ray)
 	if (ray->down && ray->c == 'h') //abajo a la derecha
 	{
 		// printf("entro en la SO\n");
-		img_xpm = all->xpm_SO;
+		img_xpm = all->xpm_so;
 	}
 	else if(!ray->down && ray->c == 'h') //arriba derecha
 	{
 		// printf("entro en la NO\n");
-		img_xpm = all->xpm_NO;
+		img_xpm = all->xpm_no;
 	}
 	else if(ray->left && ray->c == 'v') //abajo izquierda
 	{
 		// printf("entro en la we\n");
-		img_xpm = all->xpm_WE;
+		img_xpm = all->xpm_we;
 	}
 	else // arriba izquierda
 	{
 		// printf("entro en la ea\n");
-		img_xpm = all->xpm_EA;
+		img_xpm = all->xpm_ea;
 	}
 	return (img_xpm);
 }
@@ -151,4 +151,3 @@ void	draw_render(t_all *all)
 		i++;
 	}
 }
-

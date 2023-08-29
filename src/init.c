@@ -6,11 +6,15 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/29 16:01:27 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/29 20:00:15 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	set_address_img(t_data *img_texture);
+void	save_img(t_data *img_texture, t_all *all, t_element *element, int i);
+void	set_img(t_data *img_texture, t_all *all, t_element *element, int i);
 
 //si algo falla FREEE calloc the los rayos calloc del square
 //Inits all the variables of the player struct
@@ -19,7 +23,7 @@ void	init_player(t_player *player, t_map *map)
 	t_square	*square;
 
 	map->tile = WIN_X / map->cols;
-	player->player_size = map->tile/5;
+	player->player_size = map->tile / 5;
 	square = ft_calloc(1, sizeof(t_square));
 	player->square = square;
 	player->first_orientation = map->player_orientation;
@@ -51,36 +55,31 @@ void	init_path_image(t_element *element, t_all *all)
 	while (++i < 6)
 	{
 		if (ft_strncmp(element[i].id, "NO", 3) == 0)
-		{
-			all->xpm_NO.img = mlx_xpm_file_to_image(all->vars->mlx, \
-			element[i].direction, &all->data->width, &all->data->height);
-			all->xpm_NO.addr = mlx_get_data_addr(all->xpm_NO.img, \
-			&all->xpm_NO.bits_per_pixel, &all->xpm_NO.line_length, \
-			&all->xpm_NO.endian);
-		}
+			set_img(&all->xpm_no, all, element, i);
 		if (ft_strncmp(element[i].id, "SO", 3) == 0)
-		{
-			all->xpm_SO.img = mlx_xpm_file_to_image(all->vars->mlx, \
-			element[i].direction, &all->data->width, &all->data->height);
-			all->xpm_SO.addr = mlx_get_data_addr(all->xpm_SO.img, \
-			&all->xpm_SO.bits_per_pixel, &all->xpm_SO.line_length, \
-			&all->xpm_SO.endian);
-		}
+			set_img(&all->xpm_so, all, element, i);
 		if (ft_strncmp(element[i].id, "EA", 3) == 0)
-		{
-			all->xpm_EA.img = mlx_xpm_file_to_image(all->vars->mlx, \
-			element[i].direction, &all->data->width, &all->data->height);
-			all->xpm_EA.addr = mlx_get_data_addr(all->xpm_EA.img, \
-			&all->xpm_EA.bits_per_pixel, &all->xpm_EA.line_length, \
-			&all->xpm_EA.endian);
-		}	
+			set_img(&all->xpm_ea, all, element, i);
 		if (ft_strncmp(element[i].id, "WE", 2) == 0)
-		{
-			all->xpm_WE.img = mlx_xpm_file_to_image(all->vars->mlx, \
-			element[i].direction, &all->data->width, &all->data->height);
-			all->xpm_WE.addr = mlx_get_data_addr(all->xpm_WE.img, \
-			&all->xpm_WE.bits_per_pixel, &all->xpm_WE.line_length, \
-			&all->xpm_WE.endian);
-		}
+			set_img(&all->xpm_we, all, element, i);
 	}
+}
+
+void	set_img(t_data *img_texture, t_all *all, t_element *element, int i)
+{
+	save_img(img_texture, all, element, i);
+	set_address_img(img_texture);
+}
+
+void	save_img(t_data *img_texture, t_all *all, t_element *element, int i)
+{
+	img_texture->img = mlx_xpm_file_to_image(all->vars->mlx, \
+	element[i].direction, &all->data->width, &all->data->height);
+}
+
+void	set_address_img(t_data *img_texture)
+{
+	img_texture->addr = mlx_get_data_addr(img_texture->img, \
+			&img_texture->bits_per_pixel, &img_texture->line_length, \
+			&img_texture->endian);
 }

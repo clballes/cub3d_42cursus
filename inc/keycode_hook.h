@@ -6,10 +6,9 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:39:22 by albagarc          #+#    #+#             */
-/*   Updated: 2023/07/18 12:39:34 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:38:40 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef KEYCODE_HOOK_H
 # define KEYCODE_HOOK_H
