@@ -26,7 +26,7 @@ int	check_id(t_element *element)
 			|| (ft_strncmp(element[i].id, "EA", 3) == 0)
 			|| (ft_strncmp(element[i].id, "F", 2) == 0)
 			|| (ft_strncmp(element[i].id, "C", 2) == 0)
-			|| (ft_strncmp(element[i].id, "E", 2) == 0))
+			|| (ft_strncmp(element[i].id, "WE", 3) == 0))
 			check++;
 	}
 	if (check != 6)

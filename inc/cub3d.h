@@ -47,7 +47,7 @@ typedef struct s_ray
 	double		length; //tamaño de cada rayo, la pequeña entre la vertical y horizontal
 	t_point		*colision; // punto de colision de la length exacto x y
 	double		each_ray_angle;
-	char		c;
+	char		c; //v o h
 }	t_ray;
 
 typedef struct s_square
@@ -104,7 +104,7 @@ typedef struct s_data {
 	void		*xpm_NO;
 	void		*xpm_SO;
 	void		*xpm_EA;
-	void		*xpm_E;
+	void		*xpm_WE;
 	int			height;
 	int			width;
 }		t_data;
@@ -137,7 +137,6 @@ typedef struct s_all {
 	t_map		map;
 	t_data		*data;
 	t_element	*element;
-
 }	t_all;
 
 //parsing map

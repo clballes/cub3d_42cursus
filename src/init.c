@@ -59,8 +59,8 @@ void	init_path_image(t_element *element, t_all *all)
 		if (ft_strncmp(element[i].id, "EA", 3) == 0)
 			all->data->xpm_EA = mlx_xpm_file_to_image(all->vars->mlx, \
 			element[i].direction, &all->data->width, &all->data->height);
-		if (ft_strncmp(element[i].id, "E", 2) == 0)
-			all->data->xpm_E = mlx_xpm_file_to_image(all->vars->mlx, \
+		if (ft_strncmp(element[i].id, "WE", 2) == 0)
+			all->data->xpm_WE = mlx_xpm_file_to_image(all->vars->mlx, \
 			element[i].direction, &all->data->width, &all->data->height);
 	}
 }
