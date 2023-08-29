@@ -15,9 +15,26 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+//gets the texture correct return the xpm where is it stored the values from the texture
+t_data	*find_texture(t_player *player, t_data *data)
+{
+	void	*img_xpm;
+
+	img_xpm =  NULL;
+	if (player->ray->down && !player->ray->left) //abajo a la derecha
+		img_xpm = data->xpm_NO;
+	else if(!player->ray->down && !player->ray->left) //arriba derecha
+		img_xpm = data->xpm_SO;
+	else if(player->ray->down && player->ray->left) //abajo izquierda
+		img_xpm = data->xpm_EA;
+	else if(!player->ray->down && player->ray->left) // arriba izquierda
+		img_xpm = data->xpm_E;
+	return (img_xpm);
+}
+
 /**
- * Returns color of pixel in pos(x,y)
-*/
+ * Returns color of pixel in pos(x,y) */
 int	img_pix_get(t_data *data, int x, int y)
 {
 	char	*pixel;
@@ -70,15 +87,14 @@ void	draw_render(t_all *all)
 	double alturaMuro;
 	int start;
 	int end;
+	t_data *data_img;
 
 	i = 0;
 	PlanoProyeccion = (WIN_X / 2) / tan(30); //sempre el mateix
 	while (i < WIN_X)
 	{
-		//correccion ojo pez
+		data_img = find_texture(&all->player, all->data);
 		distance = all->player.ray[i].length * cos(all->player.rot_angle - all->player.ray[i].each_ray_angle);
-		// distance = distance * cos(angulojugador - angulo); esto es lo q dice le tio en le video
-		// distance = all->player.ray[i].length * cos(angulojugador - angulo); // esta seria la buena
 		alturaMuro = (WIN_Y / distance) * PlanoProyeccion;
 		start = (WIN_Y / 2) - (alturaMuro / 2);
 		end = start + alturaMuro;
@@ -86,8 +102,7 @@ void	draw_render(t_all *all)
 		while(end < start)
 		{
 			my_mlx_pixel_put(all->data, i, end,
-				img_pix_get(all->data->xpm_NO, i, end)); //la funcio et retorna el int del color i poses el pixel alla, pero he de pillar el pixel de nose on
-			// my_mlx_pixel_put(all->data, i, end, 0xFF0000);
+				img_pix_get(data_img, i, end)); //la funcio et retorna el int del color i poses el pixel alla, pero he de pillar el pixel de nose on
 			end++;
 		}
 		i++;
