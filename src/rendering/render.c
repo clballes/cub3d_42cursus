@@ -17,30 +17,29 @@
 
 
 //gets the texture correct return the xpm where is it stored the values from the texture
-t_data	*find_texture(t_player *player, t_data *data, char c)
+t_data	find_texture(t_player *player, t_all *all, char c)
 {
-	void	*img_xpm;
+	t_data	img_xpm;
 
-	img_xpm =  NULL;
 	if (player->ray->down && c == 'h') //abajo a la derecha
 	{
 		// printf("entro en la SO\n");
-		img_xpm = data->xpm_SO;
+		img_xpm = all->xpm_SO;
 	}
 	else if(!player->ray->down && c == 'h') //arriba derecha
 	{
 		// printf("entro en la NO\n");
-		img_xpm = data->xpm_NO;
+		img_xpm = all->xpm_NO;
 	}
 	else if(player->ray->left && c == 'v') //abajo izquierda
 	{
 		// printf("entro en la we\n");
-		img_xpm = data->xpm_WE;
+		img_xpm = all->xpm_WE;
 	}
-	else if(!player->ray->left && c == 'v') // arriba izquierda
+	else // arriba izquierda
 	{
 		// printf("entro en la ea\n");
-		img_xpm = data->xpm_EA;
+		img_xpm = all->xpm_EA;
 	}
 	return (img_xpm);
 }
@@ -121,32 +120,28 @@ void	draw_render(t_all *all)
 	double alturaMuro;
 	int start;
 	int end;
-	t_data *data_img;
+	t_data data_img;
 	double tx;
 	double ty;
 	int j;
-	
-	j = 0;
-	i = 0;
 
+	i = 0;
 	PlanoProyeccion = (WIN_X / 2) / tan(30); //sempre el mateix
 	while (i < WIN_X)
 	{
-		data_img = find_texture(&all->player, all->data, all->player.ray[i].c);
+		data_img = find_texture(&all->player, all, all->player.ray[i].c);
 		distance = all->player.ray[i].length * cos(all->player.rot_angle - all->player.ray[i].each_ray_angle);
 		alturaMuro = (WIN_Y / distance) * PlanoProyeccion;
 		tx = calculate_tx(all->player.ray[i].colision->x, all->player.ray[i].colision->y, all->player.ray[i].c);
 		start = (WIN_Y / 2) - (alturaMuro / 2);
 		end = start + alturaMuro;
 		pixel_top_floor(end, start, all, i);
-		while(end < start && j < (start - end))
+		j = 0;
+		while(end < start)
 		{
-			
 			ty = calculate_ty(alturaMuro, j);
-
 			my_mlx_pixel_put(all->data, i, end,
-				img_pix_get(data_img,(int)tx, (int)ty)); //la funcio et retorna el int del color i poses el pixel alla, pero he de pillar el pixel de nose on
-	
+				img_pix_get(&data_img,(int)tx, (int)ty)); //la funcio et retorna el int del color i poses el pixel alla, pero he de pillar el pixel de nose on
 			j++;
 			end++;
 		}

@@ -101,10 +101,6 @@ typedef struct s_data {
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	void		*xpm_NO;
-	void		*xpm_SO;
-	void		*xpm_EA;
-	void		*xpm_WE;
 	int			height;
 	int			width;
 }		t_data;
@@ -137,6 +133,10 @@ typedef struct s_all {
 	t_map		map;
 	t_data		*data;
 	t_element	*element;
+	t_data		xpm_NO;
+	t_data		xpm_SO;
+	t_data		xpm_EA;
+	t_data		xpm_WE;
 }	t_all;
 
 //parsing map

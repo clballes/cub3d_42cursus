@@ -51,16 +51,36 @@ void	init_path_image(t_element *element, t_all *all)
 	while (++i < 6)
 	{
 		if (ft_strncmp(element[i].id, "NO", 3) == 0)
-			all->data->xpm_NO = mlx_xpm_file_to_image(all->vars->mlx, \
+		{
+			all->xpm_NO.img = mlx_xpm_file_to_image(all->vars->mlx, \
 			element[i].direction, &all->data->width, &all->data->height);
+			all->xpm_NO.addr = mlx_get_data_addr(all->xpm_NO.img, \
+			&all->xpm_NO.bits_per_pixel, &all->xpm_NO.line_length, \
+			&all->xpm_NO.endian);
+		}
 		if (ft_strncmp(element[i].id, "SO", 3) == 0)
-			all->data->xpm_SO = mlx_xpm_file_to_image(all->vars->mlx, \
+		{
+			all->xpm_SO.img = mlx_xpm_file_to_image(all->vars->mlx, \
 			element[i].direction, &all->data->width, &all->data->height);
+			all->xpm_SO.addr = mlx_get_data_addr(all->xpm_SO.img, \
+			&all->xpm_SO.bits_per_pixel, &all->xpm_SO.line_length, \
+			&all->xpm_SO.endian);
+		}
 		if (ft_strncmp(element[i].id, "EA", 3) == 0)
-			all->data->xpm_EA = mlx_xpm_file_to_image(all->vars->mlx, \
+		{
+			all->xpm_EA.img = mlx_xpm_file_to_image(all->vars->mlx, \
 			element[i].direction, &all->data->width, &all->data->height);
+			all->xpm_EA.addr = mlx_get_data_addr(all->xpm_EA.img, \
+			&all->xpm_EA.bits_per_pixel, &all->xpm_EA.line_length, \
+			&all->xpm_EA.endian);
+		}	
 		if (ft_strncmp(element[i].id, "WE", 2) == 0)
-			all->data->xpm_WE = mlx_xpm_file_to_image(all->vars->mlx, \
+		{
+			all->xpm_WE.img = mlx_xpm_file_to_image(all->vars->mlx, \
 			element[i].direction, &all->data->width, &all->data->height);
+			all->xpm_WE.addr = mlx_get_data_addr(all->xpm_WE.img, \
+			&all->xpm_WE.bits_per_pixel, &all->xpm_WE.line_length, \
+			&all->xpm_WE.endian);
+		}
 	}
 }
