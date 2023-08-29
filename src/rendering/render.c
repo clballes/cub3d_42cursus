@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 19:07:39 by clballes          #+#    #+#             */
-/*   Updated: 2023/08/28 13:10:04 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/29 16:05:22 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,27 +91,25 @@ void	clear_render(t_data *data)
 	}
 }
 
-int	calculate_tx(int x, int y, char c)
+double	calculate_tx(double x, double y, char c)
 {
-	int result;
+	double result;
 
 	result = 0;
 	if (c == 'h')
-		result = y % 64;
+		result = (int)x % 64;
 	else
-		result = x % 64;
+		result = (int)y % 64;
 	return (result);
 }
 
-int	calculate_ty(int alturaMuro)
+double	calculate_ty(double alturaMuro, int j)
 {
-	int	result;
+	double	result;
 	int	y;
-	int	i;
-
-	i = 0;
+	
 	result = 64 / alturaMuro;
-	y = i * result;  
+	y = j * result;  
 	return y;
 }
 
@@ -124,10 +122,13 @@ void	draw_render(t_all *all)
 	int start;
 	int end;
 	t_data *data_img;
-	int tx;
-	int ty;
-
+	double tx;
+	double ty;
+	int j;
+	
+	j = 0;
 	i = 0;
+
 	PlanoProyeccion = (WIN_X / 2) / tan(30); //sempre el mateix
 	while (i < WIN_X)
 	{
@@ -135,19 +136,21 @@ void	draw_render(t_all *all)
 		distance = all->player.ray[i].length * cos(all->player.rot_angle - all->player.ray[i].each_ray_angle);
 		alturaMuro = (WIN_Y / distance) * PlanoProyeccion;
 		tx = calculate_tx(all->player.ray[i].colision->x, all->player.ray[i].colision->y, all->player.ray[i].c);
-		ty = calculate_ty(alturaMuro);
 		start = (WIN_Y / 2) - (alturaMuro / 2);
 		end = start + alturaMuro;
 		pixel_top_floor(end, start, all, i);
-			// printf("el tx es x %d\n", tx);
-			// printf("el ty es x %d\n", ty);
-		while(end < start)
+		while(end < start && j < (start - end))
 		{
+			
+			ty = calculate_ty(alturaMuro, j);
+
 			my_mlx_pixel_put(all->data, i, end,
-				img_pix_get(data_img, tx, ty)); //la funcio et retorna el int del color i poses el pixel alla, pero he de pillar el pixel de nose on
-			// ty += step
+				img_pix_get(data_img,(int)tx, (int)ty)); //la funcio et retorna el int del color i poses el pixel alla, pero he de pillar el pixel de nose on
+	
+			j++;
 			end++;
 		}
 		i++;
 	}
 }
+
