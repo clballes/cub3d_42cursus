@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 19:07:39 by clballes          #+#    #+#             */
-/*   Updated: 2023/08/29 16:05:22 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:51:09 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@
 
 
 //gets the texture correct return the xpm where is it stored the values from the texture
-t_data	find_texture(t_player *player, t_all *all, char c)
+t_data	find_texture( t_all *all, t_ray *ray)
 {
 	t_data	img_xpm;
 
-	if (player->ray->down && c == 'h') //abajo a la derecha
+	if (ray->down && ray->c == 'h') //abajo a la derecha
 	{
 		// printf("entro en la SO\n");
 		img_xpm = all->xpm_SO;
 	}
-	else if(!player->ray->down && c == 'h') //arriba derecha
+	else if(!ray->down && ray->c == 'h') //arriba derecha
 	{
 		// printf("entro en la NO\n");
 		img_xpm = all->xpm_NO;
 	}
-	else if(player->ray->left && c == 'v') //abajo izquierda
+	else if(ray->left && ray->c == 'v') //abajo izquierda
 	{
 		// printf("entro en la we\n");
 		img_xpm = all->xpm_WE;
@@ -131,7 +131,7 @@ void	draw_render(t_all *all)
 	PlanoProyeccion = (WIN_X / 2) / tan(30); //sempre el mateix
 	while (i < WIN_X)
 	{
-		data_img = find_texture(&all->player, all, all->player.ray[i].c);
+		data_img = find_texture( all, &all->player.ray[i]);
 		distance = all->player.ray[i].length * cos(all->player.rot_angle - all->player.ray[i].each_ray_angle);
 		alturaMuro = (WIN_Y / distance) * PlanoProyeccion;
 		tx = calculate_tx(all->player.ray[i].colision->x, all->player.ray[i].colision->y, all->player.ray[i].c);
