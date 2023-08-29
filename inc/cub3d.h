@@ -185,6 +185,7 @@ void	colision_with_horizontal_lines(t_player *player, t_map *map,t_ray *ray);
 void	colision_with_vertical_lines(t_player *player, t_map *map, t_ray *ray);
 void	angle(double *angle);
 void	direction_ray(t_player *player, t_ray *ray);
+void	set_ray_colision(t_ray *ray, char c);
 
 //draw_minimap
 void	clear_map( t_data *data, t_player *player);

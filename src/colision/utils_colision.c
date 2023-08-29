@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 15:44:10 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/22 15:54:22 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:06:24 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ int	is_there_a_wall(t_point *point, t_map *map, t_ray *ray)
 		mtx.y = 0;
 	if (corner_colision(point, map, ray, &mtx))
 		return (1);
-	// for (int j = 0; j < map->rows; j++) {
-	// 	for (int i = 0; i < map->cols; i++) {
-	// 		if (j == (int)mtx.y && i == (int)mtx.x)
-	// 			printf("\x1b[31m%c\x1b[0m", map->map_arr[j][i]);
-	// 		else
-	// 			printf("%c", map->map_arr[j][i]);
-	// 	}
-		// printf("\n");
-	// }
 	if (map->map_arr[(int)mtx.y][(int)mtx.x] == '1')
 		return (1);
 	return (0);
@@ -102,4 +93,21 @@ float	ray_length(t_point pos, t_point col)
 		y = col.y - pos.y;
 	hypotenuse = sqrt((x * x) + (y * y));
 	return (hypotenuse);
+}
+
+//Set the variables for a ray depending on if it is horizontal or vertical
+void	set_ray_colision(t_ray *ray, char c)
+{
+	if (c == 'h')
+	{
+		ray->colision = &ray->col_hor;
+		ray->length = ray->dist_hor;
+		ray->c = 'h';
+	}
+	if (c == 'v')
+	{
+		ray->colision = &ray->col_ver;
+		ray->length = ray->dist_ver;
+		ray->c = 'v';
+	}
 }

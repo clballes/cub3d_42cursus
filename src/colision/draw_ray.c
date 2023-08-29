@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/29 12:47:05 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:05:39 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,20 @@ int	draw_line(t_data *data, t_point pos_player, t_point pos_colision)
 //Draw rays on the minimap.
 void	paint_rays(t_player *player, t_data *data, int color)
 {
-	int	i;
+	int		i;
+	t_point	pos_minimap;
+	t_point	colision_minimap;
 
 	i = 0;
 	if (player->ray[i].colision == NULL)
 		return ;
-	t_point pos_minimap;
-	t_point colision_minimap;
-
-	pos_minimap.x = player->pos.x/8;
-	pos_minimap.y = player->pos.y/8;
-	
+	pos_minimap.x = player->pos.x / 8;
+	pos_minimap.y = player->pos.y / 8;
 	while (i < WIN_X)
 	{
 		colision_minimap.color = RED;
-		colision_minimap.x= player->ray[i].colision->x/8;
-		colision_minimap.y = player->ray[i].colision->y/8;
+		colision_minimap.x = player->ray[i].colision->x / 8;
+		colision_minimap.y = player->ray[i].colision->y / 8;
 		player->ray[i].colision->color = color;
 		draw_line(data, pos_minimap, colision_minimap);
 		i++;
@@ -97,17 +95,9 @@ void	calculate_colisions(t_player *player, t_map *map)
 		colision_with_horizontal_lines(player, map, &player->ray[i]);
 		colision_with_vertical_lines(player, map, &player->ray[i]);
 		if (player->ray[i].dist_hor < player->ray[i].dist_ver)
-		{
-			player->ray[i].colision = &player->ray[i].col_hor;
-			player->ray[i].length = player->ray[i].dist_hor;
-			player->ray[i].c = 'h';
-		}
+			set_ray_colision(&player->ray[i], 'h');
 		else
-		{
-			player->ray[i].colision = &player->ray[i].col_ver;
-			player->ray[i].length = player->ray[i].dist_ver;
-			player->ray[i].c = 'v';
-		}
+			set_ray_colision(&player->ray[i], 'v');
 		player->ray[i].each_ray_angle = player->ray_angle;
 		player->ray_angle += player->angle_increase;
 		angle(&player->ray_angle);
