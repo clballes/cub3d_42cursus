@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/27 19:24:20 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/29 12:47:05 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,13 @@ void	calculate_colisions(t_player *player, t_map *map)
 		{
 			player->ray[i].colision = &player->ray[i].col_hor;
 			player->ray[i].length = player->ray[i].dist_hor;
+			player->ray[i].c = 'h';
 		}
 		else
 		{
 			player->ray[i].colision = &player->ray[i].col_ver;
 			player->ray[i].length = player->ray[i].dist_ver;
+			player->ray[i].c = 'v';
 		}
 		player->ray[i].each_ray_angle = player->ray_angle;
 		player->ray_angle += player->angle_increase;

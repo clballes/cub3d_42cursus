@@ -47,6 +47,7 @@ typedef struct s_ray
 	double		length; //tamaño de cada rayo, la pequeña entre la vertical y horizontal
 	t_point		*colision; // punto de colision de la length exacto x y
 	double		each_ray_angle;
+	char		c;
 }	t_ray;
 
 typedef struct s_square

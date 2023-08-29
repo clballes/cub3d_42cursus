@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/27 19:50:42 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:26:50 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_player(t_player *player, t_map *map)
 		player->rot_angle = M_PI;
 	player->advance = 0;
 	player->rotate = 0;
-	player->speed_adv = 20;
+	player->speed_adv = 10;
 	player->speed_rot = 3 * (M_PI / 180);
 	player->pos.x = map->pos_x * map->tile + map->tile / 2;
 	player->pos.y = map->pos_y * map->tile + map->tile / 2;
