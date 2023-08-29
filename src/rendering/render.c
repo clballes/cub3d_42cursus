@@ -105,11 +105,13 @@ double	calculate_tx(double x, double y, char c)
 double	calculate_ty(double alturaMuro, int j)
 {
 	double	result;
-	int	y;
-	
+	double	y;
+
+	if (alturaMuro < 0)
+		alturaMuro = alturaMuro * (-1);
 	result = 64 / alturaMuro;
 	y = j * result;  
-	return y;
+	return (y);
 }
 
 void	draw_render(t_all *all)
@@ -142,6 +144,7 @@ void	draw_render(t_all *all)
 			ty = calculate_ty(alturaMuro, j);
 			my_mlx_pixel_put(all->data, i, end,
 				img_pix_get(&data_img,(int)tx, (int)ty)); //la funcio et retorna el int del color i poses el pixel alla, pero he de pillar el pixel de nose on
+			// printf("el ty es %f\n", ty);
 			j++;
 			end++;
 		}

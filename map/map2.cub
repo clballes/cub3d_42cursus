@@ -3,9 +3,9 @@
 
 
 NO src/textures/a.xpm
-SO src/textures/a.xpm
-EA src/textures/a.xpm
-WE src/textures/a.xpm
+SO src/textures/b.xpm
+EA src/textures/c.xpm
+WE src/textures/e.xpm
 
 F 24,67,10
 C 252,12,255
