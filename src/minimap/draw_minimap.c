@@ -25,7 +25,7 @@ void	angle(double *angle)
 void	clear_map( t_data *data, t_player *player)
 {
 	player->square->coord.color = BLACK;
-	paint_square(&player->square->coord, data, player->player_size/8);
+	paint_square(&player->square->coord, data, player->player_size / 8);
 	paint_rays(player, data, BLACK);
 }
 
@@ -45,8 +45,8 @@ void	update_variables(t_player *player, t_map *map)
 		player->pos.x = new_x;
 		player->pos.y = new_y;
 	}
-	player->square->coord.x = (player->pos.x - player->player_size / 2)/8;
-	player->square->coord.y = (player->pos.y - player->player_size / 2)/8;
+	player->square->coord.x = (player->pos.x - player->player_size / 2) / 8;
+	player->square->coord.y = (player->pos.y - player->player_size / 2) / 8;
 	player->rot_angle += player->rotate * player->speed_rot;
 	angle(&player->rot_angle);
 	calculate_colisions(player, map);
@@ -57,6 +57,6 @@ void	draw_minimap_and_rays(t_all *all, t_data *data, t_player *player)
 {
 	draw_map(data, all);
 	player->square->coord.color = WHITE;
-	paint_square(&player->square->coord, data, player->player_size/8);
+	paint_square(&player->square->coord, data, player->player_size / 8);
 	paint_rays(player, data, RED);
 }

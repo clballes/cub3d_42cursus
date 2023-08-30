@@ -52,7 +52,7 @@ void	draw_walls_blanks(t_square *wall, t_data *data, int x, int y)
 	paint_square(&wall->coord, data, wall->side);
 }
 
-//Draw the empty map
+//Draw the empty map 	// wall->side = WIN_X / all->map.cols;
 void	draw_map(t_data *data, t_all *all)
 {
 	int			i;
@@ -61,8 +61,6 @@ void	draw_map(t_data *data, t_all *all)
 
 	wall = ft_calloc(1, sizeof(t_square));
 	wall->side = MAP_X / all->map.cols;
-
-	// wall->side = WIN_X / all->map.cols;
 	i = -1;
 	while (++i < all->map.rows)
 	{
@@ -83,6 +81,3 @@ void	draw_map(t_data *data, t_all *all)
 		}
 	}
 }
-
-
-//FREEEEE DEL WALL

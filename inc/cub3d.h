@@ -1,32 +1,38 @@
-
-
 #ifndef CUB_3D_H
 # define CUB_3D_H
 
-#include "libft.h"
-#include "get_next_line.h"
-#include "../mlx/mlx.h"
-#include "keycode_hook.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <math.h>
-#include <fcntl.h>
+# include "libft.h"
+# include "get_next_line.h"
+# include "../mlx/mlx.h"
+# include "keycode_hook.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <math.h>
+# include <fcntl.h>
 
 # define WIN_X 1920
 # define WIN_Y 1024
-
-# define MAP_X WIN_X/8
-# define MAP_Y WIN_Y/8
-// # define PLAYER	(float)6
+# define MAP_X WIN_X / 8
+# define MAP_Y WIN_Y / 8
 # define FOV 60
-# define HALFFOV FOV/2
-
+# define HALFFOV 30
 # define TURQUOISE 	0x33b3a6
 # define BLACK		0x000000
 # define WHITE		0xFFFFFF
 # define RED		0xFF0000
 
-typedef struct s_map t_map;
+typedef struct s_map	t_map;
+
+typedef struct s_render
+{
+	double	tx;
+	double	ty;
+	int		start;
+	int		end;
+	double	plano_proyeccion;
+	double	distance;
+	double	altura_muro;
+}			t_render;
 
 typedef struct s_point
 {
@@ -34,8 +40,10 @@ typedef struct s_point
 	double		y;
 	int			color;
 
-}	t_point;
+}				t_point;
 
+//la colision es el punto de colision de cada rayo
+//la laength la length del rayo hasta q choca contra la colision
 typedef struct s_ray
 {
 	t_point		col_hor;
@@ -44,10 +52,10 @@ typedef struct s_ray
 	double		dist_ver;
 	int			down;
 	int			left;
-	double		length; //tamaño de cada rayo, la pequeña entre la vertical y horizontal
-	t_point		*colision; // punto de colision de la length exacto x y
+	double		length;
+	t_point		*colision;
 	double		each_ray_angle;
-	char		c; //v o h
+	char		c;
 }	t_ray;
 
 typedef struct s_square
@@ -58,42 +66,47 @@ typedef struct s_square
 
 typedef struct s_corners
 {
-	int		 	up_left_x;
-	int 		up_left_y;
-	int 		up_right_x;
-	int 		up_right_y;
-	int 		down_left_x;
-	int 		down_left_y;
-	int 		down_right_x;
-	int 		down_right_y;
+	int			up_left_x;
+	int			up_left_y;
+	int			up_right_x;
+	int			up_right_y;
+	int			down_left_x;
+	int			down_left_y;
+	int			down_right_x;
+	int			down_right_y;
 }	t_corners;
 
-typedef struct s_element //esto sera un array que guardaremos la info de los elementos de texto del mapa
+//esto sera un array que guardaremos la info de los elementos de texto del mapa
+typedef struct s_element
 {
-    char 		*id; //identifier NO, SO, WE, EA, F, C
-    char 		*direction; // direction or 
+	char		*id;
+	char		*direction;
 	int			r;
 	int			g;
 	int			b;
 	int			color;
-}           t_element;
+}				t_element;
 
+//  //	0= parado ; 1 = adelante -1 = atras - advance
+// // 1 = derecha ; -1 = izquierda  rotate
+// N = pi/2 ; S = 3pi/2 ; E = pi ; W = 2pi - rot angle
+// 3pixels
+// GRADOS  3 * (pi / 180) // pi / 180
 typedef struct s_player
 {
 	t_square	*square;
 	t_ray		*ray;
 	t_point		pos;
-	double 		first_orientation;
-	int 		advance; // 0 = parado ; 1 = adelante -1 = atras
-	int 		rotate; // 1 = derecha ; -1 = izquierda 
-	double 		rot_angle; // N = pi/2 ; S = 3pi/2 ; E = pi ; W = 2pi 
-	int 		speed_adv; // 3pixels
-	double 		speed_rot; // GRADOS //cuantos grados va a girar cada vez que le damos  3 * (pi / 180) // pi / 180 es cuantos radianes es un grado
-	double 		ray_angle; 
+	double		first_orientation;
+	int			advance;
+	int			rotate;
+	double		rot_angle;
+	int			speed_adv; 
+	double		speed_rot;
+	double		ray_angle;
 	double		angle_increase;
 	double		player_size;
-	//guardar distancia plano proyeccion
-} t_player;
+}				t_player;
 
 typedef struct s_data {
 	void		*img;
@@ -103,7 +116,7 @@ typedef struct s_data {
 	int			endian;
 	int			height;
 	int			width;
-}		t_data;
+}				t_data;
 
 typedef struct s_vars{
 	void		*mlx;
@@ -112,37 +125,38 @@ typedef struct s_vars{
 
 typedef struct s_map
 {
-	int 		tile;
-    char 		**map_arr;
-    char 		**copy_map;
-	char 		*map_unid;
-    int			cols;
+	int			tile;
+	char		**map_arr;
+	char		**copy_map;
+	char		*map_unid;
+	int			cols;
 	int			delta_row[4];
 	int			delta_col[4];
 	int			next_row;
 	int			next_col;
-    int			pos_y;
-    int			pos_x;
-	int 		rows;
+	int			pos_y;
+	int			pos_x;
+	int			rows;
 	int			player_orientation;
-} t_map;
+}				t_map;
 
 typedef struct s_all {
-	t_player 	player;
+	t_player	player;
 	t_vars		*vars;
 	t_map		map;
 	t_data		*data;
 	t_element	*element;
-	t_data		xpm_NO;
-	t_data		xpm_SO;
-	t_data		xpm_EA;
-	t_data		xpm_WE;
+	t_render	render;
+	t_data		xpm_no;
+	t_data		xpm_so;
+	t_data		xpm_ea;
+	t_data		xpm_we;
 }	t_all;
 
 //parsing map
-int     init_parse(char **argv, t_map *map, t_all *all);
+int		init_parse(char **argv, t_map *map, t_all *all);
 int		init_elements(t_element *element, int fd);
-int 	init_map(t_element *element, int fd, t_map *map); //hacemos open del map y guardamos en estructura el mapa, que llamara otras funciones check errores
+int		init_map(t_element *element, int fd, t_map *map);
 int		ft_digit(char *str);
 int		search_pos(t_map *map);
 void	copy_map(t_map *map);
@@ -169,7 +183,8 @@ char	*free_var(char *src, char *dest);
 
 //render witnodw
 void	init_render(t_all *all);
-int		is_valid_tile_for_player(double x, double y, t_map *map, t_player *player);
+int		is_valid_tile_for_player(double x, double y,
+			t_map *map, t_player *player);
 void	clear_render(t_data *data);
 
 // void	init_ray(t_player	*player);
@@ -181,7 +196,8 @@ double	grades_to_rads(double angle);
 //colision
 float	ray_length(t_point pos, t_point col);
 int		is_there_a_wall(t_point *point, t_map *map, t_ray *ray);
-void	colision_with_horizontal_lines(t_player *player, t_map *map,t_ray *ray);
+void	colision_with_horizontal_lines(t_player *player,
+			t_map *map, t_ray *ray);
 void	colision_with_vertical_lines(t_player *player, t_map *map, t_ray *ray);
 void	angle(double *angle);
 void	direction_ray(t_player *player, t_ray *ray);
@@ -198,8 +214,7 @@ void	init_player(t_player *player, t_map *map);
 void	update_variables(t_player *player, t_map *map);
 void	draw_image(t_all *all);
 void	draw_render(t_all *all);
-
+double	calculate_tx(double x, double y, char c);
+double	calculate_ty(double alturaMuro, int j);
+t_data	find_texture(t_all *all, t_ray *ray);
 #endif
-
-
-

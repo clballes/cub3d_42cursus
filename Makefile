@@ -42,6 +42,7 @@ SRC_FILES = main \
 			$(PARSE)utils_rgb \
 			$(PARSE)parse_textures \
 			$(RENDER)render \
+			$(RENDER)calculations \
 			end_game \
 			key_press \
 			init \

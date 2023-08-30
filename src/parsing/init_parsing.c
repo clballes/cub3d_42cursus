@@ -42,6 +42,7 @@ int	init_parse(char **argv, t_map *map, t_all *all)
 {
 	int			fd;
 	t_element	*element;
+
 	element = ft_calloc(6, sizeof(t_element));
 	all->element = element;
 	if (cub_exten(argv) != 0)

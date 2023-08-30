@@ -19,7 +19,7 @@ void	init_player(t_player *player, t_map *map)
 	t_square	*square;
 
 	map->tile = WIN_X / map->cols;
-	player->player_size = map->tile/5;
+	player->player_size = map->tile / 5;
 	square = ft_calloc(1, sizeof(t_square));
 	player->square = square;
 	player->first_orientation = map->player_orientation;
@@ -43,6 +43,15 @@ void	init_player(t_player *player, t_map *map)
 	player->ray = ft_calloc(WIN_X, sizeof(t_ray));
 }
 
+void	dinamic_addr(t_all *all, t_data *xpm, char *direc)
+{
+	xpm->img = mlx_xpm_file_to_image(all->vars->mlx, \
+	direc, &all->data->width, &all->data->height);
+	xpm->addr = mlx_get_data_addr(xpm->img, \
+	&xpm->bits_per_pixel, &xpm->line_length, \
+	&xpm->endian);
+}
+
 void	init_path_image(t_element *element, t_all *all)
 {
 	int	i;
@@ -51,36 +60,12 @@ void	init_path_image(t_element *element, t_all *all)
 	while (++i < 6)
 	{
 		if (ft_strncmp(element[i].id, "NO", 3) == 0)
-		{
-			all->xpm_NO.img = mlx_xpm_file_to_image(all->vars->mlx, \
-			element[i].direction, &all->data->width, &all->data->height);
-			all->xpm_NO.addr = mlx_get_data_addr(all->xpm_NO.img, \
-			&all->xpm_NO.bits_per_pixel, &all->xpm_NO.line_length, \
-			&all->xpm_NO.endian);
-		}
+			dinamic_addr(all, &all->xpm_no, element[i].direction);
 		if (ft_strncmp(element[i].id, "SO", 3) == 0)
-		{
-			all->xpm_SO.img = mlx_xpm_file_to_image(all->vars->mlx, \
-			element[i].direction, &all->data->width, &all->data->height);
-			all->xpm_SO.addr = mlx_get_data_addr(all->xpm_SO.img, \
-			&all->xpm_SO.bits_per_pixel, &all->xpm_SO.line_length, \
-			&all->xpm_SO.endian);
-		}
+			dinamic_addr(all, &all->xpm_so, element[i].direction);
 		if (ft_strncmp(element[i].id, "EA", 3) == 0)
-		{
-			all->xpm_EA.img = mlx_xpm_file_to_image(all->vars->mlx, \
-			element[i].direction, &all->data->width, &all->data->height);
-			all->xpm_EA.addr = mlx_get_data_addr(all->xpm_EA.img, \
-			&all->xpm_EA.bits_per_pixel, &all->xpm_EA.line_length, \
-			&all->xpm_EA.endian);
-		}	
+			dinamic_addr(all, &all->xpm_ea, element[i].direction);
 		if (ft_strncmp(element[i].id, "WE", 2) == 0)
-		{
-			all->xpm_WE.img = mlx_xpm_file_to_image(all->vars->mlx, \
-			element[i].direction, &all->data->width, &all->data->height);
-			all->xpm_WE.addr = mlx_get_data_addr(all->xpm_WE.img, \
-			&all->xpm_WE.bits_per_pixel, &all->xpm_WE.line_length, \
-			&all->xpm_WE.endian);
-		}
+			dinamic_addr(all, &all->xpm_we, element[i].direction);
 	}
 }

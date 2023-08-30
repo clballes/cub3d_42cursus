@@ -20,7 +20,6 @@ int	check_colors(char *direction, char *str, int rgb)
 
 	start = 0;
 	i = -1;
-	
 	while (++i <= (int)ft_strlen(direction))
 	{
 		if (direction[i] == ',' || direction[i] == '\0')
