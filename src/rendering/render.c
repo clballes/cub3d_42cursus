@@ -6,40 +6,15 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 19:07:39 by clballes          #+#    #+#             */
-/*   Updated: 2023/09/05 18:46:08 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:04:57 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 
-//gets the texture correct return the xpm where is it stored the values from the texture
-t_data	find_texture( t_all *all, t_ray *ray)
-{
-	t_data	img_xpm;
 
-	if (ray->down && ray->c == 'h') //abajo a la derecha
-	{
-		// printf("entro en la SO\n");
-		img_xpm = all->xpm_so;
-	}
-	else if(!ray->down && ray->c == 'h') //arriba derecha
-	{
-		// printf("entro en la NO\n");
-		img_xpm = all->xpm_no;
-	}
-	else if(ray->left && ray->c == 'v') //abajo izquierda
-	{
-		// printf("entro en la we\n");
-		img_xpm = all->xpm_we;
-	}
-	else // arriba izquierda
-	{
-		// printf("entro en la ea\n");
-		img_xpm = all->xpm_ea;
-	}
-	return (img_xpm);
-}
+
 
 /* Returns color of pixel in pos(x,y) */
 int	img_pix_get(t_data *data, int x, int y)
