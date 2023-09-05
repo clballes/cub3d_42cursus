@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 19:07:39 by clballes          #+#    #+#             */
-/*   Updated: 2023/08/29 19:57:40 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:35:39 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ void	draw_render(t_all *all)
 	double tx;
 	double ty;
 	int j;
+
+
 
 	i = 0;
 	PlanoProyeccion = (WIN_X / 2) / tan(30); //sempre el mateix

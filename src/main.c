@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:20:24 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/29 19:35:59 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:19:15 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 void	draw_image(t_all *all)
 {
 	clear_map(all->data, &all->player);
-	clear_render(all->data);
+	// clear_render(all->data);
 	update_variables(&all->player, &all->map);
-	draw_render(all);
+	// draw_render(all);
 	draw_minimap_and_rays(all, all->data, &all->player);
 	mlx_put_image_to_window(all->vars->mlx, all->vars->win, \
 		all->data->img, 0, 0);
