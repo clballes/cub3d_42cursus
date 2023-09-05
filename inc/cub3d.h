@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:37:14 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/29 19:59:51 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:49:39 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,24 @@
 
 typedef struct s_map	t_map;
 
+typedef struct s_render
+{
+	double	tx;
+	double	ty;
+	int		start;
+	int		end;
+	double	plano_proyeccion;
+	double	distance;
+	double	altura_muro;
+}			t_render;
+
 typedef struct s_point
 {
 	double		x;
 	double		y;
 	int			color;
 
-}	t_point;
+}				t_point;
 
 //length: size of each ray, the smallest between horizontal or vertical
 //t_point *colision: pointer to the colision point.
@@ -118,7 +129,7 @@ typedef struct s_data {
 	int			endian;
 	int			height;
 	int			width;
-}		t_data;
+}				t_data;
 
 typedef struct s_vars{
 	void		*mlx;
@@ -148,6 +159,7 @@ typedef struct s_all {
 	t_map		map;
 	t_data		*data;
 	t_element	*element;
+	t_render	render;
 	t_data		xpm_no;
 	t_data		xpm_so;
 	t_data		xpm_ea;
@@ -210,5 +222,7 @@ void	init_player(t_player *player, t_map *map);
 void	update_variables(t_player *player, t_map *map);
 void	draw_image(t_all *all);
 void	draw_render(t_all *all);
-
+double	calculate_tx(double x, double y, char c);
+double	calculate_ty(double alturaMuro, int j);
+t_data	find_texture(t_all *all, t_ray *ray);
 #endif

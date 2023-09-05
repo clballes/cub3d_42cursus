@@ -34,7 +34,7 @@ int	check_id(t_element *element)
 	return (0);
 }
 
-int	ft_res(char *line) //nose si es irrelevante esto
+int	ft_res(char *line)
 {
 	char	*res;
 	char	*res2;
@@ -50,7 +50,7 @@ int	ft_res(char *line) //nose si es irrelevante esto
 	free(line);
 	if (result > WIN_X || result2 > WIN_X)
 	{
-		write(2,"the size of the image is too heavy\n",35);
+		write(2, "the size of the image is too heavy\n", 35);
 		return (1);
 	}
 	return (0);
@@ -60,7 +60,7 @@ int	parse_image_weight(int fd)
 {
 	char	*line;
 	int		i;
-	char *res;
+	char	*res;
 
 	res = NULL;
 	i = 0;
@@ -74,7 +74,7 @@ int	parse_image_weight(int fd)
 	if (ft_res(line) != 0)
 		return (1);
 	return (0);
-}	
+}
 
 int	check_path_direction(t_element *element)
 {

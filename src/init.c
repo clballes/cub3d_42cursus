@@ -47,6 +47,15 @@ void	init_player(t_player *player, t_map *map)
 	player->ray = ft_calloc(WIN_X, sizeof(t_ray));
 }
 
+void	dinamic_addr(t_all *all, t_data *xpm, char *direc)
+{
+	xpm->img = mlx_xpm_file_to_image(all->vars->mlx, \
+	direc, &all->data->width, &all->data->height);
+	xpm->addr = mlx_get_data_addr(xpm->img, \
+	&xpm->bits_per_pixel, &xpm->line_length, \
+	&xpm->endian);
+}
+
 void	init_path_image(t_element *element, t_all *all)
 {
 	int	i;
@@ -55,6 +64,7 @@ void	init_path_image(t_element *element, t_all *all)
 	while (++i < 6)
 	{
 		if (ft_strncmp(element[i].id, "NO", 3) == 0)
+<<<<<<< HEAD
 			set_img(&all->xpm_no, all, element, i);
 		if (ft_strncmp(element[i].id, "SO", 3) == 0)
 			set_img(&all->xpm_so, all, element, i);
@@ -62,6 +72,15 @@ void	init_path_image(t_element *element, t_all *all)
 			set_img(&all->xpm_ea, all, element, i);
 		if (ft_strncmp(element[i].id, "WE", 2) == 0)
 			set_img(&all->xpm_we, all, element, i);
+=======
+			dinamic_addr(all, &all->xpm_no, element[i].direction);
+		if (ft_strncmp(element[i].id, "SO", 3) == 0)
+			dinamic_addr(all, &all->xpm_so, element[i].direction);
+		if (ft_strncmp(element[i].id, "EA", 3) == 0)
+			dinamic_addr(all, &all->xpm_ea, element[i].direction);
+		if (ft_strncmp(element[i].id, "WE", 2) == 0)
+			dinamic_addr(all, &all->xpm_we, element[i].direction);
+>>>>>>> ebe8c17ce06afdd986796a74cff868e94d5a3714
 	}
 }
 

@@ -28,7 +28,8 @@ void	set_player_corners(double x, double y, t_map *map, t_corners *corners)
 	corners->down_right_y = (y + player_size / 2) / map->tile;
 }
 
-//check if the edges of the square are going to be  inside a wall and in that 
+//check if the edges of the square are going to be
+//  inside a wall and in that 
 //case readjust the position of the player. 
 //first if : horizontal up   // second if: vertical left
 //third if : horizontal down // fourth if: vertical right.

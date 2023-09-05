@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:44:47 by albagarc          #+#    #+#             */
-/*   Updated: 2023/08/29 19:09:46 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:49:47 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_walls_blanks(t_square *wall, t_data *data, int x, int y)
 	paint_square(&wall->coord, data, wall->side);
 }
 
-//Draw the empty map
+//Draw the empty map 	// wall->side = WIN_X / all->map.cols;
 void	draw_map(t_data *data, t_all *all)
 {
 	int			i;
