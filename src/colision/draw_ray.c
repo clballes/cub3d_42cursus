@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:21:28 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/05 18:35:58 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:15:35 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	paint_rays(t_player *player, t_data *data, int color)
 		return ;
 	pos_minimap.x = player->pos.x / 6;
 	pos_minimap.y = player->pos.y / 6;
-	printf("%f,%f\n",pos_minimap.x,pos_minimap.y);
 	while (i < WIN_X)
 	{
 		colision_minimap.color = RED;

@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:23:52 by clballes          #+#    #+#             */
-/*   Updated: 2022/06/14 12:39:04 by clballes         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:29:30 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
@@ -28,7 +27,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	while (--dstsize && src[k])
 	{
 		dst[i + k] = src[k];
-			++k;
+		++k;
 	}
 	dst[i + k] = '\0';
 	return (i + j);

@@ -6,11 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:37:14 by albagarc          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/09/05 18:49:39 by albagarc         ###   ########.fr       */
-=======
-/*   Updated: 2023/09/05 18:35:00 by albagarc         ###   ########.fr       */
->>>>>>> fixed_map
+/*   Updated: 2023/09/05 19:19:56 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +68,7 @@ typedef struct s_ray
 	int			down;
 	int			left;
 	double		length;
-	t_point		*colision; 
+	t_point		*colision;
 	double		each_ray_angle;
 	char		c;
 }	t_ray;
@@ -96,7 +92,7 @@ typedef struct s_corners
 }	t_corners;
 
 //char *id: identifies NO, SO, WE, EA, F, C
-typedef struct s_element 
+typedef struct s_element
 {
 	char		*id;
 	char		*direction;
@@ -115,12 +111,12 @@ typedef struct s_player
 	t_ray		*ray;
 	t_point		pos;
 	double		first_orientation;
-	int			advance; 
+	int			advance;
 	int			rotate;
 	double		rot_angle;
-	int			speed_adv; 
-	double		speed_rot; 
-	double		ray_angle; 
+	int			speed_adv;
+	double		speed_rot;
+	double		ray_angle;
 	double		angle_increase;
 	double		player_size;
 }	t_player;
@@ -173,7 +169,7 @@ typedef struct s_all {
 //parsing map
 int		init_parse(char **argv, t_map *map, t_all *all);
 int		init_elements(t_element *element, int fd);
-int		init_map(t_element *element, int fd, t_map *map); 
+int		init_map(t_element *element, int fd, t_map *map);
 int		ft_digit(char *str);
 int		search_pos(t_map *map);
 void	copy_map(t_map *map);
@@ -226,12 +222,9 @@ void	init_player(t_player *player, t_map *map);
 void	update_variables(t_player *player, t_map *map);
 void	draw_image(t_all *all);
 void	draw_render(t_all *all);
-<<<<<<< HEAD
 double	calculate_tx(double x, double y, char c);
 double	calculate_ty(double alturaMuro, int j);
 t_data	find_texture(t_all *all, t_ray *ray);
-=======
 double	grades_to_rads( double angle);
 
->>>>>>> fixed_map
 #endif

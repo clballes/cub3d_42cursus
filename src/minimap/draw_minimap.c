@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/05 18:35:38 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:16:14 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	update_variables(t_player *player, t_map *map)
 		player->pos.x = new_x;
 		player->pos.y = new_y;
 	}
-	player->square->coord.x = (player->pos.x - player->player_size / 2)/6;
-	player->square->coord.y = (player->pos.y - player->player_size / 2)/6;
+	player->square->coord.x = (player->pos.x - player->player_size / 2) / 6;
+	player->square->coord.y = (player->pos.y - player->player_size / 2) / 6;
 	player->rot_angle += player->rotate * player->speed_rot;
 	angle(&player->rot_angle);
 	calculate_colisions(player, map);
@@ -57,6 +57,6 @@ void	draw_minimap_and_rays(t_all *all, t_data *data, t_player *player)
 {
 	draw_map(data, all);
 	player->square->coord.color = WHITE;
-	paint_square(&player->square->coord, data, player->player_size /6);
+	paint_square(&player->square->coord, data, player->player_size / 6);
 	paint_rays(player, data, RED);
 }

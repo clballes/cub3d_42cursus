@@ -27,7 +27,7 @@ char	*ft_strjoin_get(char *s1, char *s2)
 	if (!ptr)
 		return (NULL);
 	while (s1[i] != '\0')
-	{		
+	{
 		ptr[i + j] = s1[i];
 		i++;
 	}
@@ -59,10 +59,10 @@ char	*ft_strchr_get(char *s, int c)
 		return ((char *)s + ft_strlen(s));
 	i = 0;
 	while (s[i] != '\0')
-	{	
+	{
 		if (s[i] == c)
 			return ((char *)s);
-	s++;
+		s++;
 	}
 	return (0);
 }

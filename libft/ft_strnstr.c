@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 13:24:46 by clballes          #+#    #+#             */
-/*   Updated: 2022/06/10 16:10:46 by clballes         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:33:52 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
 // #include <stdio.h>
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
@@ -31,6 +31,6 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		if (i == ft_strlen(needle))
 			return ((char *)&haystack[j]);
 		j++;
-	}	
+	}
 	return (0);
 }

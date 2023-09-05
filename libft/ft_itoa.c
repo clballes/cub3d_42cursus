@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:24:20 by clballes          #+#    #+#             */
-/*   Updated: 2022/06/20 12:13:22 by clballes         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:22:42 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_len_number(int n)
 	{
 		i++;
 		j *= -1;
-	}	
+	}
 	while (j > 0)
 	{
 		j = j / 10;
@@ -47,7 +47,7 @@ char	*ft_itoa(int n)
 	{
 		str[0] = '-';
 		j *= -1;
-	}	
+	}
 	while (--len >= 0)
 	{
 		if (n < 0 && len == 0)

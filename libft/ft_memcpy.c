@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:34:37 by clballes          #+#    #+#             */
-/*   Updated: 2022/05/16 17:54:29 by clballes         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:23:37 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
 #include <stdio.h>
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
@@ -27,6 +27,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	{
 		ptrdst[i] = ptrsrc[i];
 		i++;
-	}	
+	}
 	return (dst);
 }

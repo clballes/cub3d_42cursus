@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   elements.c                                         :+:      :+:    :+:   */
+/*   init_elements.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:59:30 by clballes          #+#    #+#             */
-/*   Updated: 2023/07/24 19:59:34 by clballes         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:16:56 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	element_dir(t_element *element, char *line, int i)
 {
 	int	len;
 
-	element[i].direction = line + 2; 
+	element[i].direction = line + 2;
 	element[i].direction = ft_strtrim(element[i].direction, " ");
 	len = ft_strlen(element[i].direction);
 	element[i].direction[len] = '\0';

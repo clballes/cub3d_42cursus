@@ -6,15 +6,11 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 19:07:39 by clballes          #+#    #+#             */
-/*   Updated: 2023/09/05 19:10:17 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:19:04 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
-
-
 
 /* Returns color of pixel in pos(x,y) */
 int	img_pix_get(t_data *data, int x, int y)
@@ -83,8 +79,6 @@ void	draw_render(t_all *all)
 	int			j;
 
 	rd = all->render;
-
-
 	i = 0;
 	rd.plano_proyeccion = (WIN_X / 2) / tan(30);
 	while (i < WIN_X)

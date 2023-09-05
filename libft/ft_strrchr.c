@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 10:22:51 by clballes          #+#    #+#             */
-/*   Updated: 2022/05/24 11:31:36 by clballes         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:35:26 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
-{	
+{
 	int	i;
 
 	i = ft_strlen(s);
@@ -24,7 +24,7 @@ char	*ft_strrchr(const char *s, int c)
 	{
 		if (s[i] == c)
 			return ((char *)s + i);
-	i--;
+		i--;
 	}
 	return (0);
 }

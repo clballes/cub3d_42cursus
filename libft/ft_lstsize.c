@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:27:53 by clballes          #+#    #+#             */
-/*   Updated: 2022/06/29 13:14:56 by clballes         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:22:58 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int	ft_lstsize(t_list	*lst)
 	{
 		lst = lst->next;
 		i++;
-	}	
+	}
 	return (i);
 }

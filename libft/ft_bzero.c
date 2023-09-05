@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:48:17 by clballes          #+#    #+#             */
-/*   Updated: 2022/06/14 11:15:30 by clballes         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:27:14 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
-{	
+{
 	size_t	i;
 	char	*ptr;
 

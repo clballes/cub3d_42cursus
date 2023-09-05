@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/05 19:07:49 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:15:18 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,3 @@ void	init_path_image(t_element *element, t_all *all)
 			dinamic_addr(all, &all->xpm_we, element[i].direction);
 	}
 }
-
-

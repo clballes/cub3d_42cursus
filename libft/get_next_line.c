@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:09:40 by clballes          #+#    #+#             */
-/*   Updated: 2023/07/18 13:26:07 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:24:49 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ static char	*ft_fill_storage(char *storage, int fd)
 	buffer[0] = '\0';
 	nbytes = 1;
 	while (nbytes > 0 && !ft_strchr_get(buffer, '\n'))
-	{	
+	{
 		nbytes = read(fd, buffer, BUFFER_SIZE);
 		if (nbytes > 0)
-		{	
+		{
 			buffer[nbytes] = '\0';
 			storage = ft_strjoin_get(storage, buffer);
 		}
@@ -105,6 +105,6 @@ char	*get_next_line(int fd)
 	if (!storage)
 		return (NULL);
 	line = ft_get_a_line(storage);
-	storage = ft_save_line(storage);	
+	storage = ft_save_line(storage);
 	return (line);
 }
