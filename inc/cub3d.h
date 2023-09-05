@@ -6,7 +6,11 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:37:14 by albagarc          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/09/05 18:49:39 by albagarc         ###   ########.fr       */
+=======
+/*   Updated: 2023/09/05 18:35:00 by albagarc         ###   ########.fr       */
+>>>>>>> fixed_map
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +29,7 @@
 # define WIN_X 1920
 # define WIN_Y 1024
 
-# define MAP_X 240
+# define MAP_X 320
 # define MAP_Y 128
 # define FOV 60
 # define HALFFOV 30
@@ -76,7 +80,7 @@ typedef struct s_ray
 typedef struct s_square
 {
 	t_point		coord;
-	int			side;
+	double		side;
 }	t_square;
 
 typedef struct s_corners
@@ -222,7 +226,12 @@ void	init_player(t_player *player, t_map *map);
 void	update_variables(t_player *player, t_map *map);
 void	draw_image(t_all *all);
 void	draw_render(t_all *all);
+<<<<<<< HEAD
 double	calculate_tx(double x, double y, char c);
 double	calculate_ty(double alturaMuro, int j);
 t_data	find_texture(t_all *all, t_ray *ray);
+=======
+double	grades_to_rads( double angle);
+
+>>>>>>> fixed_map
 #endif

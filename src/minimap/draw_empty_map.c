@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:44:47 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/05 18:49:47 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:09:46 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	paint_square(t_point *point, t_data *data, int square_side)
 //Draw the squares of the map, walls and blanks
 void	draw_walls_blanks(t_square *wall, t_data *data, int x, int y)
 {
-	wall->coord.x = x * wall->side;
-	wall->coord.y = y * wall->side;
-	paint_square(&wall->coord, data, wall->side);
+	wall->coord.x = (int)((x * wall->side) );
+	wall->coord.y = (int)((y * wall->side) );
+	paint_square(&wall->coord, data, wall->side + 0.5);
 }
 
 //Draw the empty map 	// wall->side = WIN_X / all->map.cols;
@@ -58,9 +58,10 @@ void	draw_map(t_data *data, t_all *all)
 	int			i;
 	int			j;
 	t_square	*wall;
-
+	printf("map tile: %d\n",all->map.tile);
 	wall = ft_calloc(1, sizeof(t_square));
-	wall->side = MAP_X / all->map.cols;
+	wall->side = ((float)WIN_X / (float)all->map.cols / (float)6);
+	printf("wall:%f\n", wall->side);
 	i = -1;
 	while (++i < all->map.rows)
 	{
