@@ -6,9 +6,11 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:18:50 by clballes          #+#    #+#             */
-/*   Updated: 2023/09/05 19:28:27 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:50:41 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {

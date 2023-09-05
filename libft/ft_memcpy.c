@@ -6,11 +6,11 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:34:37 by clballes          #+#    #+#             */
-/*   Updated: 2023/09/05 19:23:37 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:50:33 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {

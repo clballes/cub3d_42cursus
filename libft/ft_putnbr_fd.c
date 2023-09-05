@@ -6,9 +6,11 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 13:37:42 by clballes          #+#    #+#             */
-/*   Updated: 2023/09/05 19:27:34 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:50:37 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void	ft_putnbr_fd(int n, int fd)
 {

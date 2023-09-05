@@ -6,11 +6,11 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 10:50:08 by clballes          #+#    #+#             */
-/*   Updated: 2023/09/05 19:26:52 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:50:43 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
 char	*ft_strdup(const char *s1)
 {

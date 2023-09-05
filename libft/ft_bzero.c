@@ -6,9 +6,11 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:48:17 by clballes          #+#    #+#             */
-/*   Updated: 2023/09/05 19:27:14 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:50:14 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {

@@ -6,9 +6,11 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:23:52 by clballes          #+#    #+#             */
-/*   Updated: 2023/09/05 19:29:30 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:50:46 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
