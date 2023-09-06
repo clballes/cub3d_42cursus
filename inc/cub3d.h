@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:37:14 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/06 11:48:27 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:45:50 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define BLACK		0x000000
 # define WHITE		0xFFFFFF
 # define RED		0xFF0000
+# define YELLOW		0xFDFD96
+# define PINK		0xfee3e8
 
 typedef struct s_map	t_map;
 

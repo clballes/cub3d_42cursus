@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:44:47 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/05 19:14:45 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:46:09 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	draw_map(t_data *data, t_all *all)
 		{
 			if (all->map.map_arr[i][j] == '1')
 			{
-				wall->coord.color = TURQUOISE;
+				wall->coord.color = PINK;
 				draw_walls_blanks(wall, data, j, i);
 			}
 			else

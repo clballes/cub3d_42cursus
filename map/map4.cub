@@ -2,13 +2,13 @@
 
 
 
-NO src/textures/a.xpm
-SO src/textures/a.xpm
-EA src/textures/a.xpm
-WE src/textures/a.xpm
+NO src/textures/planks.xpm
+SO src/textures/planks.xpm
+EA src/textures/planks.xpm
+WE src/textures/planks.xpm
 
-F 220,100,0
-C 225,30,0
+F 78,59,49
+C 253,253,180
 
 
             111111111111111111111

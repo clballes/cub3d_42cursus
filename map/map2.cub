@@ -2,13 +2,13 @@
 
 
 
-NO src/textures/a.xpm
-SO src/textures/c.xpm
-EA src/textures/c.xpm
-WE src/textures/d.xpm
+NO src/textures/painting.xpm
+SO src/textures/bookshelf.xpm
+EA src/textures/bookshelf.xpm
+WE src/textures/gemov4.xpm
 
-F 24,67,10
-C 252,12,255
+F 33,33,33
+C 178,218,250
 11111111
 1N   1  
 1 1 111 

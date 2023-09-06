@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/06 13:31:09 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:20:57 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,5 @@ void	draw_minimap_and_rays(t_all *all, t_data *data, t_player *player)
 	draw_map(data, all);
 	player->square->coord.color = WHITE;
 	paint_square(&player->square->coord, data, player->player_size / 6);
-	paint_rays(player, data, RED);
+	paint_rays(player, data, YELLOW);
 }
