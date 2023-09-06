@@ -2,16 +2,18 @@
 
    
 
-      NO       src/textures/a.xpm
-SO	src/textures/a.xpm
+      NO       srcs/imgs/wall_text/a.xpm
+SO	srcs/imgs/wall_text/b.xpm
 
 
-EA src/textures/a.xpm
+
+EA srcs/imgs/wall_text/c.xpm
+
 
 
 F 30,240,200
-	    	WE   			 src/textures/a.xpm
 
+	    	WE   			 srcs/imgs/wall_text/d.xpm
 C 40,12,240
 
         1111111111111111111111111
