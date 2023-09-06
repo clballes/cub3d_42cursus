@@ -6,11 +6,13 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/06 12:42:20 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:31:09 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+t_point	*new_location_lateral(t_player *player, t_point *new_location);
 
 //Keeps the angle between 0 and 2 * M_PI
 void	angle(double *angle)
@@ -33,37 +35,41 @@ void	clear_map( t_data *data, t_player *player)
 //Calculates the colision of the rays with the walls
 void	update_variables(t_player *player, t_map *map)
 {
-	double	new_x;
-	double	new_y;
-	double	temp_ang;
+	t_point	new;
+
 	if (player->lateral)
-	{
-		temp_ang =player->rot_angle - M_PI_2;
-		angle(&temp_ang);
-		printf("entro en lateral y el ang:%f\n",temp_ang);
-		new_x = player->pos.x + \
-			(player->lateral * cos(temp_ang) * player->speed_adv);
-		new_y = player->pos.y + \
-			(player->lateral * sin(temp_ang) * player->speed_adv);
-	}
+		new = *new_location_lateral(player, &new);
 	else
 	{
-		new_x = player->pos.x + \
+		new.x = player->pos.x + \
 			(player->advance * cos(player->rot_angle) * player->speed_adv);
-		new_y = player->pos.y + \
+		new.y = player->pos.y + \
 			(player->advance * sin(player->rot_angle) * player->speed_adv);
-		
 	}
-	if (is_valid_tile_for_player(new_x, new_y, map, player))
+	if (is_valid_tile_for_player(new.x, new.y, map, player))
 	{
-		player->pos.x = new_x;
-		player->pos.y = new_y;
+		player->pos.x = new.x;
+		player->pos.y = new.y;
 	}
 	player->square->coord.x = (player->pos.x - player->player_size / 2) / 6;
 	player->square->coord.y = (player->pos.y - player->player_size / 2) / 6;
 	player->rot_angle += player->rotate * player->speed_rot;
 	angle(&player->rot_angle);
 	calculate_colisions(player, map);
+}
+
+//If we want to move laterally it will give the new position of the player
+t_point	*new_location_lateral(t_player *player, t_point *new_location)
+{
+	double	temp_ang;
+
+	temp_ang = player->rot_angle - M_PI_2;
+	angle(&temp_ang);
+	new_location->x = player->pos.x + \
+		(player->lateral * cos(temp_ang) * player->speed_adv);
+	new_location->y = player->pos.y + \
+		(player->lateral * sin(temp_ang) * player->speed_adv);
+	return (new_location);
 }
 
 //Draws the map with the updated player and rays
