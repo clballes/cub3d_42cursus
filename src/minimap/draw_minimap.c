@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:59:46 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/05 19:16:14 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:42:20 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,25 @@ void	update_variables(t_player *player, t_map *map)
 {
 	double	new_x;
 	double	new_y;
-
-	new_x = player->pos.x + \
-		(player->advance * cos(player->rot_angle) * player->speed_adv);
-	new_y = player->pos.y + \
-		(player->advance * sin(player->rot_angle) * player->speed_adv);
+	double	temp_ang;
+	if (player->lateral)
+	{
+		temp_ang =player->rot_angle - M_PI_2;
+		angle(&temp_ang);
+		printf("entro en lateral y el ang:%f\n",temp_ang);
+		new_x = player->pos.x + \
+			(player->lateral * cos(temp_ang) * player->speed_adv);
+		new_y = player->pos.y + \
+			(player->lateral * sin(temp_ang) * player->speed_adv);
+	}
+	else
+	{
+		new_x = player->pos.x + \
+			(player->advance * cos(player->rot_angle) * player->speed_adv);
+		new_y = player->pos.y + \
+			(player->advance * sin(player->rot_angle) * player->speed_adv);
+		
+	}
 	if (is_valid_tile_for_player(new_x, new_y, map, player))
 	{
 		player->pos.x = new_x;

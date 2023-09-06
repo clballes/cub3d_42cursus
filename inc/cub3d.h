@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:37:14 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/05 19:19:56 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:48:27 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_player
 	double		first_orientation;
 	int			advance;
 	int			rotate;
+	int			lateral;
 	double		rot_angle;
 	int			speed_adv;
 	double		speed_rot;
