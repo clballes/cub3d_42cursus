@@ -17,7 +17,7 @@ int	ft_digit(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str[i] && str[i] != 32)
 	{
 		if (str[i] >= 48 && str[i] <= 57)
 			i++;

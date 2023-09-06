@@ -30,7 +30,9 @@ int	check_id(t_element *element)
 			check++;
 	}
 	if (check != 6)
+	{
 		return (1);
+	}
 	return (0);
 }
 
@@ -48,7 +50,7 @@ int	ft_res(char *line)
 	result2 = ft_atoi(res2);
 	free(res2);
 	free(line);
-	if (result > WIN_X || result2 > WIN_X)
+	if (result > 64 || result2 > 64)
 	{
 		write(2, "the size of the image is too heavy\n", 35);
 		return (1);
@@ -90,10 +92,12 @@ int	check_path_direction(t_element *element)
 			fd = open(element[i].direction, O_RDONLY);
 			if (fd == -1)
 			{
-				write(2, "route doesn't exist\n", 20);
+				write(2, "cannot open the texture, route is not correct\n", 46);
 				return (1);
 			}
-			parse_image_weight(fd);
+			if (parse_image_weight(fd) != 0)
+				return (1);
+			close(fd);
 		}
 	}
 	return (0);
@@ -103,7 +107,7 @@ int	parse_elements(t_element *element)
 {
 	if (check_id(element) != 0)
 	{
-		write(2, "error id name\n", 14);
+		write(2, "missing textures!\n", 18);
 		return (1);
 	}
 	if (check_path_direction(element) != 0)

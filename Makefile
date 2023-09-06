@@ -34,6 +34,7 @@ OBJ_DIR = obj/
 
 SRC_FILES = main \
 			$(PARSE)init_parsing \
+			$(PARSE)elements \
 			$(PARSE)parsing_utils \
 			$(PARSE)init_elements \
 			$(PARSE)init_map \

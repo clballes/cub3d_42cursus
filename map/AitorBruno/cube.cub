@@ -1,3 +1,10 @@
+NO src/textures/a.xpm
+SO src/textures/a.xpm
+WE src/textures/a.xpm
+EA src/textures/a.xpm
+F 220,100,0
+C 0,10,150
+
 1111111111111111111111111 
 1                       1 
 1           1           1 
@@ -9,11 +16,3 @@
 1           1           1 
 1                       1 
 1111111111111111111111111 
-
-NO ./textures/eagle.xpm    
-SO ./textures/eagle.xpm
-WE ./textures/eagle.xpm   
-EA ./textures/eagle.xpm
-F 220,100,0
-C 0,10,150
-SC 50
