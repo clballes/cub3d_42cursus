@@ -1,3 +1,10 @@
+NO src/textures/a.xpm
+SO src/textures/a.xpm
+WE src/textures/a.xpm
+EA src/textures/a.xpm
+F 220,100,0
+C 225,30,0
+
 11111111111111111111111111111
 10000000000000000000000000001
 10000000000000000000000000001
@@ -14,10 +21,3 @@
 10000000000000000000000000001
 10000000000000000000000000001
 11111111111111111111111111111
-NO ./ruta_a_la_textura_norte
-SO ./ruta_a_la_textura_sur
-WE ./ruta_a_la_textura_oeste
-EA ./ruta_a_la_textura_este
-F 220,100,0
-C 225,30,0
-SC 50

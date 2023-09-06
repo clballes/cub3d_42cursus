@@ -54,7 +54,7 @@ int	ft_check_map(t_map *map, t_element *element)
 {
 	if (search_pos(map) != 0)
 	{
-		printf("error more letters or position\n");
+		write(2, "error more letters or position\n", 31);
 		free_all(map, element, 1);
 		return (1);
 	}
@@ -62,7 +62,7 @@ int	ft_check_map(t_map *map, t_element *element)
 	copy_map(map);
 	if (backtrack(map->copy_map, map->pos_y, map->pos_x, map) != 0)
 	{
-		printf("error map not sourrended by walls\n");
+		write(2, "error map not sourrended by walls\n", 33);
 		free_all(map, element, 0);
 		return (1);
 	}

@@ -1,9 +1,30 @@
-NO       srcs/imgs/wall_text/a.xpm
-SO		srcs/imgs/wall_text/b.xpm
-EA srcs/imgs/wall_text/c.xpm
+
+
+
+
+
+
+
+
+            NO       src/textures/a.xpm
+SO		src/textures/a.xpm
+
+
+
+
+
+
+
+
+       EA src/textures/a.xpm
+WE src/textures/a.xpm
+
 
 
 F 127, 127, 127
+
+
+
 C 135, 206, 250
 
 

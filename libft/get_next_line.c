@@ -93,18 +93,18 @@ char	*ft_save_line(char *storage)
 
 char	*get_next_line(int fd)
 {
-	static char	*storage;
+	static char	*storage[1024];
 	char		*line;
 	int			c;
 
 	c = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!storage || (storage && !ft_strchr_get(storage, '\n')))
-		storage = ft_fill_storage(storage, fd);
-	if (!storage)
+	if (!storage[fd] || (storage[fd] && !ft_strchr_get(storage[fd], '\n')))
+		storage[fd] = ft_fill_storage(storage[fd], fd);
+	if (!storage[fd])
 		return (NULL);
-	line = ft_get_a_line(storage);
-	storage = ft_save_line(storage);
+	line = ft_get_a_line(storage[fd]);
+	storage[fd] = ft_save_line(storage[fd]);
 	return (line);
 }

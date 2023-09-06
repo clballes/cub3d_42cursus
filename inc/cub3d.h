@@ -179,6 +179,7 @@ int		convert_rgb_hex(t_element *element);
 void	init_delta(t_map *map);
 int		backtrack(char **map_arr, int row, int col, t_map *map);
 int		ft_destroy_window(t_vars *vars);
+void	elements_arr(t_element *element, int fd);
 
 //events
 int		key_press(int keycode, t_all *all);

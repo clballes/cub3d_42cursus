@@ -4,14 +4,13 @@
 
 NO src/textures/a.xpm
 SO src/textures/c.xpm
-EA src/textures/a.xpm
-WE src/textures/a.xpm
+EA src/textures/c.xpm
+WE src/textures/d.xpm
 
 F 24,67,10
 C 252,12,255
-
 11111111
 1N   1  
 1 1 111 
 1    1  
-11111111
+1111111111111
