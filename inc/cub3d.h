@@ -183,6 +183,7 @@ void	init_delta(t_map *map);
 int		backtrack(char **map_arr, int row, int col, t_map *map);
 int		ft_destroy_window(t_vars *vars);
 void	elements_arr(t_element *element, int fd);
+int		ft_is_space(char c);
 
 //events
 int		key_press(int keycode, t_all *all);

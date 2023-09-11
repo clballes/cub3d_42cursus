@@ -29,7 +29,8 @@ int	backtrack(char **map_arr, int row, int col, t_map *map)
 	{
 		map->next_row = row + map->delta_row[i];
 		map->next_col = col + map->delta_col[i];
-		if (map->next_row < 0 || map->next_col < 0)
+		if (map->next_row < 0 || map->next_col < 0
+			|| map->next_row >= map->rows || map->next_col >= map->cols)
 			return (1);
 		if (is_move_valid(map_arr, map->next_row, map->next_col)
 			&& map_arr[map->next_row][map->next_col] != c)

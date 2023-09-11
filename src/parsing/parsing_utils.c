@@ -17,13 +17,18 @@ int	ft_digit(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] != 32)
+	while (str[i])
 	{
-		if (str[i] >= 48 && str[i] <= 57)
+		if ((str[i] >= 48 && str[i] <= 57 ) || (ft_is_space(str[i]) != 0))
+		{
 			i++;
+		}
 		else
+		{
 			return (1);
+		}
 	}
+
 	return (0);
 }
 

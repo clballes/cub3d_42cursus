@@ -17,13 +17,16 @@ int	check_colors(char *direction, char *str, int rgb)
 	int		i;
 	int		start;
 	int		len;
+	int j;
 
+	j = 0;
 	start = 0;
 	i = -1;
 	while (++i <= (int)ft_strlen(direction))
 	{
 		if (direction[i] == ',' || direction[i] == '\0')
 		{
+			j++;
 			len = i - start;
 			str = ft_substr(direction, start, len);
 			if (ft_digit(str) != 0)
@@ -38,6 +41,8 @@ int	check_colors(char *direction, char *str, int rgb)
 			start = i + 1;
 		}
 	}
+	if (j != 3)
+		return (-1);
 	return (0);
 }
 
@@ -55,9 +60,13 @@ int	parse_colors(t_element *element)
 	while (i < 6)
 	{
 		if (ft_strncmp(element[i].id, "F", 2) == 0)
+		{
 			res_f = check_colors(element[i].direction, str, rgb);
+		}
 		if (ft_strncmp(element[i].id, "C", 2) == 0)
+	{
 			res_c = check_colors(element[i].direction, str, rgb);
+	}	
 		i++;
 	}
 	if (res_f == -1 || res_c == -1)

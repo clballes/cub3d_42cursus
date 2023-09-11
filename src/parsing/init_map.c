@@ -54,7 +54,7 @@ int	ft_check_map(t_map *map, t_element *element)
 {
 	if (search_pos(map) != 0)
 	{
-		write(2, "error more letters or position\n", 31);
+		write(2, "error in the map letter\n", 24);
 		free_all(map, element, 1);
 		return (1);
 	}
@@ -62,7 +62,7 @@ int	ft_check_map(t_map *map, t_element *element)
 	copy_map(map);
 	if (backtrack(map->copy_map, map->pos_y, map->pos_x, map) != 0)
 	{
-		write(2, "error map not sourrended by walls\n", 33);
+		write(2, "error map not sourrended by walls\n", 34);
 		free_all(map, element, 0);
 		return (1);
 	}
@@ -70,7 +70,7 @@ int	ft_check_map(t_map *map, t_element *element)
 	return (0);
 }
 
-void	ft_map_array(t_map *map, int fd)
+int	ft_map_array(t_map *map, int fd)
 {
 	char	*line;
 	int		i;
@@ -78,6 +78,8 @@ void	ft_map_array(t_map *map, int fd)
 	i = 0;
 	map->map_unid = NULL;
 	line = get_next_line(fd);
+	if (line == NULL)
+		return (1);
 	while (line)
 	{
 		while (ft_strlen(line) == 0)
@@ -97,12 +99,18 @@ void	ft_map_array(t_map *map, int fd)
 	map->rows = i;
 	map->map_arr = ft_split(map->map_unid, '\n');
 	free(map->map_unid);
+	return 0;
 }
 
 int	init_map(t_element *element, int fd, t_map *map)
 {
 	if (map == NULL)
 		return (1);
+	if (ft_map_array(map, fd) != 0)
+	{
+		write(2, "missing map\n", 12);
+		return (1);
+	}
 	ft_map_array(map, fd);
 	max_cols(map);
 	handle_sp(map);
