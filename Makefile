@@ -6,7 +6,7 @@
 #    By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/23 14:55:16 by clballes          #+#    #+#              #
-#    Updated: 2023/08/28 16:02:33 by albagarc         ###   ########.fr        #
+#    Updated: 2023/09/12 16:04:06 by albagarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,18 +68,21 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 		mkdir -p $(OBJ_DIR)/colision
 		mkdir -p $(OBJ_DIR)/minimap
 		echo "Compiling...[$<]"
-		$(CC) -I$(INC_DIR) -I mlx -I$(LIBFT_DIR) -c $(CFLAGS)  $< -o $@
+		$(CC) -I$(INC_DIR) -I mlx -I$(LIBFT_DIR) -c $(CFLAGS)  $< -o $@ 
 
 
-all: $(NAME)
+all: makelib
+	@$(MAKE) $(NAME)
 
-$(LIBFT): 
-		@make -C $(LIBFT_DIR)
+makelib:
+		@$(MAKE) -C $(LIBFT_DIR)
 $(MLX): 
 		@make -C $(MLX_DIR)
 
-$(NAME): $(MLX) $(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS) $(FSANITIZE) -I$(LIBFT_DIR) $(OBJ) $(MINILIBXCC) $(LINK) $(OPENGL) -o $(NAME)
+-include ${DEPS}
+$(NAME): $(MLX) $(LIBFT) $(OBJ) Makefile
+	make -sC $(LIBFT_DIR)
+	$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) -o $(NAME) $(LIBFT) $(MINILIBXCC) $(LINK) $(OPENGL) 
 
 clean:
 	$(RM) $(NAME)
@@ -95,6 +98,5 @@ fclean: clean
 
 re: fclean all
 
--include ${DEPS}
 
 .PHONY: all clean fclean re bonus
