@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:44:47 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/06 17:46:09 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:28:21 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,9 @@ void	draw_map(t_data *data, t_all *all)
 {
 	int			i;
 	int			j;
-	t_square	*wall;
+	t_square	wall;
 
-	wall = ft_calloc(1, sizeof(t_square));
-	wall->side = ((float)WIN_X / (float)all->map.cols / (float)6);
+	wall.side = ((float)WIN_X / (float)all->map.cols / (float)6);
 	i = -1;
 	while (++i < all->map.rows)
 	{
@@ -69,17 +68,15 @@ void	draw_map(t_data *data, t_all *all)
 		{
 			if (all->map.map_arr[i][j] == '1')
 			{
-				wall->coord.color = PINK;
-				draw_walls_blanks(wall, data, j, i);
+				wall.coord.color = PINK;
+				draw_walls_blanks(&wall, data, j, i);
 			}
 			else
 			{
-				wall->coord.color = BLACK;
-				draw_walls_blanks(wall, data, j, i);
+				wall.coord.color = BLACK;
+				draw_walls_blanks(&wall, data, j, i);
 			}
 			j++;
 		}
 	}
 }
-
-//FREEEEE DEL WALL

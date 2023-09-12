@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:13 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/05 19:15:18 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:19:07 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init_player(t_player *player, t_map *map)
 	player->square->coord.y = player->pos.y - player->player_size / 2;
 	player->square->coord.color = 0xFFFFFF;
 	player->ray = ft_calloc(WIN_X, sizeof(t_ray));
+	
 }
 
 void	dinamic_addr(t_all *all, t_data *xpm, char *direc)

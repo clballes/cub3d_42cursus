@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:20:24 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/05 19:11:43 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:14:05 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	main(int argc, char **argv)
 		else
 			init_game(all);
 	}
+	
 	return (0);
 }
 
