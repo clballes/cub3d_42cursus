@@ -92,7 +92,7 @@ int	check_path_direction(t_element *element)
 			fd = open(element[i].direction, O_RDONLY);
 			if (fd == -1)
 			{
-				write(2, "cannot open the texture, route is not correct\n", 46);
+				write(2, "error: cannot open the route texture\n", 37);
 				return (1);
 			}
 			if (parse_image_weight(fd) != 0)
@@ -107,7 +107,7 @@ int	parse_elements(t_element *element)
 {
 	if (check_id(element) != 0)
 	{
-		write(2, "missing textures!\n", 18);
+		write(2, "error: missing textures!\n", 25);
 		return (1);
 	}
 	if (check_path_direction(element) != 0)

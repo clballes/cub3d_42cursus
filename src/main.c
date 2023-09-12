@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 
 	all = ft_calloc(1, sizeof(t_all));
 	if (argc > 2 || argc == 1)
-		write(2, "just one .cub argument!\n", 24);
+		write(2, "error: just one .cub argument\n", 30);
 	else
 	{
 		if (init_parse(argv, &all->map, all) != 0)
@@ -60,8 +60,5 @@ int	main(int argc, char **argv)
 		else
 			init_game(all);
 	}
-	
 	return (0);
 }
-
-//FREEEEE

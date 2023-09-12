@@ -29,7 +29,7 @@ int	cub_exten(char **argv)
 				return (0);
 			else
 			{
-				write(2, "not .cub extension!\n", 21);
+				write(2, "error: not .cub extension!\n", 27);
 				return (1);
 			}
 		}
@@ -54,7 +54,7 @@ int	init_parse(char **argv, t_map *map, t_all *all)
 	if (fd == -1)
 	{
 		free(element);
-		write(2, "error opening map!\n", 19);
+		write(2, "error: couldn't open map, check path!\n", 38);
 		return (1);
 	}
 	if (init_elements(element, fd) != 0)

@@ -41,7 +41,6 @@ void	init_player(t_player *player, t_map *map)
 	player->square->coord.y = player->pos.y - player->player_size / 2;
 	player->square->coord.color = 0xFFFFFF;
 	player->ray = ft_calloc(WIN_X, sizeof(t_ray));
-	
 }
 
 void	dinamic_addr(t_all *all, t_data *xpm, char *direc)
