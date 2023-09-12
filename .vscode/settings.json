@@ -15,6 +15,7 @@
 		"ios": "c",
 		"iterator": "c",
 		"unordered_map": "c",
-		"vector": "c"
+		"vector": "c",
+		"sstream": "c"
 	}
 }

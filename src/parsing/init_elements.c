@@ -12,12 +12,29 @@
 
 #include "../inc/cub3d.h"
 
+int	check_ifdigit(char *str, int rgb)
+{
+	if (ft_digit(str) != 0)
+	{
+		free(str);
+		return (-1);
+	}
+	rgb = ft_atoi(str);
+	free(str);
+	if (rgb > 255 || rgb < 0)
+	{
+		write(2, "error: RGB numbers between 0 and 255\n", 37);
+		return (-1);
+	}
+	return (0);
+}
+
 int	check_colors(char *direction, char *str, int rgb)
 {
 	int		i;
 	int		start;
 	int		len;
-	int j;
+	int		j;
 
 	j = 0;
 	start = 0;
@@ -29,20 +46,13 @@ int	check_colors(char *direction, char *str, int rgb)
 			j++;
 			len = i - start;
 			str = ft_substr(direction, start, len);
-			if (ft_digit(str) != 0)
-			{
-				free(str);
-				return (-1);
-			}
-			rgb = ft_atoi(str);
-			free(str);
-			if (rgb > 255 || rgb < 0)
+			if (check_ifdigit(str, rgb) != 0)
 				return (-1);
 			start = i + 1;
 		}
 	}
 	if (j != 3)
-		return (-1);
+		return (-2);
 	return (0);
 }
 
@@ -60,38 +70,28 @@ int	parse_colors(t_element *element)
 	while (i < 6)
 	{
 		if (ft_strncmp(element[i].id, "F", 2) == 0)
-		{
 			res_f = check_colors(element[i].direction, str, rgb);
-		}
 		if (ft_strncmp(element[i].id, "C", 2) == 0)
-	{
 			res_c = check_colors(element[i].direction, str, rgb);
-	}	
 		i++;
 	}
 	if (res_f == -1 || res_c == -1)
 		return (1);
+	if (res_f == -2 || res_c == -2)
+	{
+		write(2, "error: check we have 3 numbers for RGB\n", 39);
+		return (1);
+	}
 	return (0);
 }
 
 int	init_elements(t_element *element, int fd)
 {
 	elements_arr(element, fd);
-	if (parse_elements(element) != 0)
+	if ((parse_elements(element) != 0) || (parse_colors(element) != 0)
+		|| (convert_rgb_hex(element) != 0))
 	{
 		free_elements(element);
-		return (1);
-	}
-	if (parse_colors(element) != 0)
-	{
-		free_elements(element);
-		write(2, "error with rgb numbers\n", 23);
-		return (1);
-	}
-	if (convert_rgb_hex(element) != 0)
-	{
-		free_elements(element);
-		write(2, "error with rgb to hex\n", 23);
 		return (1);
 	}
 	return (0);

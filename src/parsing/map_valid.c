@@ -53,7 +53,10 @@ int	check_letter(t_map *map, int i, int j)
 		return (0);
 	}
 	else
+	{
+		write(2, "error: map letter must be S, N, W or E\n", 39);
 		return (1);
+	}
 }
 
 int	search_pos(t_map *map)
@@ -75,12 +78,12 @@ int	search_pos(t_map *map)
 				if (check_letter(map, i, j) != 0)
 					return (1);
 				check++;
-				j++;
 			}
-			else
-				j++;
+			j++;
 		}
 		i++;
 	}
+	if (check)
+		write(2, "error: just one letter in the map\n", 34);
 	return (check);
 }

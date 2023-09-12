@@ -12,25 +12,6 @@
 
 #include "cub3d.h"
 
-void	max_cols(t_map *map)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	map->cols = 0;
-	while (map->map_arr[i])
-	{
-		while (map->map_arr[i][j])
-			j++;
-		if (map->cols < j)
-			map->cols = j;
-		j = 0;
-		i++;
-	}
-}
-
 void	handle_sp(t_map *map)
 {
 	int	i;
@@ -54,7 +35,6 @@ int	ft_check_map(t_map *map, t_element *element)
 {
 	if (search_pos(map) != 0)
 	{
-		write(2, "error in the map letter\n", 24);
 		free_all(map, element, 1);
 		return (1);
 	}
@@ -62,12 +42,22 @@ int	ft_check_map(t_map *map, t_element *element)
 	copy_map(map);
 	if (backtrack(map->copy_map, map->pos_y, map->pos_x, map) != 0)
 	{
-		write(2, "error map not sourrended by walls\n", 34);
+		write(2, "error: map not sourrended by walls\n", 35);
 		free_all(map, element, 0);
 		return (1);
 	}
 	free_arr(map->copy_map, map->rows);
 	return (0);
+}
+
+void	map_arr2(t_map *map, char *line)
+{
+	if (!map->map_unid)
+		map->map_unid = ft_strdup(line);
+	else
+		map->map_unid = free_var(map->map_unid, line);
+	map->map_unid = free_var(map->map_unid, "\n");
+	free(line);
 }
 
 int	ft_map_array(t_map *map, int fd)
@@ -87,19 +77,14 @@ int	ft_map_array(t_map *map, int fd)
 			free(line);
 			line = get_next_line(fd);
 		}
-		if (!map->map_unid)
-			map->map_unid = ft_strdup(line);
-		else
-			map->map_unid = free_var(map->map_unid, line);
-		map->map_unid = free_var(map->map_unid, "\n");
-		free(line);
+		map_arr2(map, line);
 		line = get_next_line(fd);
 		i++;
 	}
 	map->rows = i;
 	map->map_arr = ft_split(map->map_unid, '\n');
 	free(map->map_unid);
-	return 0;
+	return (0);
 }
 
 int	init_map(t_element *element, int fd, t_map *map)
@@ -108,7 +93,8 @@ int	init_map(t_element *element, int fd, t_map *map)
 		return (1);
 	if (ft_map_array(map, fd) != 0)
 	{
-		write(2, "missing map\n", 12);
+		write(2, "error: missing map\n", 19);
+		free_elements(element);
 		return (1);
 	}
 	ft_map_array(map, fd);
