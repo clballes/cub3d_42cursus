@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:37:14 by albagarc          #+#    #+#             */
-/*   Updated: 2023/09/06 17:45:50 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:19:46 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int		convert_rgb_hex(t_element *element);
 void	init_delta(t_map *map);
 int		backtrack(char **map_arr, int row, int col, t_map *map);
 int		ft_destroy_window(t_vars *vars);
-void	elements_arr(t_element *element, int fd);
+int		elements_arr(t_element *element, int fd);
 int		ft_is_space(char c);
 void	max_cols(t_map *map);
 

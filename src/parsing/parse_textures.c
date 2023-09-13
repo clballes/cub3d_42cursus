@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_parsing.c                                     :+:      :+:    :+:   */
+/*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:44:48 by clballes          #+#    #+#             */
-/*   Updated: 2023/07/31 16:44:49 by clballes         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:30:31 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	parse_image_weight(int fd)
 	while (i < 3)
 	{
 		line = get_next_line(fd);
+		if (line == NULL)
+			return (1);
 		free(line);
 		i++;
 	}
@@ -96,7 +98,10 @@ int	check_path_direction(t_element *element)
 				return (1);
 			}
 			if (parse_image_weight(fd) != 0)
+			{
+				close(fd);
 				return (1);
+			}
 			close(fd);
 		}
 	}

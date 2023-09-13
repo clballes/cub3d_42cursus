@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clballes <clballes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:39:37 by clballes          #+#    #+#             */
-/*   Updated: 2023/09/06 15:39:38 by clballes         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:19:39 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	element_id(t_element *element, int i, char *line, int j)
 	ft_strlcpy(element[i].id, line + j, len);
 }
 
-void	elements_arr(t_element *element, int fd)
+int	elements_arr(t_element *element, int fd)
 {
 	int		i;
 	int		j;
@@ -71,7 +71,7 @@ void	elements_arr(t_element *element, int fd)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
-			return ;
+			return (1);
 		while (ft_strlen(line) == 0)
 		{
 			free(line);
@@ -84,4 +84,5 @@ void	elements_arr(t_element *element, int fd)
 		element_dir(element, line, i, j);
 		free(line);
 	}
+	return(0);
 }
