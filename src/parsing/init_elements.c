@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:59:30 by clballes          #+#    #+#             */
-/*   Updated: 2023/09/13 15:29:02 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:21:31 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int	init_elements(t_element *element, int fd)
 	if ((parse_elements(element) != 0) || (parse_colors(element) != 0)
 		|| (convert_rgb_hex(element) != 0))
 	{
-		printf("entrppp\n");
 		free_elements(element);
 		return (1);
 	}

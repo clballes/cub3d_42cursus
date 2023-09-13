@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:39:37 by clballes          #+#    #+#             */
-/*   Updated: 2023/09/13 15:19:39 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:22:36 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,5 @@ int	elements_arr(t_element *element, int fd)
 		element_dir(element, line, i, j);
 		free(line);
 	}
-	return(0);
+	return (0);
 }

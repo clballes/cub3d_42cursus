@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:09:40 by clballes          #+#    #+#             */
-/*   Updated: 2023/09/05 19:24:49 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:23:46 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,22 @@ char	*get_next_line(int fd)
 	static char	*storage[1024];
 	char		*line;
 	int			c;
+	char		*a;
 
 	c = 0;
+	a = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!storage[fd] || (storage[fd] && !ft_strchr_get(storage[fd], '\n')))
-		storage[fd] = ft_fill_storage(storage[fd], fd);
+	{
+		a = ft_fill_storage(storage[fd], fd);
+		if (!a)
+		{
+			free(storage[fd]);
+			return (NULL);
+		}
+		storage[fd] = a;
+	}
 	if (!storage[fd])
 		return (NULL);
 	line = ft_get_a_line(storage[fd]);

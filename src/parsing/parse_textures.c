@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:44:48 by clballes          #+#    #+#             */
-/*   Updated: 2023/09/13 15:30:31 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:22:56 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ int	parse_image_weight(int fd)
 {
 	char	*line;
 	int		i;
-	char	*res;
 
-	res = NULL;
 	i = 0;
 	while (i < 3)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
+		{
 			return (1);
+		}
 		free(line);
 		i++;
 	}
@@ -100,6 +100,7 @@ int	check_path_direction(t_element *element)
 			if (parse_image_weight(fd) != 0)
 			{
 				close(fd);
+				write(2, "error: cannot open the route texture\n", 37);
 				return (1);
 			}
 			close(fd);
